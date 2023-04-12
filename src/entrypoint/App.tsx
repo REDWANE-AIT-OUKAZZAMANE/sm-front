@@ -1,5 +1,11 @@
+import Wall from "../front-office";
+
 const App = () => {
-  return <h1>Welcome to SM Wall</h1>;
+  return (
+    <div className="bg-darkBlue min-h-screen w-screen">
+      <Wall />
+    </div>
+  );
 };
 
 export default App;
