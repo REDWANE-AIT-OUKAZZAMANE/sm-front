@@ -1,24 +1,22 @@
-import logo from "../../../assets/logo.png";
-import IGIcon from "../../../assets/icons/ig-white.svg";
+import logo from '../../../assets/logo.png';
+import IGIcon from '../../../assets/icons/ig-white.svg';
+import YoutubeIcon from '../../../assets/icons/yt-white.svg';
 
-const Header = () => {
-  return (
-    <div className="flex items-center justify-between mb-0">
-      <img className="w-[20vw]" src={logo} alt="logo" />
+const Header = () => (
+  <div className="flex items-center justify-between">
+    <img className="w-[20vw] max-w-sm" src={logo} alt="logo" />
 
-      <div className="text-dynamicL">
-        <span>#DevoxxMa, </span>
-        <span>@DevoxxMa</span>
+    <div className="text-2xl">
+      <span>#DevoxxMa, </span>
+      <span>@DevoxxMa</span>
 
-        <div className="flex items-center space-x-4">
-          <span>
-            <img className="w-[1.2vw]" src={IGIcon} alt="ig-icon" />
-          </span>
-          <p>Join us live</p>
-        </div>
+      <div className="flex items-center space-x-4 mt-2">
+        <img className="w-7" src={IGIcon} alt="instagram icon" />
+        <img className="w-7" src={YoutubeIcon} alt="youtube icon" />
+        <p className="ml-7">Join us live</p>
       </div>
     </div>
-  );
-};
+  </div>
+);
 
 export default Header;

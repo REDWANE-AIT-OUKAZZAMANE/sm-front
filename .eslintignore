@@ -2,3 +2,7 @@ build
 config
 scripts
 node_modules
+vite.config.ts
+src/vite-env.d.ts
+tailwind.config.js
+postcss.config.js

@@ -1,5 +1,5 @@
-import Card from "../../components/Card";
-import { tempData } from "./tempData";
+import Card from '../../components/Card';
+import { tempData } from './tempData';
 
 type CardData = {
   id: number;
@@ -13,14 +13,12 @@ type CardData = {
   mediaType: string;
 };
 
-const Cards = () => {
-  return (
-    <div className="grid grid-flow-row grid-cols-3 content-between gap-y-5 gap-x-10">
-      {tempData.map(({ id, img, ...rest }: CardData) => (
-        <Card key={id} media={img} {...rest} />
-      ))}
-    </div>
-  );
-};
+const Cards = () => (
+  <div className="grow grid grid-flow-row grid-cols-3 auto-rows-min gap-y-5 gap-x-10">
+    {tempData.map(({ id, img, ...rest }: CardData) => (
+      <Card key={id} media={img} {...rest} />
+    ))}
+  </div>
+);
 
 export default Cards;

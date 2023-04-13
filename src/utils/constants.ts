@@ -1,16 +1,16 @@
 export const contentTypes = Object.freeze({
-  STATIC: "static",
-  ANIMATED: "animated",
+  STATIC: 'static',
+  ANIMATED: 'animated',
 });
 
 export const mediaTypes = Object.freeze({
-  IMAGE: "image",
-  VIDEO: "video",
+  IMAGE: 'image',
+  VIDEO: 'video',
 });
 
 export const socialMediaSources = Object.freeze({
-  TWITTER: "twitter",
-  INSTAGRAM: "instagram",
-  FACEBOOK: "facebook",
-  YOUTUBE: "youtube",
+  TWITTER: 'twitter',
+  INSTAGRAM: 'instagram',
+  FACEBOOK: 'facebook',
+  YOUTUBE: 'youtube',
 });

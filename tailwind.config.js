@@ -9,9 +9,9 @@ export default {
         textOrange: "#FA8F21",
       },
       fontSize: {
-        dynamicXS: "clamp(0.8rem, 0.6vw, 1.5rem)",
-        dynamicS: "clamp(1rem, 0.8vw, 2rem)",
-        dynamicM: "clamp(1rem, 1vw, 2.2rem)",
+        dynamicXS: "clamp(0.6rem, 0.5vw, 1.5rem)",
+        dynamicS: "clamp(0.8rem, 0.7vw, 1.6rem)",
+        dynamicM: "clamp(1rem, 0.8vw, 2rem)",
         dynamicL: "clamp(1.6rem, 1.5vw, 2.6rem)",
         dynamicXL: "clamp(2.4rem, 2vw, 3.2rem)",
         dynamicIcon: "clamp(20rem, 20vw, 40rem)",
