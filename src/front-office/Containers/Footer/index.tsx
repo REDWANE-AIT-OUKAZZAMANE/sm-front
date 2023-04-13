@@ -22,7 +22,7 @@ const Footer = () => {
     },
   ];
   return (
-    <div className="p-2 w-full flex justify-between items-center mt-20">
+    <div className="p-2 w-full flex justify-between items-center mt-0">
       {data.map((el, idx) => (
         <div key={`gouep-${idx}`} className="h-full">
           <p className="text-dynamicM text-textOrange mb-4 h-[20%]">

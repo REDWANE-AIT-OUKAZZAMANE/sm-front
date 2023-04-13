@@ -1,25 +1,18 @@
-import React from "react";
-
-import { AiOutlineInstagram } from "react-icons/ai";
-import { BsYoutube } from "react-icons/bs";
-
 import logo from "../../../assets/logo.png";
+import IGIcon from "../../../assets/icons/ig-white.svg";
 
 const Header = () => {
   return (
-    <div className="flex items-center justify-between mb-20">
-      <img className="h-[7vh]" src={logo} alt="logo" />
+    <div className="flex items-center justify-between mb-0">
+      <img className="w-[20vw]" src={logo} alt="logo" />
 
       <div className="text-dynamicL">
         <span>#DevoxxMa, </span>
         <span>@DevoxxMa</span>
 
         <div className="flex items-center space-x-4">
-          <span className="">
-            <BsYoutube />
-          </span>
           <span>
-            <AiOutlineInstagram />
+            <img className="w-[1.2vw]" src={IGIcon} alt="ig-icon" />
           </span>
           <p>Join us live</p>
         </div>

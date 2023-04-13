@@ -65,8 +65,8 @@ const TextCard = ({
 }: CardProps) => {
   return (
     <div
-      className={`relative overflow-hidden w-[22.66vw] ${
-        variantIsTall ? "aspect-[4.7/6.8]" : "aspect-[4.7/5]"
+      className={`relative overflow-hidden  w-[22.6vw] ${
+        variantIsTall ? "aspect-[4.7/6.8]" : "max-h-[33vh] aspect-[4.7/5]"
       } bg-gray-200/20 rounded-md px-[24px] flex flex-col gap-8 justify-center`}
     >
       {type !== contentTypes.STATIC && (

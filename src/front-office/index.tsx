@@ -7,7 +7,7 @@ const Wall = () => {
   return (
     <div className=" text-white flex flex-col justify-between min-h-screen p-[34px]">
       <Header />
-      <div className="flex w-full items-center">
+      <div className="flex  gap-x-10 justify-between w-full">
         <Cards />
         <RightContent />
       </div>
