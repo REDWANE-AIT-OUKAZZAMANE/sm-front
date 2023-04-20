@@ -27,7 +27,8 @@
       "error",
       {
         "singleQuote": true,
-        "prefer-default-export": false
+        "prefer-default-export": false,
+        "endOfLine": "auto"
       }
     ],
     "react/jsx-filename-extension": [

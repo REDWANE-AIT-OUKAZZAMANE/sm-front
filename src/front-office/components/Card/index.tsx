@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import classNames from 'classnames';
+import dayjs from 'dayjs';
 
 import IGIcon from '../../../assets/icons/ig.svg';
 import TwitterIcon from '../../../assets/icons/twitter.svg';
@@ -9,10 +10,10 @@ import { contentTypes, mediaTypes } from '../../../utils/constants';
 
 type CardProps = {
   type: string;
-  mediaType: string;
+  media_type: string;
   source: string;
-  content: string;
-  date: string;
+  caption: string;
+  timestamp: string;
   media: string;
   avatar: string;
   username: string;
@@ -56,13 +57,13 @@ const transition = {
 const TextCard = ({
   type,
   source,
-  content,
-  date,
+  caption,
+  timestamp,
   media,
   avatar,
   username,
   variantIsTall,
-  mediaType,
+  media_type,
 }: CardProps) => (
   <div
     className={classNames(
@@ -87,7 +88,9 @@ const TextCard = ({
           </div>
           <div>
             <div className="font-bold text-dynamicL">{username}</div>
-            <div className="text-dynamicS text-textMuted">{date}</div>
+            <div className="text-dynamicS text-textMuted">
+              {dayjs(timestamp).format('DD MMM YYYY')}
+            </div>
           </div>
         </motion.div>
         <motion.div
@@ -97,7 +100,7 @@ const TextCard = ({
           variants={textAnimation}
           className="text-dynamicM z-10"
         >
-          {content}
+          {caption}
         </motion.div>
 
         <motion.div
@@ -121,7 +124,7 @@ const TextCard = ({
     )}
 
     <div className="w-full h-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
-      {mediaType === mediaTypes.VIDEO ? (
+      {media_type === mediaTypes.VIDEO ? (
         <div className="w-full h-full absolute">
           <video loop autoPlay muted className="w-full h-full object-cover">
             <source src={media} type="video/mp4" />
@@ -152,7 +155,9 @@ const TextCard = ({
             <p className="font-bold text-white text-dynamicS leading-10">
               {username}
             </p>
-            <p className="text-white text-dynamicXS">{date}</p>
+            <p className="text-white text-dynamicXS">
+              {dayjs(timestamp).format('DD MMM YYYY')}
+            </p>
           </div>
         </div>
 

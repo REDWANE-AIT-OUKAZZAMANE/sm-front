@@ -14,3 +14,9 @@ export const socialMediaSources = Object.freeze({
   FACEBOOK: 'facebook',
   YOUTUBE: 'youtube',
 });
+
+export const topics = Object.freeze({
+  POSTS: '/media/posts',
+});
+
+export const API_BACKEND = 'http://localhost:8080/posts';

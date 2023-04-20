@@ -8,12 +8,12 @@ const RightContent = () => (
     <Card
       type="static"
       source="ig"
-      content=""
-      date="11 Apr 2023"
+      caption=""
+      timestamp="11 Apr 2023"
       media={video}
       avatar={face}
       username="Oussama"
-      mediaType="video"
+      media_type="video"
       variantIsTall
     />
     <div className="flex items-center justify-center flex-col w-[14vw] mx-auto">
