@@ -7,9 +7,9 @@ const RightContent = () => (
   <div className="grid gap-10 h-max flex-col justify-between items-center">
     <Card
       type="static"
-      source="ig"
+      source="instagram"
       caption=""
-      timestamp="11 Apr 2023"
+      timestamp=""
       media={video}
       avatar={face}
       username="Oussama"

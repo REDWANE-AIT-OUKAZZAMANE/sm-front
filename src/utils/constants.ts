@@ -20,3 +20,11 @@ export const topics = Object.freeze({
 });
 
 export const API_BACKEND = 'http://localhost:8080/posts';
+export const socialMediaIcons = Object.freeze({
+  TWITTER: 'twitter',
+  TWITTER_COLOR: 'twitter-color',
+  INSTAGRAM: 'instagram',
+  INSTAGRAM_COLOR: 'instagram-color',
+  FACEBOOK: 'facebook',
+  YOUTUBE: 'youtube',
+});

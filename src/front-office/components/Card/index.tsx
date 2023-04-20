@@ -6,7 +6,11 @@ import IGIcon from '../../../assets/icons/ig.svg';
 import TwitterIcon from '../../../assets/icons/twitter.svg';
 import IGColor from '../../../assets/icons/ig-color.svg';
 import TwitterColor from '../../../assets/icons/tw-color.svg';
-import { contentTypes, mediaTypes } from '../../../utils/constants';
+import {
+  contentTypes,
+  mediaTypes,
+  socialMediaIcons,
+} from '../../../utils/constants';
 
 type CardProps = {
   type: string;
@@ -22,13 +26,13 @@ type CardProps = {
 
 const mapSourceToIcon = (source: string) => {
   switch (source) {
-    case 'ig':
+    case socialMediaIcons.INSTAGRAM:
       return IGIcon;
-    case 'ig-color':
+    case socialMediaIcons.INSTAGRAM_COLOR:
       return IGColor;
-    case 'twitter':
+    case socialMediaIcons.TWITTER:
       return TwitterIcon;
-    case 'twitter-color':
+    case socialMediaIcons.TWITTER_COLOR:
       return TwitterColor;
     default:
       return '';
@@ -152,7 +156,7 @@ const TextCard = ({
             alt="card"
           />
           <div className="py-2">
-            <p className="font-bold text-white text-dynamicS leading-10">
+            <p className="font-bold text-white text-dynamicS leading-1">
               {username}
             </p>
             <p className="text-white text-dynamicXS">

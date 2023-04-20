@@ -6,7 +6,7 @@ import face2 from '../../../assets/human2.png';
 export const tempData = [
   {
     id: 0,
-    source: 'ig',
+    source: 'instagram',
     type: 'animated',
     content:
       'Lorem ipsum #DevoxxMa dolor sit amet, consectetur adipiscing elit. Sed id tincidunt mauris. Praesent quis egestas mauris, sed consequat neque. Mauris orci leo, rhoncus at eros',
@@ -18,7 +18,7 @@ export const tempData = [
   },
   {
     id: 1,
-    source: 'ig',
+    source: 'instagram',
     type: 'static',
     content:
       'Lorem ipsum #DevoxxMa dolor sit amet, consectetur adipiscing elit. Sed id tincidunt mauris. Praesent quis egestas mauris, sed consequat neque. Mauris orci leo, rhoncus at eros',
@@ -30,7 +30,7 @@ export const tempData = [
   },
   {
     id: 2,
-    source: 'ig',
+    source: 'instagram',
     type: 'static',
     content:
       '#DevoxxMA A great session with @el_ateifSara and thank you for the pleasant conversation we had full with advices and encouragement',
@@ -42,7 +42,7 @@ export const tempData = [
   },
   {
     id: 3,
-    source: 'ig',
+    source: 'instagram',
     type: 'animated',
     content:
       '#DevoxxMA A great session with @el_ateifSara and thank you for the pleasant conversation we had full with advices and encouragement',
@@ -54,7 +54,7 @@ export const tempData = [
   },
   {
     id: 4,
-    source: 'ig',
+    source: 'instagram',
     type: 'animated',
     content:
       '#DevoxxMA A great session with @el_ateifSara and thank you for the pleasant conversation we had full with advices and encouragement',
