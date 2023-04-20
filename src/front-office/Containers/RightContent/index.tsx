@@ -10,7 +10,7 @@ const RightContent = () => (
       source="instagram"
       caption=""
       timestamp=""
-      media={video}
+      media_url={video}
       avatar={face}
       username="Oussama"
       media_type="video"

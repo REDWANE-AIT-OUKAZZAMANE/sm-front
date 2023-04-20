@@ -8,7 +8,7 @@ import { mediaPosts } from './data/sources/PostsSource';
 
 const Wall = () => {
   const { state } = useAsyncState.auto(mediaPosts);
-  console.log(state);
+
   return (
     <div className=" text-white flex flex-col justify-between min-h-screen px-8 py-5">
       <Header />
