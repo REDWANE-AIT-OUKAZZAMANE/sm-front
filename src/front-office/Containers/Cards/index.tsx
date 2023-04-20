@@ -17,15 +17,12 @@ export default function Cards({ posts }: CardsProps) {
   return (
     <div className="grow grid grid-flow-row grid-cols-3 auto-rows-min gap-y-5 gap-x-10">
       {posts &&
-        posts.map(({ id, media_url, ...rest }: CardData) => (
+        posts.map((post: CardData) => (
           <Card
-            type="animated"
-            source="ig"
-            avatar=""
-            username="Test"
-            key={id}
-            media={media_url}
-            {...rest}
+            type={`${post.caption ? 'animated' : 'static'}`}
+            username="Username"
+            key={post.id}
+            {...post}
           />
         ))}
     </div>

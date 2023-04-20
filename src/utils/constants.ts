@@ -10,7 +10,7 @@ export const mediaTypes = Object.freeze({
 
 export const socialMediaSources = Object.freeze({
   TWITTER: 'twitter',
-  INSTAGRAM: 'instagram',
+  INSTAGRAM: 'INSTAGRAM',
   FACEBOOK: 'facebook',
   YOUTUBE: 'youtube',
 });

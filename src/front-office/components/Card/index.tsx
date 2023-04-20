@@ -15,11 +15,11 @@ import {
 type CardProps = {
   type: string;
   media_type: string;
-  source: string;
+  source?: string;
   caption: string;
   timestamp: string;
-  media: string;
-  avatar: string;
+  media_url: string;
+  avatar?: string;
   username: string;
   variantIsTall?: boolean;
 };
@@ -63,7 +63,7 @@ const TextCard = ({
   source,
   caption,
   timestamp,
-  media,
+  media_url,
   avatar,
   username,
   variantIsTall,
@@ -88,7 +88,9 @@ const TextCard = ({
           className="flex items-center z-10"
         >
           <div className="w-[15%] min-w-[40px] rounded-full aspect-square overflow-hidden mr-4">
-            <img className="object-contain" src={avatar} alt="user" />
+            {avatar && (
+              <img className="object-contain" src={avatar} alt="user" />
+            )}
           </div>
           <div>
             <div className="font-bold text-dynamicL">{username}</div>
@@ -112,9 +114,15 @@ const TextCard = ({
           animate="animate"
           variants={opacityAnimation}
           transition={{ ...transition, repeatType: 'reverse' }}
-          className="absolute w-[75%] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-dynamicIcon z-[5]"
+          className="absolute w-[80%] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-dynamicIcon z-[5]"
         >
-          <img src={mapSourceToIcon(source)} alt="icon" className="w-full" />
+          {source && (
+            <img
+              src={mapSourceToIcon(source?.toLocaleLowerCase())}
+              alt="icon"
+              className="w-full"
+            />
+          )}
         </motion.div>
 
         <motion.div
@@ -128,19 +136,19 @@ const TextCard = ({
     )}
 
     <div className="w-full h-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
-      {media_type === mediaTypes.VIDEO ? (
+      {media_type.toLowerCase() === mediaTypes.VIDEO ? (
         <div className="w-full h-full absolute">
           <video loop autoPlay muted className="w-full h-full object-cover">
-            <source src={media} type="video/mp4" />
+            <source src={media_url} type="video/mp4" />
           </video>
         </div>
       ) : (
         <motion.img
           className="object-cover w-full h-full "
-          src={media}
+          src={media_url}
           alt="background-img"
-          initial="initial"
-          animate={type === contentTypes.ANIMATED && 'animate'}
+          initial={type !== contentTypes.STATIC && 'initial'}
+          animate={type !== contentTypes.STATIC && 'animate'}
           variants={BackgroundImageAnimation}
           transition={{ ...transition, repeatType: 'reverse' }}
         />
@@ -150,11 +158,14 @@ const TextCard = ({
     {type === contentTypes.STATIC && (
       <div className="w-full right-0 absolute bottom-0 flex items-center justify-between z-[20] backdrop-blur-[30px] h-[13%] px-4 py-2">
         <div className="h-full flex items-center">
-          <img
-            className="mr-4 h-full aspect-square object-cover rounded-full"
-            src={avatar}
-            alt="card"
-          />
+          {avatar && (
+            <img
+              className="mr-4 h-full aspect-square object-cover rounded-full"
+              src={avatar}
+              alt="card"
+            />
+          )}
+
           <div className="py-2">
             <p className="font-bold text-white text-dynamicS leading-1">
               {username}
@@ -167,7 +178,7 @@ const TextCard = ({
 
         <img
           className="mr-1 h-[90%]"
-          src={mapSourceToIcon(`${source}-color`)}
+          src={mapSourceToIcon(`${source?.toLowerCase()}-color`)}
           alt="social network icon"
         />
       </div>
