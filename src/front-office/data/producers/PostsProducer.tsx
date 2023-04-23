@@ -12,6 +12,7 @@ export function mediaPostsProducer(props: any) {
 
   const sub = subscribe(topics.POSTS, (msg) => {
     let posts;
+    console.log('msg', msg);
     try {
       posts = JSON.parse(msg);
     } catch (err: any) {

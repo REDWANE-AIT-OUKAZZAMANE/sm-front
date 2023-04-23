@@ -2,7 +2,7 @@ import qrcode from '../../../assets/qrcode.png';
 import Annoucements from '../../components/Anouncments';
 
 const RightContent = () => (
-  <div className="grid gap-10 h-max flex-col justify-between items-center">
+  <div className="grid gap-10 h-max flex-col justify-between items-center ml-auto">
     <Annoucements />
     <div className="flex items-center justify-center flex-col w-[25vh] mx-auto">
       <p className="text-[2.2vh]">Engage with us</p>

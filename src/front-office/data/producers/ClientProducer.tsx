@@ -14,7 +14,7 @@ export function stompClientProducer(props: any): Promise<{
     const socket = new Sockjs(API_BACKEND);
     const client = Stomp.over(() => socket);
 
-    client.debug = () => {};
+    client.debug = console.log;
 
     client.connect(
       {},
@@ -35,6 +35,7 @@ export function stompClientProducer(props: any): Promise<{
           client,
           subscribe: (topic, onMessage) => {
             const subscription = client.subscribe(topic, (frame) => {
+              console.log('frame', frame);
               onMessage(frame.body);
             });
 
@@ -44,8 +45,7 @@ export function stompClientProducer(props: any): Promise<{
               delete subscriptions[id];
             };
 
-            // @ts-ignore
-            subscriptions[id] = { id, ...subscription };
+            subscriptions[id] = subscription;
 
             return {
               id,
