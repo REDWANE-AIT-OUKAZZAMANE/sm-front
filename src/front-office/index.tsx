@@ -5,6 +5,7 @@ import Cards from './Containers/Cards';
 import RightContent from './Containers/RightContent';
 import Footer from './Containers/Footer';
 import { mediaPosts } from './data/sources/PostsSource';
+import Spinner from './components/Spinner';
 
 const Wall = () => {
   const { state } = useAsyncState.auto(mediaPosts);
@@ -14,6 +15,11 @@ const Wall = () => {
       <Header />
       <div className="flex gap-x-10 justify-between w-full my-2">
         {state.status === Status.success && <Cards posts={state.data} />}
+        {state.status === Status.pending && (
+          <div className="w-full grid place-items-center">
+            <Spinner className="w-12 h-12 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" />
+          </div>
+        )}
         <RightContent />
       </div>
       <Footer />
