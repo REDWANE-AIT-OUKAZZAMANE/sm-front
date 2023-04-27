@@ -11,10 +11,10 @@ export function mediaPostsProducer(props: any) {
   const { subscribe } = clientState.data;
 
   const sub = subscribe(topics.POSTS, (msg) => {
-    let posts;
+    let postArr;
     console.log('msg', msg);
     try {
-      posts = JSON.parse(msg);
+      postArr = JSON.parse(msg);
     } catch (err: any) {
       throw new Error('Parsing Error occured: ', err);
     }
@@ -23,7 +23,8 @@ export function mediaPostsProducer(props: any) {
       if (prev.status !== Status.success) {
         return prev;
       }
-      return posts;
+      if (prev?.data?.find((e) => e.id === postArr?.[0]?.id)) return prev.data;
+      return [...postArr, ...prev.data];
     });
   });
 

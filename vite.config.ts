@@ -11,13 +11,13 @@ export default defineConfig({
   },
   server: {
     port: 3000,
-    // proxy: {
-    //   '/posts': {
-    //     target: 'http://localhost:8080',
-    //     changeOrigin: true,
-    //     secure: false,
-    //     ws: true,
-    //   },
-    // },
+    proxy: {
+      '/ws': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+        secure: false,
+        ws: true,
+      },
+    },
   },
 });
