@@ -21,10 +21,10 @@ export const socialMediaSources = Object.freeze({
 });
 
 export const topics = Object.freeze({
-  POSTS: '/media/posts',
+  POSTS: '/media/ws',
 });
 
-export const API_BACKEND = 'http://localhost:8080/posts';
+export const API_URL = '/ws';
 
 export const socialMediaIcons = Object.freeze({
   TWITTER: {

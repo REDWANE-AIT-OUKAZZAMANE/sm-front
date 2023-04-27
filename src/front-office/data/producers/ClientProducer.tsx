@@ -1,7 +1,7 @@
 import Sockjs from 'sockjs-client/dist/sockjs';
 import { Stomp } from '@stomp/stompjs';
 
-import { API_BACKEND } from '../../../utils/constants';
+import { API_URL } from '../../../utils/constants';
 
 export function stompClientProducer(props: any): Promise<{
   client: any;
@@ -11,7 +11,7 @@ export function stompClientProducer(props: any): Promise<{
   ): { id: string; unsubscribe: () => void };
 }> {
   return new Promise((resolve, reject) => {
-    const socket = new Sockjs(API_BACKEND);
+    const socket = new Sockjs(API_URL);
     const client = Stomp.over(() => socket);
 
     client.debug = console.log;
