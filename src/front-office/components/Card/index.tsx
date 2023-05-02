@@ -37,7 +37,7 @@ const BackgroundImageAnimation = {
 const transition = {
   duration: 0.5,
   repeat: Infinity,
-  repeatDelay: 5,
+  repeatDelay: 30,
 };
 
 const TextCard = ({
