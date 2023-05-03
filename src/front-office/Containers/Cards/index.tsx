@@ -15,7 +15,7 @@ type CardsProps = {
 
 export default function Cards({ posts }: CardsProps) {
   return (
-    <div className="grow grid grid-flow-row grid-cols-3 auto-rows-min gap-y-5 gap-x-10">
+    <div className="grow grid grid-cols-autofit overflow-y-hidden grid-rows-2 auto-rows-[0] gap-y-8 gap-x-2">
       {posts &&
         posts.map((post: CardData) => (
           <Card

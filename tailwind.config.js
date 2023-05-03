@@ -20,7 +20,7 @@ export default {
         "4/5": "4 / 3",
       },
       gridTemplateColumns: {
-        autofit: "repeat(auto-fit, minmax(22.66vw,1fr))",
+        autofit: "repeat(auto-fit, minmax(32vh,1fr))",
       },
     },
   },
