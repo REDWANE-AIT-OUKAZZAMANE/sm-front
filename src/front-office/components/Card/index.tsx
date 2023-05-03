@@ -2,14 +2,17 @@ import { motion } from 'framer-motion';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 
+import { youtubeQueryParams } from '../../../utils';
 import VideoIcon from '../../../assets/icons/video.svg';
 import {
   contentTypes,
   mediaTypes,
   socialMediaIcons,
+  socialMediaSources,
 } from '../../../utils/constants';
 
 type CardProps = {
+  id: string;
   type: string;
   media_type: string;
   source?: string;
@@ -41,6 +44,7 @@ const transition = {
 };
 
 const TextCard = ({
+  id,
   type,
   source,
   caption,
@@ -144,7 +148,20 @@ const TextCard = ({
       </div>
     )}
 
-    {media_type?.toLowerCase() === mediaTypes.VIDEO ? (
+    {source?.toUpperCase() === socialMediaSources.YOUTUBE ? (
+      <div className="w-full h-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
+        <div className="w-full h-full absolute z-10">
+          <iframe
+            width="100%"
+            height="100%"
+            src={youtubeQueryParams(media_url, id)}
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+          />
+        </div>
+      </div>
+    ) : media_type?.toLowerCase() === mediaTypes.VIDEO ? (
       <div className="w-full h-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
         <div className="w-full h-full absolute z-10">
           <img

@@ -17,7 +17,7 @@ export const socialMediaSources = Object.freeze({
   TWITTER: 'twitter',
   INSTAGRAM: 'INSTAGRAM',
   FACEBOOK: 'facebook',
-  YOUTUBE: 'youtube',
+  YOUTUBE: 'YOUTUBE',
 });
 
 export const topics = Object.freeze({

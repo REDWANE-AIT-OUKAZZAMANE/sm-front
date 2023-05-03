@@ -1,4 +1,5 @@
 import Card from '../../components/Card';
+import { getSocialMediaType } from '../../../utils';
 
 type CardData = {
   id: string;
@@ -7,6 +8,7 @@ type CardData = {
   media_url: string;
   media_type: string;
   permalink: string;
+  source: string;
 };
 
 type CardsProps = {
@@ -19,7 +21,7 @@ export default function Cards({ posts }: CardsProps) {
       {posts &&
         posts.map((post: CardData) => (
           <Card
-            type={`${post.caption ? 'animated' : 'static'}`}
+            type={getSocialMediaType(post.caption, post.source)}
             username="Username"
             key={post.id}
             {...post}
