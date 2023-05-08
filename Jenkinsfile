@@ -155,7 +155,7 @@ def releaseCurrentVersion() {
 }
 
 def prepareAndDeploy(newVersion) {
-    def CONTAINER_REGISTRY = 'registry.gitlab.com/xhub-org/p/xtimesheet/frontend'
+    def CONTAINER_REGISTRY = 'registry.gitlab.com/xhub-org/p/social-media-wall/sm-front'
     echo '######### deploy To Registry'
 
     sh "docker tag ${CONTAINER_REGISTRY}:latest ${CONTAINER_REGISTRY}:${newVersion}-${env.TARGET}"
