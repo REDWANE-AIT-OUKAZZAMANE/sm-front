@@ -30,7 +30,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'npm install'
+                sh 'yarn install'
                 script {
                     if ((env.GIT_BRANCH =~ '.*master.*').matches()) {
                         selectEnv()
