@@ -1,5 +1,5 @@
 import Card from '../../components/Card';
-import { Media } from '../../../app';
+import { Media } from '../../../types';
 import { getSocialMediaType } from '../../../utils';
 
 type CardsProps = {

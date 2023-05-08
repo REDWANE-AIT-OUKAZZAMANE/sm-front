@@ -1,9 +1,3 @@
-import { api, createApplication } from 'react-async-states';
-
-export type Page<T = unknown> = {
-  content: T[];
-};
-
 export type MediaChild = {
   id: string;
   url: string;
@@ -28,11 +22,3 @@ export type Media = {
 };
 
 export type QueryParams = {};
-
-const appShape = {
-  media: {
-    search: api<Page<Media>, Error, never, [QueryParams]>(),
-  },
-};
-
-export const app = createApplication<typeof appShape>(appShape);

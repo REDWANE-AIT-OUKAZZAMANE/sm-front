@@ -3,7 +3,7 @@ import { ProducerProps, Status } from 'react-async-states';
 import { stompClientSource } from '../sources/ClientSource';
 import { topics } from '../../../utils/constants';
 import { API } from '../../../api';
-import { QueryParams, Media } from '../../../app';
+import { QueryParams, Media } from '../../../types';
 import apiPaths from '../../../api/paths';
 
 export const fetchMediaAndSubscribe = (

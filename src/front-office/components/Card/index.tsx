@@ -10,7 +10,7 @@ import {
   socialMediaIcons,
   socialMediaSources,
 } from '../../../utils/constants';
-import { Media } from '../../../app';
+import { Media } from '../../../types';
 
 type CardProps = {
   media: Media;
