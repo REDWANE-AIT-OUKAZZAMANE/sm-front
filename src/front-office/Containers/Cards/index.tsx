@@ -1,30 +1,20 @@
 import Card from '../../components/Card';
+import { Media } from '../../../app';
 import { getSocialMediaType } from '../../../utils';
 
-type CardData = {
-  id: string;
-  caption: string;
-  timestamp: string;
-  media_url: string;
-  media_type: string;
-  permalink: string;
-  source: string;
-};
-
 type CardsProps = {
-  posts: CardData[];
+  posts: Media[];
 };
 
 export default function Cards({ posts }: CardsProps) {
   return (
-    <div className="grow grid grid-cols-autofit overflow-y-hidden grid-rows-2 auto-rows-[0] gap-y-8 gap-x-2">
+    <div className="grow grid grid-cols-autofit overflow-y-hidden grid-rows-2 auto-rows-[0]">
       {posts &&
-        posts.map((post: CardData) => (
+        posts.map((post: Media) => (
           <Card
-            type={getSocialMediaType(post.caption, post.source)}
-            username="Username"
             key={post.id}
-            {...post}
+            media={post}
+            type={getSocialMediaType(post.text || '', post.source)}
           />
         ))}
     </div>

@@ -9,8 +9,9 @@ export const contentTypes = Object.freeze({
 });
 
 export const mediaTypes = Object.freeze({
-  IMAGE: 'image',
-  VIDEO: 'video',
+  IMAGE: 'IMAGE',
+  VIDEO: 'VIDEO',
+  CAROUSEL_ALBUM: 'CAROUSEL_ALBUM',
 });
 
 export const socialMediaSources = Object.freeze({

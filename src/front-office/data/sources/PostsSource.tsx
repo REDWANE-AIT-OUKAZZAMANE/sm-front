@@ -1,5 +1,5 @@
 import { createSource } from 'react-async-states';
 
-import { mediaPostsProducer } from '../producers/PostsProducer';
+import { fetchMediaAndSubscribe } from '../producers/PostsProducer';
 
-export const mediaPosts = createSource('media-posts', mediaPostsProducer);
+export const mediaPosts = createSource('media-posts', fetchMediaAndSubscribe);

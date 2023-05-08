@@ -1,33 +1,39 @@
-import { Status } from 'react-async-states';
+import { ProducerProps, Status } from 'react-async-states';
 
 import { stompClientSource } from '../sources/ClientSource';
 import { topics } from '../../../utils/constants';
+import { API } from '../../../api';
+import { QueryParams, Media } from '../../../app';
+import apiPaths from '../../../api/paths';
 
-export function mediaPostsProducer(props: any) {
+export const fetchMediaAndSubscribe = (
+  props: ProducerProps<Media[], Error, never, [QueryParams]>
+) => {
+  const controller = new AbortController();
   const clientState = stompClientSource.getState();
   if (clientState.status !== Status.success) {
     throw new Error('Stomp client isnt connected yet');
   }
   const { subscribe } = clientState.data;
 
-  const sub = subscribe(topics.POSTS, (msg) => {
-    let postArr;
-    console.log('msg', msg);
+  const sub = subscribe(topics.POSTS, (message) => {
     try {
-      postArr = JSON.parse(msg);
-    } catch (err: any) {
-      throw new Error('Parsing Error occured: ', err);
+      const newMedia = JSON.parse(message);
+      props.emit((prev: any) => [...newMedia, ...prev.data]);
+    } catch (error) {
+      console.error('Error parsing JSON:', error);
     }
-
-    props.emit((prev) => {
-      if (prev.status !== Status.success) {
-        return prev;
-      }
-      if (prev?.data?.find((e) => e.id === postArr?.[0]?.id)) return prev.data;
-      return [...postArr, ...prev.data];
-    });
   });
 
-  props.onAbort(() => sub.unsubscribe());
-  return [];
-}
+  props.onAbort((reason: any) => {
+    controller.abort(reason);
+    sub.unsubscribe();
+  });
+
+  return API.get(apiPaths.MEDIA, {
+    signal: controller.signal,
+    params: props.args[0],
+  })
+    .then((res) => res.data.content)
+    .catch(() => []);
+};
