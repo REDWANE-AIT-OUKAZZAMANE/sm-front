@@ -24,8 +24,7 @@ export type Media = {
 export type HeaderData = {
   id: string;
   logoUrl: string;
-  mention: string;
-  hashtags: string[];
+  title: string;
   sources: string[];
 };
 
