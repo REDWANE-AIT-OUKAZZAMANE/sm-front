@@ -34,7 +34,7 @@ const Footer = () => (
           {el.images.map((source) => (
             <img
               key={Math.random()}
-              className="h-full w-[5.7vw] object-contain mt-1"
+              className=" w-[5.7vw] max-h-[6vh] object-contain mt-1"
               src={source}
               alt=""
             />
@@ -43,7 +43,7 @@ const Footer = () => (
       </div>
     ))}
     <div className="">
-      <p className="flex h-full text-[1.8vw] items-baseline mt-[10%] font-['Lato'] mr-20">
+      <p className="flex h-full text-[1.8vw] items-baseline mt-[10%] font-['Lato'] ml-auto">
         Made with{' '}
         <img src={heart} alt="" className="w-[2vw] mx-2 relative top-1" /> By{' '}
         <img src={XLogo} alt="logo" className="w-[3.8vw] ml-2 relative top-1" />

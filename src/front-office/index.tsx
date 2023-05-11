@@ -13,7 +13,7 @@ const Wall = () => {
   return (
     <div className=" text-white flex flex-col justify-between min-h-screen px-8 py-5">
       <Header />
-      <div className="flex gap-x-10 justify-between w-full my-2">
+      <div className="flex gap-x-[2vw] flex-1 justify-between items-stretch w-full my-[4vh]">
         {state.status === Status.success && <Cards posts={state.data} />}
         {state.status === Status.pending && (
           <div className="w-full grid place-items-center">

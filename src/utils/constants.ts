@@ -1,7 +1,7 @@
 import IGIcon from '../assets/icons/ig.svg';
 import TwitterIcon from '../assets/icons/twitter.svg';
-import IGColor from '../assets/icons/ig-color.svg';
 import YoutubeIcon from '../assets/icons/yt-white.svg';
+import IGColor from '../assets/icons/ig-color.svg';
 import TwitterColor from '../assets/icons/tw-color.svg';
 import IGWhite from '../assets/icons/ig-white.svg';
 import YoutubeColor from '../assets/icons/yt-color.svg';
@@ -45,4 +45,9 @@ export const socialMediaIcons = Object.freeze({
     default: YoutubeIcon,
     colorHeader: YoutubeIcon,
   },
+});
+
+export const highlightSymbols = Object.freeze({
+  HASHTAG: '#',
+  MENTION: '@',
 });
