@@ -7,6 +7,7 @@ export default {
         darkBlue: "#141A23",
         textMuted: "#9CA0AC",
         textOrange: "#FA8F21",
+        textBlue: "#0081FF",
       },
       fontSize: {
         dynamicXS: "clamp(0.6rem, 0.5vw, 1.5rem)",
@@ -20,9 +21,10 @@ export default {
         "4/5": "4 / 3",
       },
       gridTemplateColumns: {
-        autofit: "repeat(auto-fit, minmax(32vh,1fr))",
+        autofit: "repeat(auto-fit, minmax(31vh,1fr))",
       },
     },
   },
   plugins: [],
 };
+

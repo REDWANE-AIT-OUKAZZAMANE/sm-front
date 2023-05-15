@@ -1,12 +1,12 @@
-import qrcode from '../../../assets/qrcode.png';
+import qrcode from '../../../assets/qrcode.svg';
 import Annoucements from '../../components/Anouncments';
 
 const RightContent = () => (
-  <div className="grid gap-10 h-max flex-col justify-between items-center ml-auto">
+  <div className="flex flex-col justify-between items-center gap-y-2">
     <Annoucements />
-    <div className="flex items-center justify-center flex-col w-[25vh] mx-auto">
+    <div className="flex items-center justify-center flex-col max-h-[17vh] mx-auto">
       <p className="text-[2.2vh]">Engage with us</p>
-      <div className="max-w-[70%] flex items-center aspect-square rounded-2xl">
+      <div className="max-h-[16vh] flex items-center aspect-square rounded-2xl">
         <img className="" src={qrcode} alt="qrcode" />
       </div>
     </div>

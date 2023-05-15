@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 
 import { youtubeQueryParams } from '../../../utils';
 import VideoIcon from '../../../assets/icons/video.svg';
+import HighlightedText from '../HighlightedText';
 import {
   contentTypes,
   mediaTypes,
@@ -40,10 +41,10 @@ const transition = {
 const TextCard = ({ media, type, variantIsTall }: CardProps) => (
   <div
     className={classNames(
-      'mr-8 mb-5 relative overflow-hidden bg-gray-200/20 rounded-md px-[24px] flex flex-col gap-8 justify-center',
+      'relative overflow-hidden bg-gray-200/20 rounded-md px-[6%] flex flex-col gap-8 justify-center',
       {
         'aspect-[4.7/6.8] min-h-[37vh]': variantIsTall,
-        'max-h-[36vh] aspect-[4.7/5]': !variantIsTall,
+        'h-full': !variantIsTall,
       }
     )}
   >
@@ -56,20 +57,20 @@ const TextCard = ({ media, type, variantIsTall }: CardProps) => (
           variants={textAnimation}
           className="flex items-center z-10"
         >
-          <div className="w-[15%] min-w-[40px] rounded-full aspect-square overflow-hidden mr-4">
+          <div className="h-[4.6vh] rounded-full aspect-square overflow-hidden mr-[3.8%]">
             {media.owner && (
               <img
-                className="object-contain"
+                className="object-cover h-full"
                 src={media.owner.avatar}
                 alt="user"
               />
             )}
           </div>
           <div>
-            <div className="font-bold text-dynamicL">
+            <div className="font-bold text-[1.7vh]">
               {media.owner ? media.owner.username : 'Unknown'}
             </div>
-            <div className="text-dynamicS text-textMuted">
+            <div className="text-[1.2vh] text-textMuted">
               {dayjs(media.timestamp).format('DD MMM YYYY')}
             </div>
           </div>
@@ -80,9 +81,9 @@ const TextCard = ({ media, type, variantIsTall }: CardProps) => (
             animate="animate"
             transition={{ ...transition, repeatType: 'reverse' }}
             variants={textAnimation}
-            className="text-dynamicM z-10"
+            className="text-[1.5vh] z-10 text-justify leading-12"
           >
-            {media?.text}
+            <HighlightedText text={media?.text} />
           </motion.div>
         )}
 
@@ -109,31 +110,33 @@ const TextCard = ({ media, type, variantIsTall }: CardProps) => (
         />
       </>
     ) : (
-      <div className="w-full right-0 absolute bottom-0 flex items-center justify-between z-[20] backdrop-blur-[30px] h-[13%] px-4 py-2">
-        <div className="h-full flex items-center">
+      <div className="w-full right-0 absolute bottom-0 flex items-center justify-between z-[20] backdrop-blur-[30px] h-[13%]">
+        <div className="h-full flex items-center pl-[3.6%]">
           {media.owner && (
             <img
-              className="mr-4 h-full aspect-square object-cover rounded-full"
+              className="mr-[5%] h-[70%] aspect-square object-cover rounded-full"
               src={media.owner.avatar}
               alt="card"
             />
           )}
 
-          <div className="py-2">
-            <p className="font-bold text-white text-dynamicM leading-1">
+          <div>
+            <p className="font-bold text-white text-[1.2vh] leading-1 whitespace-nowrap">
               {media.owner ? media.owner.username : 'Unknown'}
             </p>
-            <p className="text-white text-dynamicS">
+            <p className="text-white text-[0.8vh] whitespace-nowrap">
               {dayjs(media.timestamp).format('DD MMM YYYY')}
             </p>
           </div>
         </div>
 
-        <img
-          className="mr-1 h-[90%]"
-          src={socialMediaIcons[media.source]?.color}
-          alt="social network icon"
-        />
+        {socialMediaIcons[media.source]?.color && (
+          <img
+            className="h-[70%] pr-[3%]"
+            src={socialMediaIcons[media.source]?.color}
+            alt="social network icon"
+          />
+        )}
       </div>
     )}
 

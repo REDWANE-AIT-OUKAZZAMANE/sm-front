@@ -21,4 +21,11 @@ export type Media = {
   children?: MediaChild[];
 };
 
+export type HeaderData = {
+  id: string;
+  logoUrl: string;
+  title: string;
+  sources: string[];
+};
+
 export type QueryParams = {};
