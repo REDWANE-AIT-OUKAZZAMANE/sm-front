@@ -54,7 +54,7 @@ const TextCard = ({
     repeatDelay: wallAnimationDelay,
     delay,
   };
-  // console.log('card ', index, 'delay ', delay + wallAnimationDelay);
+
   useEffect(() => {
     setIstopcard(index ? index < maxCards / 2 : false);
   }, [maxCards, index]);
@@ -95,24 +95,24 @@ const TextCard = ({
             className="flex items-center z-10"
           >
             <div className="h-[4.6vh] rounded-full aspect-square overflow-hidden mr-[3.8%]">
-              {media.owner && (
+              {media?.owner && (
                 <img
                   className="object-cover h-full"
-                  src={media.owner.avatar}
+                  src={media?.owner.avatar}
                   alt="user"
                 />
               )}
             </div>
             <div>
               <div className="font-bold text-[1.7vh]">
-                {media.owner ? media.owner.username : 'Unknown'}
+                {media?.owner ? media?.owner.username : 'Unknown'}
               </div>
               <div className="text-[1.2vh] text-textMuted">
-                {dayjs(media.timestamp).format('DD MMM YYYY')}
+                {dayjs(media?.timestamp).format('DD MMM YYYY')}
               </div>
             </div>
           </motion.div>
-          {!media.textContainsOnlyHashtags && (
+          {!media?.textContainsOnlyHashtags && (
             <motion.div
               initial="initial"
               animate="animate"
@@ -135,7 +135,7 @@ const TextCard = ({
             className="absolute w-[80%] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-dynamicIcon z-[5]"
           >
             <img
-              src={media.source && socialMediaIcons[media.source]?.default}
+              src={media?.source && socialMediaIcons[media?.source]?.default}
               alt="icon"
               className="w-full"
             />
@@ -152,28 +152,28 @@ const TextCard = ({
       ) : (
         <div className="w-full right-0 absolute bottom-0 flex items-center justify-between z-[20] backdrop-blur-[30px] h-[13%]">
           <div className="h-full flex items-center pl-[3.6%]">
-            {media.owner && (
+            {media?.owner && (
               <img
                 className="mr-[5%] h-[70%] aspect-square object-cover rounded-full"
-                src={media.owner.avatar}
+                src={media?.owner.avatar}
                 alt="card"
               />
             )}
 
             <div>
               <p className="font-bold text-white text-[1.2vh] leading-1 whitespace-nowrap">
-                {media.owner ? media.owner.username : 'Unknown'}
+                {media?.owner ? media?.owner.username : 'Unknown'}
               </p>
               <p className="text-white text-[0.8vh] whitespace-nowrap">
-                {dayjs(media.timestamp).format('DD MMM YYYY')}
+                {dayjs(media?.timestamp).format('DD MMM YYYY')}
               </p>
             </div>
           </div>
 
-          {socialMediaIcons[media.source]?.color && (
+          {socialMediaIcons[media?.source]?.color && (
             <img
               className="h-[70%] pr-[3%]"
-              src={socialMediaIcons[media.source]?.color}
+              src={socialMediaIcons[media?.source]?.color}
               alt="social network icon"
             />
           )}
@@ -186,7 +186,7 @@ const TextCard = ({
             <ReactPlayer
               width="100%"
               height="100%"
-              url={media.url}
+              url={media?.url}
               controls={false}
               playing
               loop
@@ -205,12 +205,12 @@ const TextCard = ({
             />
 
             <video loop autoPlay muted className="w-full h-full object-contain">
-              <source src={media.url} type="video/mp4" />
+              <source src={media?.url} type="video/mp4" />
             </video>
           </div>
           <div className="w-full h-full absolute blur-lg">
             <video muted className="w-full h-full object-cover">
-              <source src={media.url} type="video/mp4" />
+              <source src={media?.url} type="video/mp4" />
             </video>
           </div>
         </div>
@@ -218,7 +218,7 @@ const TextCard = ({
         <div className="w-full h-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
           <motion.img
             className="object-cover w-full h-full"
-            src={media.url}
+            src={media?.url}
             alt="background-img"
             initial={type === contentTypes.ANIMATED && 'initial'}
             animate={type === contentTypes.ANIMATED && 'animate'}

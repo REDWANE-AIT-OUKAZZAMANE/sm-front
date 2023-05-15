@@ -10,7 +10,6 @@ export const useMaxCards = () => {
       const cardWidth = window.innerHeight * 0.31;
       const numColumns = Math.floor(containerWidth / cardWidth);
       setMaxCards(numColumns * 2); // fixed number of rows
-      console.log(numColumns * 2);
     }
 
     calculateMaxCards();

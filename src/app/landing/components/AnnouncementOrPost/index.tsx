@@ -38,12 +38,14 @@ const AnnoucementOrPost = () => {
       setShowAnnoumcementNow(true);
     }
   }, [postsList]);
+
   useEffect(() => {
     announcemntExist.current =
       announcementState.status !== Status.success ||
       !announcementState.data ||
       !showAnnouncement;
   }, [announcementState, showAnnouncement]);
+
   useEffect(() => {
     let startTimerId;
     let endTimerId;
@@ -74,15 +76,15 @@ const AnnoucementOrPost = () => {
     <div className="flex flex-col justify-between items-center ml-auto">
       {!showAnnouncementNow ? (
         <Card
-          key={post.id}
+          key={post?.id}
           media={post}
-          type={getSocialMediaType(post.text || '', post.source)}
+          type={getSocialMediaType(post?.text || '', post?.source)}
           maxCards={maxCards}
           delay={0}
           variantIsTall
         />
       ) : (
-        <Announcements data={(announcementState.data as Test).content[0]} />
+        <Announcements data={(announcementState?.data as Test)?.content?.[0]} />
       )}
 
       <div className="flex items-center justify-center flex-col w-[25vh] mx-auto">
@@ -94,4 +96,5 @@ const AnnoucementOrPost = () => {
     </div>
   );
 };
+
 export default AnnoucementOrPost;

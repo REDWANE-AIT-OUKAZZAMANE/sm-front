@@ -23,8 +23,8 @@ const Annoucements = ({ data }) => {
       <img src={bell} alt="icon" className="w-[25%]" />
       <h1 className="text-3xl font-semibold text-textOrange">ANNOUNCEMENTS</h1>
       <div className="text-xl text-center">
-        <h1 className="font-semibold text-2xl">{data.title}</h1>
-        <p>{data.description}</p>
+        <h1 className="font-semibold text-2xl">{data?.title}</h1>
+        <p>{data?.description}</p>
       </div>
     </motion.div>
   );
