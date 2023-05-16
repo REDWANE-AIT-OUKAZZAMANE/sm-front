@@ -25,7 +25,15 @@ export type HeaderData = {
   id: string;
   logoUrl: string;
   title: string;
-  sources: string[];
 };
 
+export type FooterData = {
+  logoUrl: string;
+  coOrganizer: string;
+  institutionalPartners: string[];
+  sponsors: {
+    type: string;
+    logoUrl: string;
+  }[];
+};
 export type QueryParams = {};

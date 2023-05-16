@@ -1,5 +1,6 @@
 import { addBooleanStatus } from 'react-async-states-utils';
 
 export default function defaultSelector(s) {
-  return { header: s.data, ...addBooleanStatus(s) };
+  const { data, ...rest } = s;
+  return { responseData: data, ...addBooleanStatus(rest) };
 }

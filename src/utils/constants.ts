@@ -51,3 +51,8 @@ export const highlightSymbols = Object.freeze({
   HASHTAG: '#',
   MENTION: '@',
 });
+
+export const sponsors = Object.freeze({
+  Diamond: 'Diamond',
+  Platinum: 'Platinum',
+});

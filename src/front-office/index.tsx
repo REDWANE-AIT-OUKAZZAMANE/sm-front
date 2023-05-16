@@ -11,9 +11,9 @@ const Wall = () => {
   const { state } = useAsyncState.auto(mediaPosts);
 
   return (
-    <div className=" text-white flex flex-col justify-between min-h-screen px-8 py-5">
+    <div className=" text-white flex flex-col justify-between min-h-screen px-8 pt-5">
       <Header />
-      <div className="grow flex gap-x-[2vw] flex-1 justify-between items-stretch w-full my-[4vh]">
+      <div className="grow flex gap-x-[2vw] flex-1 justify-between items-stretch w-full my-[2vh]">
         {state.status === Status.success && <Cards posts={state.data} />}
         {state.status === Status.pending && (
           <div className="w-full grid place-items-center">

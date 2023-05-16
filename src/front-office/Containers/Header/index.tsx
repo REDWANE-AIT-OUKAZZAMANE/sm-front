@@ -1,6 +1,6 @@
 import { useAsyncState } from 'react-async-states';
 
-import defaultSelector from './data/selector';
+import defaultSelector from '../../../api/selector';
 import { headerSource } from './data/sources';
 import IGIcon from '../../../assets/icons/ig-white.svg';
 import YoutubeIcon from '../../../assets/icons/yt-white.svg';
@@ -8,13 +8,12 @@ import Spinner from '../../components/Spinner';
 
 function Header() {
   const {
-    state: { header, isPending, isSuccess },
+    state: { responseData: header, isPending, isSuccess },
   } = useAsyncState({
     lazy: false,
     source: headerSource,
     selector: defaultSelector,
   });
-
   return (
     <div className="flex items-center justify-between">
       {isPending && (
