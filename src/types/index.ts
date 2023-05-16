@@ -36,4 +36,12 @@ export type FooterData = {
     logoUrl: string;
   }[];
 };
+export type Announcement = {
+  id: string;
+  title: string;
+  description: string;
+  startDate: Date;
+  endDate: Date;
+};
+
 export type QueryParams = {};
