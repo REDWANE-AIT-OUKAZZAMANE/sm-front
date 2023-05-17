@@ -5,3 +5,7 @@ export default {
   ANNOUNCEMENT:
     '/v1/announcements?page=0&size=1&sort=startDate,asc&endDate.after=',
 };
+
+export const topics = Object.freeze({
+  POSTS: '/media/ws',
+});
