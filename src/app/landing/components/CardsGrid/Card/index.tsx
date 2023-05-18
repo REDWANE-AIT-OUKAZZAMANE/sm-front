@@ -2,8 +2,8 @@ import { motion } from 'framer-motion';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
+import ReactPlayer from 'react-player';
 
-import { youtubeQueryParams } from '../../../utils';
 import VideoIcon from '../../../../../assets/icons/video.svg';
 import HighlightedText from '../HighlightedText';
 import {
@@ -180,20 +180,22 @@ const TextCard = ({
         </div>
       )}
 
-      {media.source?.toUpperCase() === socialMediaSources.YOUTUBE ? (
+      {media?.source === socialMediaSources.YOUTUBE ? (
         <div className="w-full h-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
           <div className="w-full h-full absolute z-10">
-            <iframe
+            <ReactPlayer
               width="100%"
               height="100%"
-              src={youtubeQueryParams(media.url, media.id)}
-              title="YouTube video player"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
+              url={media.url}
+              controls={false}
+              playing
+              loop
+              muted
+              style={{ pointerEvents: 'none' }}
             />
           </div>
         </div>
-      ) : media.type.toUpperCase() === mediaTypes.VIDEO ? (
+      ) : media?.type === mediaTypes.VIDEO ? (
         <div className="w-full h-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
           <div className="w-full h-full absolute z-10">
             <img
@@ -201,6 +203,7 @@ const TextCard = ({
               alt="video-icon"
               className="absolute right-5 top-5 w-[12%]"
             />
+
             <video loop autoPlay muted className="w-full h-full object-contain">
               <source src={media.url} type="video/mp4" />
             </video>
