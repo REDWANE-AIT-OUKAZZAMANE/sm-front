@@ -1,30 +1,32 @@
+import { useContext } from 'react';
+
 import Card from './Card';
 import { Media } from '../../types';
 import { getSocialMediaType } from '../../utils';
-import { useMaxCards } from '../../hooks/useMaxCards';
+import { getAnimationDelay } from './Card/animationSettings';
+import MyContext from '../../contexts/animationContext';
 
-type CardsProps = {
-  posts: Media[];
-};
-
-export default function Cards({ posts }: CardsProps) {
-  const [maxCards, containerRef] = useMaxCards();
+export default function Cards() {
+  const animationProps = useContext(MyContext);
+  const { containerRef, maxCards, postsList } = animationProps!;
 
   return (
     <div
       ref={containerRef}
       className="grow grid grid-cols-autofit overflow-y-hidden grid-rows-2 auto-rows-[0] gap-y-[1vw] gap-x-[2vw]"
     >
-      {posts &&
-        posts
-          .slice(0, maxCards)
-          .map((post: Media) => (
-            <Card
-              key={post.id}
-              media={post}
-              type={getSocialMediaType(post.text || '', post.source)}
-            />
-          ))}
+      {maxCards !== 0 &&
+        postsList &&
+        postsList.map((post: Media, index: number) => (
+          <Card
+            key={post.id}
+            media={post}
+            type={getSocialMediaType(post.text || '', post.source)}
+            index={index}
+            maxCards={maxCards}
+            delay={getAnimationDelay(index, maxCards)}
+          />
+        ))}
     </div>
   );
 }

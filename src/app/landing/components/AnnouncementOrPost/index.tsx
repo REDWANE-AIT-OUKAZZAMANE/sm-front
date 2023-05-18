@@ -1,5 +1,5 @@
 import { useAsyncState, Status } from 'react-async-states';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import { AxiosResponse } from 'axios';
@@ -7,11 +7,12 @@ import { AxiosResponse } from 'axios';
 import Announcements from './Anouncments';
 import qrcode from '../../../../assets/qrcode.svg';
 import { announcement } from './data/sources/AnnouncementSource';
-import { mediaPosts } from '../../data/sources/PostsSource';
 import Card from '../CardsGrid/Card';
 import { getSocialMediaType } from '../../utils';
-import Spinner from '../Spinner';
 import { Announcement } from '../../types';
+import AnimationContext, {
+  AnimationContextProps,
+} from '../../contexts/animationContext';
 
 dayjs.extend(utc);
 
@@ -20,10 +21,29 @@ interface Test extends AxiosResponse<Announcement> {
 }
 
 const AnnoucementOrPost = () => {
-  const { state: postState } = useAsyncState.auto(mediaPosts);
   const { state: announcementState } = useAsyncState.auto(announcement);
   const [showAnnouncement, setShowAnnoumcement] = useState(false);
+  const [showAnnouncementNow, setShowAnnoumcementNow] = useState(false);
+  const animationProps: AnimationContextProps | null =
+    useContext(AnimationContext);
 
+  const { maxCards, postsList } = animationProps!;
+  const post = postsList[postsList.length - 1];
+  const announcemntExist = useRef(false);
+
+  useEffect(() => {
+    if (announcemntExist.current) {
+      setShowAnnoumcementNow(false);
+    } else {
+      setShowAnnoumcementNow(true);
+    }
+  }, [postsList]);
+  useEffect(() => {
+    announcemntExist.current =
+      announcementState.status !== Status.success ||
+      !announcementState.data ||
+      !showAnnouncement;
+  }, [announcementState, showAnnouncement]);
   useEffect(() => {
     let startTimerId;
     let endTimerId;
@@ -52,23 +72,15 @@ const AnnoucementOrPost = () => {
 
   return (
     <div className="flex flex-col justify-between items-center ml-auto">
-      {announcementState.status !== Status.success ||
-      !announcementState.data ||
-      !showAnnouncement ? (
-        postState.status !== Status.success || postState.data.length === 0 ? (
-          <div className="flex items-center justify-center h-full">
-            <Spinner className="w-12 h-12 animate-spin dark:text-gray-600 fill-blue-600" />
-          </div>
-        ) : (
-          <Card
-            media={postState.data[0]}
-            type={getSocialMediaType(
-              postState.data[0].text || '',
-              postState.data[0].source
-            )}
-            variantIsTall
-          />
-        )
+      {!showAnnouncementNow ? (
+        <Card
+          key={post.id}
+          media={post}
+          type={getSocialMediaType(post.text || '', post.source)}
+          maxCards={maxCards}
+          delay={0}
+          variantIsTall
+        />
       ) : (
         <Announcements data={(announcementState.data as Test).content[0]} />
       )}
