@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 
 import Card from './Card';
-import { Media } from '../../types';
-import { getSocialMediaType } from '../../utils';
+import { Media } from '../../../types';
+import { getSocialMediaType } from '../../../utils';
 import { getAnimationDelay } from './Card/animationSettings';
 import MyContext from '../../contexts/animationContext';
 

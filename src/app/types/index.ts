@@ -9,6 +9,7 @@ export type Media = {
   text?: string;
   type: 'VIDEO' | 'IMAGE' | 'CAROUSEL_ALBUM';
   source: 'INSTAGRAM' | 'YOUTUBE';
+  sourceTypes: string[];
   url: string;
   permalink: string;
   timestamp: string;
@@ -18,7 +19,9 @@ export type Media = {
     avatar: string;
   };
   textContainsOnlyHashtags: boolean;
-  children?: MediaChild[];
+  children: MediaChild[];
+  pinned: boolean;
+  hidden: boolean;
 };
 
 export type HeaderData = {

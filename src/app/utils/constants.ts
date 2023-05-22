@@ -1,10 +1,10 @@
-import IGIcon from '../../../assets/icons/ig.svg';
-import TwitterIcon from '../../../assets/icons/twitter.svg';
-import YoutubeIcon from '../../../assets/icons/yt-white.svg';
-import IGColor from '../../../assets/icons/ig-color.svg';
-import TwitterColor from '../../../assets/icons/tw-color.svg';
-import IGWhite from '../../../assets/icons/ig-white.svg';
-import YoutubeColor from '../../../assets/icons/yt-color.svg';
+import IGIcon from '../../assets/icons/ig.svg';
+import TwitterIcon from '../../assets/icons/twitter.svg';
+import YoutubeIcon from '../../assets/icons/yt-white.svg';
+import IGColor from '../../assets/icons/ig-color.svg';
+import TwitterColor from '../../assets/icons/tw-color.svg';
+import IGWhite from '../../assets/icons/ig-white.svg';
+import YoutubeColor from '../../assets/icons/yt-color.svg';
 
 export const contentTypes = Object.freeze({
   STATIC: 'static',

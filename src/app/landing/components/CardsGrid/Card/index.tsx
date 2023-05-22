@@ -11,8 +11,8 @@ import {
   mediaTypes,
   socialMediaIcons,
   socialMediaSources,
-} from '../../../utils/constants';
-import { Media } from '../../../types';
+} from '../../../../utils/constants';
+import { Media } from '../../../../types';
 import {
   BackgroundImageAnimation,
   CardDescirptiontransition,

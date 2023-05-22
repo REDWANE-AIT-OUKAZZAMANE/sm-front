@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { highlightSymbols } from '../../../utils/constants';
+import { highlightSymbols } from '../../../../utils/constants';
 
 const HighlightedText = ({ text }) => {
   const words = useMemo(

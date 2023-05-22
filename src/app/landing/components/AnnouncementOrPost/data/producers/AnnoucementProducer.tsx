@@ -5,7 +5,7 @@ import utc from 'dayjs/plugin/utc';
 
 import paths from '../../../../../../api/paths';
 import { API } from '../../../../../../api';
-import { Announcement } from '../../../../types';
+import { Announcement } from '../../../../../types';
 
 dayjs.extend(utc);
 

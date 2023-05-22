@@ -2,7 +2,7 @@ import { useAsyncState } from 'react-async-states';
 
 import XLogo from '../../../../assets/XLogo.png';
 import heart from '../../../../assets/heart.png';
-import { sponsors } from '../../utils/constants';
+import { sponsors } from '../../../utils/constants';
 import defaultSelector from '../../../../api/selector';
 import { footerSource } from './data/sources';
 import Spinner from '../Spinner';

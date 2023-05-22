@@ -8,8 +8,8 @@ import Announcements from './Anouncments';
 import qrcode from '../../../../assets/qrcode.svg';
 import { announcement } from './data/sources/AnnouncementSource';
 import Card from '../CardsGrid/Card';
-import { getSocialMediaType } from '../../utils';
-import { Announcement } from '../../types';
+import { getSocialMediaType } from '../../../utils';
+import { Announcement } from '../../../types';
 import AnimationContext, {
   AnimationContextProps,
 } from '../../contexts/animationContext';

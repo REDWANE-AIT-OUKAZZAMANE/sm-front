@@ -8,7 +8,7 @@ import {
 } from 'react';
 
 import { useMaxCards } from '../hooks/useMaxCards';
-import { Media } from '../types/index';
+import { Media } from '../../types/index';
 import {
   animationDelayRatio,
   wallAnimationDelay,

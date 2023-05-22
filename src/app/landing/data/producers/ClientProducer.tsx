@@ -1,7 +1,7 @@
 import Sockjs from 'sockjs-client/dist/sockjs';
 import { Stomp } from '@stomp/stompjs';
 
-import { API_URL } from '../../utils/constants';
+import { API_URL } from '../../../utils/constants';
 
 export function stompClientProducer(props: any): Promise<{
   client: any;
