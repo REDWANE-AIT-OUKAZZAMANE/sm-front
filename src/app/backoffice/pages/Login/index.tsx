@@ -1,7 +1,7 @@
 import { Button, Form, Input } from 'antd';
 
-import logo from '../../assets/LOGO.svg';
-import FormRules from '../../utils/FormRules';
+import logo from '../../../../assets/LOGO.svg';
+import FormRules from '../../../../utils/FormRules';
 import './styles.scss';
 
 function Login() {
