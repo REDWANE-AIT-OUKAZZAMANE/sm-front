@@ -65,9 +65,11 @@ export default function MediaCard(props: MediaCardProps) {
             | {dayjs(props.media.timestamp).format('MMM DD, YYYY')}
           </div>
         </div>
-        <h5 className="text-lg font-medium tracking-tight">
-          {props.media.sourceTypes.join(', ')}
-        </h5>
+        {props.media.sourceTypes && (
+          <h5 className="text-lg font-medium tracking-tight">
+            {props.media.sourceTypes.join(', ')}
+          </h5>
+        )}
         <div>
           <Tooltip title={props.media.text} trigger="hover">
             <p className="font-normal line-clamp-3">{props.media.text}</p>
