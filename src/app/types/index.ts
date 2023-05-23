@@ -54,3 +54,12 @@ export type CardProps = {
   type: string;
   variantIsTall?: boolean;
 };
+export type UserData = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  activated: boolean;
+  createdAt: Date;
+  lastModifiedAt: Date;
+};
