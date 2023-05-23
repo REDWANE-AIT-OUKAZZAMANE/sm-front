@@ -6,6 +6,7 @@ import Content from './layout/Content';
 import Login from './pages/Login';
 import ProtectedRoutes from './pages/ProtectedRoutes/ProtectedRoutes';
 import NotFound from './pages/NotFound/NotFound';
+import Moderation from './pages/Moderation';
 
 function index() {
   const user = true;
@@ -19,7 +20,7 @@ function index() {
           <ProtectedRoutes user={user}>
             <div className="h-[100vh] w-[100vw] flex font-backOffice">
               <Sidemenu />
-              <div className="flex flex-col flex-1">
+              <div className="flex flex-col flex-1 h-screen">
                 <Header />
                 <Content />
               </div>
@@ -29,6 +30,7 @@ function index() {
       >
         <Route path="*" element={<NotFound />} />
         <Route path="/admin" element={<div>HOME</div>} />
+        <Route path="/admin/moderate" element={<Moderation />} />
       </Route>
     </Routes>
   );

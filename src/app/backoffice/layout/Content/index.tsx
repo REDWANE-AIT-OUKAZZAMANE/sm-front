@@ -2,7 +2,10 @@ import { Outlet } from 'react-router-dom';
 
 function Content() {
   return (
-    <div className="overflow-y-scroll flex-1">
+    <div
+      id="mainScrollableContent"
+      className="overflow-auto flex-1 mx-[32px] mb-[17px] rounded-2xl shadow-xl border"
+    >
       <Outlet />
     </div>
   );

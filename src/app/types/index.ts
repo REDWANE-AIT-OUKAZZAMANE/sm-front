@@ -63,3 +63,16 @@ export type UserData = {
   createdAt: Date;
   lastModifiedAt: Date;
 };
+
+export type Page<T = unknown> = {
+  content: T[];
+  last: boolean;
+  totalPages: number;
+  totalElements: number;
+  size: number;
+  number: number;
+  sort: any[];
+  first: boolean;
+  numberOfElements: number;
+  empty: boolean;
+};
