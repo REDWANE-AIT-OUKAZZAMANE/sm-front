@@ -13,7 +13,6 @@ import { currentUserSource } from '../../data/sources/currentUserSource';
 
 function Login() {
   const navigate = useNavigate();
-
   const { state, run } = useAsyncState({
     key: 'Login',
     producer: getLoginProducer,

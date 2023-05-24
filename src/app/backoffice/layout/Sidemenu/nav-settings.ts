@@ -5,7 +5,7 @@ import statsIcon from '../../../../assets/icons/stats.svg';
 
 export const NavItems = [
   {
-    name: 'Moderate',
+    name: 'Moderation',
     icon: dashIcon,
     link: 'moderate',
   },

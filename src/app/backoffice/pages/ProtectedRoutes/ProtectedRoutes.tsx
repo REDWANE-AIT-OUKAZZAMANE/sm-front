@@ -5,7 +5,7 @@ function ProtectedRoutes({ user, children }) {
     return <Navigate to="/admin-login" replace />;
   }
 
-  return children;
+  if (user) return children;
 }
 
 export default ProtectedRoutes;

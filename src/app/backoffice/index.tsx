@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { Status, useAsyncState } from 'react-async-states';
 import { useEffect, useState } from 'react';
 
@@ -51,7 +51,10 @@ function Index() {
         }
       >
         <Route path="*" element={<NotFound />} />
-        <Route path="/admin" element={<div>HOME</div>} />
+        <Route
+          path="/admin"
+          element={<Navigate to="/admin/moderate" replace />}
+        />
         <Route path="/admin/moderate" element={<Moderation />} />
       </Route>
     </Routes>
