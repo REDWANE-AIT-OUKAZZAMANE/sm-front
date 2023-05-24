@@ -1,7 +1,7 @@
 import { ProducerProps } from 'async-states';
 import { AxiosError, AxiosResponse } from 'axios';
 
-import { getData } from './api';
+import { getData } from '../api';
 
 export type ErrorType = {
   code: number;

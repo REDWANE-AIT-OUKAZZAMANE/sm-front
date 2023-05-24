@@ -10,6 +10,7 @@ export default {
         textOrange: '#FA8F21',
         textBlue: '#0081FF',
         textBlack: '#1E1E1E',
+        dPurple: '#5F4080',
       },
       fontSize: {
         dynamicXS: 'clamp(0.6rem, 0.5vw, 1.5rem)',
@@ -30,7 +31,5 @@ export default {
       },
     },
   },
-  plugins: [
-    require('@tailwindcss/line-clamp')
-  ],
+  plugins: [require('@tailwindcss/line-clamp')],
 };

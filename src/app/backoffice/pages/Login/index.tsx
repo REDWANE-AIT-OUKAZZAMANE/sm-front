@@ -6,9 +6,10 @@ import { useNavigate } from 'react-router-dom';
 import logo from '../../../../assets/LOGO.svg';
 import FormRules from '../../../../utils/FormRules';
 import './styles.scss';
-import { getLoginProducer } from '../../data/producer';
 import { errorCodeToMessage } from '../../../../api/errorCodeToMessage';
 import errorIcon from '../../../../assets/icons/errorIcon.svg';
+import { getLoginProducer } from '../../data/producers/LoginProducer';
+import { currentUserSource } from '../../data/sources/currentUserSource';
 
 function Login() {
   const navigate = useNavigate();
@@ -17,14 +18,24 @@ function Login() {
     key: 'Login',
     producer: getLoginProducer,
   });
+  const { state: currentUserState, run: getCurrentUser } =
+    useAsyncState(currentUserSource);
+
   const { status, data } = state;
   const onFinish = (values) => {
     run(values);
   };
-
+  useEffect(() => {
+    if (
+      currentUserState.status === Status.success &&
+      currentUserState.data !== null
+    ) {
+      navigate('/admin');
+    }
+  }, [currentUserState, navigate]);
   useEffect(() => {
     if (status === Status.success) {
-      navigate('/admin');
+      getCurrentUser();
     }
     if (status === Status.error) {
       notification.open({
@@ -34,7 +45,7 @@ function Login() {
         icon: <img src={errorIcon} alt="errorIcon" />,
       });
     }
-  }, [status, data, navigate]);
+  }, [status, data]);
 
   return (
     <div className="container flex h-screen w-full justify-center items-center max-w-full">

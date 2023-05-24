@@ -5,6 +5,8 @@ export default {
   LOGIN: '/v1/auth/login',
   ANNOUNCEMENT:
     '/v1/announcements?page=0&size=1&sort=startDate,asc&endDate.after=',
+  LOGOUT: '/v1/auth/logout',
+  CURRENT_USER: '/v1/auth/current',
 };
 
 export const topics = Object.freeze({
