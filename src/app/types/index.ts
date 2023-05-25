@@ -12,6 +12,7 @@ export type Media = {
   sourceTypes: string[];
   url: string;
   permalink: string;
+  thumbnail: string;
   timestamp: string;
   owner?: {
     id: string;

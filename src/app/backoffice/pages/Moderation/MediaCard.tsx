@@ -1,6 +1,6 @@
-import ReactPlayer from 'react-player';
 import dayjs from 'dayjs';
 import { Tooltip } from 'antd';
+import { PlayCircleOutlined } from '@ant-design/icons';
 
 import {
   PinIcon,
@@ -8,8 +8,8 @@ import {
   HideIcon,
   ShowIcon,
 } from '../../components/CustomIcons';
-import { mediaTypes } from '../../../utils/constants';
 import { Media } from '../../../types';
+import { mediaTypes } from '../../../utils/constants';
 
 type MediaCardProps = {
   media: Media;
@@ -18,11 +18,7 @@ type MediaCardProps = {
 };
 
 export default function MediaCard(props: MediaCardProps) {
-  // TODO: API should return the type and url directly in the parent object
-  const { type: mediaType, url: mediaUrl } =
-    props.media.type === mediaTypes.CAROUSEL_ALBUM
-      ? props.media.children[0]
-      : props.media;
+  const thumbnail = props.media.thumbnail || props.media.url;
 
   const handleTogglePinning = () => {
     props.onTogglePinning();
@@ -32,28 +28,44 @@ export default function MediaCard(props: MediaCardProps) {
     props.onToggleVisibility();
   };
 
+  const renderMediaVisual = () => {
+    if (!props.media.thumbnail && props.media.type === mediaTypes.VIDEO) {
+      // render the video without controls
+      return (
+        // eslint-disable-next-line jsx-a11y/media-has-caption
+        <video className="object-cover w-full h-full">
+          <source src={props.media.url} />
+        </video>
+      );
+    }
+
+    if (thumbnail) {
+      return (
+        <img
+          className="object-cover w-full h-full"
+          src={thumbnail}
+          alt="Media"
+        />
+      );
+    }
+
+    return null;
+  };
+
   return (
     <div className="flex flex-col divide-y border rounded-2xl overflow-hidden shadow-md">
-      <div className="h-72">
-        {mediaType === mediaTypes.IMAGE ? (
-          <img
-            className="object-cover w-full h-full"
-            src={mediaUrl}
-            alt="Media"
-          />
-        ) : (
-          <ReactPlayer
-            className="object-cover"
-            width="100%"
-            height="100%"
-            url={mediaUrl}
-            muted
-          />
+      <div className="relative h-72">
+        {renderMediaVisual()}
+
+        {props.media.type === mediaTypes.VIDEO && (
+          <div className="text-white text-4xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <PlayCircleOutlined />
+          </div>
         )}
       </div>
       <div className="flex-1 p-4 space-y-4">
         <div>
-          <a href={props.media.permalink || mediaUrl} target="_blank">
+          <a href={props.media.permalink} target="_blank">
             <h5 className="text-lg font-medium tracking-tight">
               {props.media.owner?.username || 'Unknown'}
             </h5>
@@ -72,7 +84,9 @@ export default function MediaCard(props: MediaCardProps) {
         )}
         <div>
           <Tooltip title={props.media.text} trigger="hover">
-            <p className="font-normal line-clamp-3">{props.media.text}</p>
+            <p className="font-medium text-justify line-clamp-3">
+              {props.media.text}
+            </p>
           </Tooltip>
         </div>
       </div>
