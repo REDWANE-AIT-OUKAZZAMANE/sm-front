@@ -41,7 +41,7 @@ function Index() {
         element={
           <ProtectedRoutes user={loggedIn}>
             <div className="h-[100vh] w-[100vw] flex font-backOffice">
-              <Sidemenu />
+              <Sidemenu userData={state.data} />
               <div className="flex flex-col flex-1 h-screen">
                 <Header />
                 <Content />

@@ -4,8 +4,12 @@ import SmLogo from '../../../../assets/smlogo.svg';
 import NavItem from './NavItem';
 import { NavItems } from './nav-settings';
 
-function Sidemenu() {
+function Sidemenu({ userData }) {
   const { pathname } = useLocation();
+
+  const {
+    data: { email },
+  } = userData;
 
   return (
     <div className="bg-xPurple w-[256px] flex flex-col justify-between pt-3 pb-8 text-white shadow-[0_64px_64px_-32px_rgba(41,15,0,0.56)]">
@@ -28,7 +32,7 @@ function Sidemenu() {
         </div>
         <div className="flex flex-col justify-evenly ">
           <p className="uppercase text-white/30 text-[11px]">Admin</p>
-          <p className="text-[14px]">FouFou@gmail.com</p>
+          <p className="text-[14px]">{email}</p>
         </div>
       </div>
     </div>
