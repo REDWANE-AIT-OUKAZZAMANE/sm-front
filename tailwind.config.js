@@ -30,6 +30,9 @@ export default {
         autofit: 'repeat(auto-fit, minmax(31vh,1fr))',
       },
     },
+    fontFamily: {
+      poppins: ['Poppins', 'sans-serif'],
+    },
   },
   plugins: [require('@tailwindcss/line-clamp')],
 };
