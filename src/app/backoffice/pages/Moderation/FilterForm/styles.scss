@@ -1,0 +1,37 @@
+.form {
+  .ant-select-selection-search + .ant-select-selection-placeholder {
+    color: #2d1f3d;
+    height: 37px;
+  }
+
+  .ant-input.ant-input-lg,
+  .ant-select:not(.ant-select-disabled):not(.ant-select-customize-input):not(
+      .ant-pagination-size-changer
+    )
+    .ant-select-selector {
+    border-color: #aaaaaa;
+    box-shadow: none;
+    outline: none;
+  }
+}
+
+.ant-select-item-option-content {
+  color: #8d91a0;
+  font-size: 11px;
+}
+
+.ant-image {
+  position: absolute;
+  left: 28.95%;
+  right: 28.12%;
+  top: 28.57%;
+  bottom: 28.57%;
+}
+
+.ant-select-item.ant-select-item-option.ant-select-item-option-selected {
+  background-color: white;
+  color: black;
+}
+.ant-select-item-option-content:hover {
+  color: black;
+}
