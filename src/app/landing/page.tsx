@@ -23,7 +23,7 @@ const Landing = () => {
 
   return clientState.status === Status.success ? (
     <div className="bg-darkBlue min-h-screen w-screen">
-      <div className="text-white flex flex-col justify-between min-h-screen px-8 py-5">
+      <div className="text-white flex flex-col justify-between min-h-screen px-8 pt-5">
         <Header />
         <div className="grow flex gap-x-[2vw] flex-1 justify-between items-stretch w-full my-[4vh]">
           {postsState.status === Status.success && (

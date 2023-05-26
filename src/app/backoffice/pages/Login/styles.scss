@@ -4,4 +4,10 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
+
+  .ant-input.ant-input-lg {
+    border-color: #aaaaaa;
+    box-shadow: none;
+    outline: none;
+  }
 }

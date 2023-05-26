@@ -50,7 +50,7 @@ function Header() {
         onLogoutCancel={handleCancelLogout}
         showLogoutModal={isLogoutModalOpen}
       />
-      <h1 className="text-textBlack text-[37px] font-semibold">{title}</h1>
+      <h1 className="text-textBlack text-[27px] font-semibold">{title}</h1>
       <button
         type="button"
         className="cursor-pointer"

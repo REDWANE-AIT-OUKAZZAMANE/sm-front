@@ -10,7 +10,7 @@ function Sidemenu({ userData }) {
   return (
     <div className="bg-xPurple w-[256px] flex flex-col justify-between pt-3 pb-8 text-white shadow-[0_64px_64px_-32px_rgba(41,15,0,0.56)]">
       <div className="px-[23px]">
-        <img className="mb-[46px] translate-x-[8px]" src={SmLogo} alt="logo" />
+        <img className="mb-[20px] translate-x-[8px]" src={SmLogo} alt="logo" />
         <ul className="flex flex-col gap-[5px]">
           {NavItems.map((item) => (
             <li key={item.name}>
