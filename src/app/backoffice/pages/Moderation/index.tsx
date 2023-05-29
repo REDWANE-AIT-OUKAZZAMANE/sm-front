@@ -8,6 +8,7 @@ import { API } from '../../../../api';
 import MediaCard from './MediaCard';
 import paths from '../../../../api/paths';
 import { Media, Page, QueryParams } from '../../../types';
+import { togglePinMediaProducer } from '../../data/producers/pinnedPostProducer';
 import PostsFilter from './FilterForm';
 
 async function searchMedia(
@@ -32,19 +33,31 @@ const defaultFilter = {
 function Moderation() {
   const { state, run } = app.media.search.inject(searchMedia).useAsyncState();
   const { status, data } = state;
-
+  const { state: toggleState, run: runTogglePin } = app.media.toggle_media
+    .inject(togglePinMediaProducer)
+    .useAsyncState();
   const [allMedia, setAllMedia] = useState<Media[]>([]);
   const [filter, setFilter] = useState(defaultFilter);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   const handleTogglePinning = (mediaId: string) => {
+    runTogglePin(mediaId);
     console.log('Handle toggle pinning: ', mediaId);
   };
+
+  useEffect(() => {
+    if (toggleState.status === Status.success) {
+      setIsRefreshing(true);
+      run({ ...filter, size: filter.size * (filter.page + 1), page: 0 });
+    }
+  }, [toggleState]);
 
   const handleToggleVisibility = (mediaId: string) => {
     console.log('Handle toggle visibility: ', mediaId);
   };
 
   const fetchMoreMedia = () => {
+    setIsRefreshing(false);
     setFilter((prev) => ({
       ...prev,
       page: prev.page + 1,
@@ -57,7 +70,13 @@ function Moderation() {
 
   useEffect(() => {
     if (status === Status.success) {
-      setAllMedia((prev) => [...prev, ...data.content]);
+      // when refreshing we dont need previous data cause it will get refetched
+
+      if (!isRefreshing) {
+        setAllMedia((prev) => [...prev, ...data.content]);
+      } else {
+        setAllMedia(() => [...data.content]);
+      }
     }
   }, [status, data]);
 

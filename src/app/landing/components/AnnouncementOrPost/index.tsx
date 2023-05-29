@@ -75,14 +75,16 @@ const AnnoucementOrPost = () => {
   return (
     <div className="flex flex-col justify-between items-center ml-auto">
       {!showAnnouncementNow ? (
-        <Card
-          key={post?.id}
-          media={post}
-          type={getSocialMediaType(post?.text || '', post?.source)}
-          maxCards={maxCards}
-          delay={0}
-          variantIsTall
-        />
+        post && (
+          <Card
+            key={post?.id}
+            media={post}
+            type={getSocialMediaType(post?.text || '', post?.source)}
+            maxCards={maxCards}
+            delay={0}
+            variantIsTall
+          />
+        )
       ) : (
         <Announcements data={(announcementState?.data as Test)?.content?.[0]} />
       )}

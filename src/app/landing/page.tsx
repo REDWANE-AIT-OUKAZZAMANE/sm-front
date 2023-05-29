@@ -9,15 +9,19 @@ import { mediaPosts } from './data/sources/PostsSource';
 import { stompClientSource } from './data/sources/ClientSource';
 import Spinner from './components/Spinner';
 import { AnimationContextProvider } from './contexts/animationContext';
+import { pinedPost } from './data/sources/PinnedPostSource';
 
+const defaultFilter = {
+  sort: 'timestamp,desc',
+};
 const Landing = () => {
   const { state: clientState } = useAsyncState.auto(stompClientSource);
   const { state: postsState, run: runPosts } = useAsyncState(mediaPosts);
-
+  const { run: runPinnedPost } = useAsyncState(pinedPost);
   useEffect(() => {
     if (clientState.status === Status.success) {
-      // @ts-ignore
-      runPosts();
+      runPosts(defaultFilter);
+      runPinnedPost();
     }
   }, [clientState.status, runPosts]);
 
@@ -27,7 +31,7 @@ const Landing = () => {
         <Header />
         <div className="grow flex gap-x-[2vw] flex-1 justify-between items-stretch w-full my-[4vh]">
           {postsState.status === Status.success && (
-            <AnimationContextProvider posts={postsState.data}>
+            <AnimationContextProvider>
               <Cards />
               <AnnouncementOrPost />
             </AnimationContextProvider>

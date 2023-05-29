@@ -12,3 +12,5 @@ export const getData = (email, password): Promise<AxiosResponse> =>
 export const logout = (): Promise<AxiosResponse> => API.post(apiPaths.LOGOUT);
 export const getCurrentUser = (): Promise<UserData | null> =>
   API.get(apiPaths.CURRENT_USER);
+export const togglePinMedia = (mediaId: string): Promise<AxiosResponse<void>> =>
+  API.put(apiPaths.TOGGLE_PIN(mediaId));

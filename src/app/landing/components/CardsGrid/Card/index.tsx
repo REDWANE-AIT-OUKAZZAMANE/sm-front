@@ -60,6 +60,7 @@ const TextCard = ({
   }, [maxCards, index]);
 
   const getVariant = () => {
+    if (media.pinned) return undefined;
     if (variantIsTall) {
       return variantsCardRight;
     }
