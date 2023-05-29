@@ -53,7 +53,7 @@ function Footer() {
                     <img
                       // eslint-disable-next-line react/no-array-index-key
                       key={index}
-                      className="max-h-[6vh] object-contain mt-1"
+                      className="max-h-[6vh] object-contain overflow-hidden mt-1"
                       src={source}
                       alt="institutionalPartners"
                     />
@@ -74,7 +74,7 @@ function Footer() {
                             <img
                               // eslint-disable-next-line react/no-array-index-key
                               key={index}
-                              className="max-h-[6vh] object-contain mt-1"
+                              className="max-h-[6vh] object-contain overflow-hidden mt-1"
                               src={sponsor}
                               alt="sponsor"
                             />
