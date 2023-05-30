@@ -1,0 +1,22 @@
+.media-cards {
+  transition: color 0.4s;
+  transition-delay: 0.5s;
+  scrollbar-color: red;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 13px;
+    background: #cdd3e0;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #b3b9c9;
+  }
+}

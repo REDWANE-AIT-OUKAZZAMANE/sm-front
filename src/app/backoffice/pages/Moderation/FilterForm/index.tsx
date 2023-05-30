@@ -17,7 +17,7 @@ function PostsFilter() {
   };
 
   return (
-    <div className="form flex items-center justify-between bg-white py-4 font-['Lato'] mb-12">
+    <div className="form flex items-center justify-between bg-white pb-2 font-['Lato'] mb-12">
       <Form form={form} onFinish={onFinish} className="flex w-full">
         <Form.Item className="mb-0 mr-1" name="keyword">
           <Input

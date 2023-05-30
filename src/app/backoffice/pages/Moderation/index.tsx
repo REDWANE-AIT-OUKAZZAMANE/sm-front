@@ -10,6 +10,7 @@ import paths from '../../../../api/paths';
 import { Media, Page, QueryParams } from '../../../types';
 import { togglePinMediaProducer } from '../../data/producers/pinnedPostProducer';
 import PostsFilter from './FilterForm';
+import './styles.scss';
 
 async function searchMedia(
   props: ProducerProps<Page<Media>, Error, never, [QueryParams]>
@@ -97,29 +98,31 @@ function Moderation() {
   return (
     <div className="flex flex-col mx-[32px] mb-[17px] h-full">
       <PostsFilter />
-      <div
-        id="mainScrollableContent"
-        className="overflow-auto rounded-2xl shadow-xl border flex-1"
-      >
-        <div className="p-8">
-          <InfiniteScroll
-            dataLength={allMedia.length}
-            next={fetchMoreMedia}
-            hasMore={status === Status.success && !data.last}
-            loader={renderLoadingCards()}
-            scrollableTarget="mainScrollableContent"
-          >
-            <div className="grid auto-rows-fr gap-8 grid-cols-[repeat(auto-fit,minmax(200px,1fr))]">
-              {allMedia.map((media) => (
-                <MediaCard
-                  key={media.id}
-                  media={media}
-                  onTogglePinning={() => handleTogglePinning(media.id)}
-                  onToggleVisibility={() => handleToggleVisibility(media.id)}
-                />
-              ))}
-            </div>
-          </InfiniteScroll>
+      <div className="rounded-2xl pt-8 pl-[32px] pr-[12px] shadow-xl border overflow-hidden flex-1">
+        <div
+          id="mainScrollableContent"
+          className="media-cards  overflow-auto h-full "
+        >
+          <div className="pr-[12px]">
+            <InfiniteScroll
+              dataLength={allMedia.length}
+              next={fetchMoreMedia}
+              hasMore={status === Status.success && !data.last}
+              loader={renderLoadingCards()}
+              scrollableTarget="mainScrollableContent"
+            >
+              <div className=" grid auto-rows-fr gap-8 grid-cols-[repeat(auto-fit,minmax(200px,1fr))]">
+                {allMedia.map((media) => (
+                  <MediaCard
+                    key={media.id}
+                    media={media}
+                    onTogglePinning={() => handleTogglePinning(media.id)}
+                    onToggleVisibility={() => handleToggleVisibility(media.id)}
+                  />
+                ))}
+              </div>
+            </InfiniteScroll>
+          </div>
         </div>
       </div>
     </div>

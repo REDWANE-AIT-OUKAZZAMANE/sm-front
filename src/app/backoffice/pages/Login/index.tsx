@@ -10,6 +10,7 @@ import { errorCodeToMessage } from '../../../../api/errorCodeToMessage';
 import errorIcon from '../../../../assets/icons/errorIcon.svg';
 import { getLoginProducer } from '../../data/producers/LoginProducer';
 import { currentUserSource } from '../../data/sources/currentUserSource';
+import Spinner from '../../../landing/components/Spinner';
 
 function Login() {
   const navigate = useNavigate();
@@ -71,7 +72,11 @@ function Login() {
             className="bg-[#66328E] text-white font-normal py-2 px-4 w-full rounded-lg uppercase"
             disabled={status === Status.pending}
           >
-            LOGIN
+            {status === Status.pending ? (
+              <Spinner className="w-10 h-10 mx-auto text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" />
+            ) : (
+              'LOGIN'
+            )}
           </Button>
         </Form.Item>
       </Form>

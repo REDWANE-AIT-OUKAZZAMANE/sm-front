@@ -44,7 +44,7 @@ function Header() {
   }, [pathname]);
 
   return (
-    <div className=" h-[93px] flex justify-between items-center px-[34px]">
+    <div className=" h-[88px] flex justify-between items-center px-[34px]">
       <LogoutModal
         onLogoutConfirm={handleLogout}
         onLogoutCancel={handleCancelLogout}
