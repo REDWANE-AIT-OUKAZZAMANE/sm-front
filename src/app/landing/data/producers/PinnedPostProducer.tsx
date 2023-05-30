@@ -4,9 +4,9 @@ import { stompClientSource } from '../sources/ClientSource';
 import { topics } from '../../../../api/paths';
 import { Media } from '../../../types';
 
-export function SubscribeToPinnedPost(
+export const subscribeToPinnedPost = (
   props: ProducerProps<Media, Error, never, never>
-) {
+): Promise<Media> => {
   const controller = new AbortController();
   const clientState = stompClientSource.getState();
   if (clientState.status !== Status.success) {
@@ -27,4 +27,5 @@ export function SubscribeToPinnedPost(
     controller.abort(reason);
     sub.unsubscribe();
   });
-}
+  return Promise.resolve({} as Media);
+};
