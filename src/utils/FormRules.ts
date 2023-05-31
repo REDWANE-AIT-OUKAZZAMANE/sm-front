@@ -2,7 +2,7 @@ import { Rule } from 'antd/lib/form';
 
 import RegexPatterns from './RegexPatterns';
 
-type Rules = 'required' | 'email' | 'password';
+type Rules = 'required' | 'email' | 'password' | 'wallTitle';
 
 const FormRules = Object.freeze<{ [key in Rules]: (args?: any) => Rule }>({
   required: (message = 'This field is required') => ({
@@ -17,6 +17,10 @@ const FormRules = Object.freeze<{ [key in Rules]: (args?: any) => Rule }>({
     message = 'Password must contain at least 8 characters, including one uppercase letter, one lowercase letter, one number, and one special character.'
   ) => ({
     pattern: RegexPatterns.password,
+    message,
+  }),
+  wallTitle: (message = 'Title must contain at least 5 characters') => ({
+    pattern: RegexPatterns.wallTitle,
     message,
   }),
 });

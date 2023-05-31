@@ -11,6 +11,7 @@ import ProtectedRoutes from './pages/ProtectedRoutes/ProtectedRoutes';
 import NotFound from './pages/NotFound/NotFound';
 import Moderation from './pages/Moderation';
 import Spinner from '../landing/components/Spinner';
+import GeneralSettings from './pages/Settings/GeneralSettings';
 
 function Index() {
   const { state } = useAsyncState.auto(currentUserSource);
@@ -42,7 +43,7 @@ function Index() {
           <ProtectedRoutes user={loggedIn}>
             <div className="h-[100vh] w-[100vw] flex font-backOffice">
               <Sidemenu userData={state.data} />
-              <div className="flex flex-col flex-1 h-screen">
+              <div className="flex flex-col flex-1 h-screen ">
                 <Header />
                 <Content />
               </div>
@@ -56,6 +57,10 @@ function Index() {
           element={<Navigate to="/admin/moderate" replace />}
         />
         <Route path="/admin/moderate" element={<Moderation />} />
+        <Route
+          path="/admin/settings/general-settings"
+          element={<GeneralSettings />}
+        />
       </Route>
     </Routes>
   );

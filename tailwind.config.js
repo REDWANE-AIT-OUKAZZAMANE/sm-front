@@ -11,6 +11,7 @@ export default {
         textBlue: '#0081FF',
         textBlack: '#1E1E1E',
         dPurple: '#5F4080',
+        lightGrey: '#C4C8CD',
       },
       fontSize: {
         dynamicXS: 'clamp(0.6rem, 0.5vw, 1.5rem)',
@@ -22,6 +23,7 @@ export default {
       },
       fontFamily: {
         backOffice: ['inter'],
+        Lato: ['Lato'],
       },
       aspectRatio: {
         '4/5': '4 / 3',
