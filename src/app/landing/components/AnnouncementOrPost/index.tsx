@@ -21,7 +21,7 @@ interface Test extends AxiosResponse<Announcement> {
 }
 
 const AnnoucementOrPost = () => {
-  const { state: announcementState } = useAsyncState.auto(announcement);
+  const { state: announcementState } = useAsyncState(announcement);
   const [showAnnouncement, setShowAnnoumcement] = useState(false);
   const [showAnnouncementNow, setShowAnnoumcementNow] = useState(false);
   const animationProps: AnimationContextProps | null =

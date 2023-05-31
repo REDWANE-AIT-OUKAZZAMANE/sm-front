@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { Status, useAsyncState } from 'react-async-states';
 
 import Header from './components/Header';
@@ -10,20 +9,28 @@ import { stompClientSource } from './data/sources/ClientSource';
 import Spinner from './components/Spinner';
 import { AnimationContextProvider } from './contexts/animationContext';
 import { pinedPost } from './data/sources/PinnedPostSource';
+import { announcement } from './components/AnnouncementOrPost/data/sources/AnnouncementSource';
 
 const defaultFilter = {
   sort: 'timestamp,desc',
 };
 const Landing = () => {
-  const { state: clientState } = useAsyncState.auto(stompClientSource);
-  const { state: postsState, run: runPosts } = useAsyncState(mediaPosts);
-  const { run: runPinnedPost } = useAsyncState(pinedPost);
-  useEffect(() => {
-    if (clientState.status === Status.success) {
-      runPosts(defaultFilter);
-      runPinnedPost();
-    }
-  }, [clientState.status, runPosts]);
+  const { state: postsState } = useAsyncState(mediaPosts);
+  const { state: clientState } = useAsyncState.auto({
+    source: stompClientSource,
+    events: {
+      change: [
+        {
+          status: Status.success,
+          handler() {
+            mediaPosts.run(defaultFilter);
+            pinedPost.run();
+            announcement.run();
+          },
+        },
+      ],
+    },
+  });
 
   return clientState.status === Status.success ? (
     <div className="bg-darkBlue min-h-screen w-screen">
