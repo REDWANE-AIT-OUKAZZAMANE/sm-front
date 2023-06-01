@@ -135,7 +135,7 @@ function Moderation() {
       <PostsFilter />
       <div
         id="mainScrollableContent"
-        className="overflow-auto rounded-2xl shadow-xl border flex-1 h-full"
+        className="media-cards overflow-auto rounded-2xl shadow-xl border flex-1 h-full"
       >
         <div className="p-8">
           <InfiniteScroll

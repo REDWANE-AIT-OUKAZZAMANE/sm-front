@@ -78,3 +78,9 @@ export type Page<T = unknown> = {
   numberOfElements: number;
   empty: boolean;
 };
+export type WallSettings = {
+  id: string;
+  title: string;
+  logoBase64: string;
+  filename: string;
+};
