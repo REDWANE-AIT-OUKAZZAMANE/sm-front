@@ -52,3 +52,12 @@ export const sponsors = Object.freeze({
   Diamond: 'Diamond',
   Platinum: 'Platinum',
 });
+
+export const defaultFilter = {
+  page: 0,
+  size: 15,
+  sort: 'timestamp,desc',
+  q: '',
+  'hidden.eq': undefined,
+  'source.eq': undefined,
+};

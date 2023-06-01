@@ -1,4 +1,6 @@
 import { Button, Form, Input, Select, Image } from 'antd';
+import { useLocation, useNavigate } from 'react-router-dom';
+import queryString from 'query-string';
 
 import resetIcon from '../../../../../assets/icons/resetIcon.svg';
 import filterIcon from '../../../../../assets/icons/filterIcon.svg';
@@ -7,26 +9,35 @@ import './styles.scss';
 
 function PostsFilter() {
   const [form] = Form.useForm();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const parsedQueryParams = queryString.parse(location.search.slice(1), {
+    parseBooleans: true,
+  });
+
+  form.setFieldsValue(parsedQueryParams);
 
   const onFinish = (values: any) => {
-    console.log(values);
+    navigate(`?${queryString.stringify(values)}`);
   };
 
   const handleResetFields = () => {
     form.resetFields();
+    navigate('');
   };
 
   return (
     <div className="form flex items-center justify-between bg-white pb-2 font-['Lato'] mb-12">
       <Form form={form} onFinish={onFinish} className="flex w-full">
-        <Form.Item className="mb-0 mr-1" name="keyword">
+        <Form.Item className="mb-0 mr-1" name="q">
           <Input
             placeholder="Search by user name, description"
             className="w-[351px]"
             size="large"
           />
         </Form.Item>
-        <Form.Item className="mb-0 mr-1" name="feedSource">
+        <Form.Item className="mb-0 mr-1" name="source.eq">
           <Select
             placeholder="Source feed"
             suffixIcon={
@@ -34,12 +45,12 @@ function PostsFilter() {
             }
             size="large"
             options={[
-              { value: 'Instagram', label: 'Instagram feeds' },
-              { value: 'youtube', label: 'youtube feeds' },
+              { value: 'INSTAGRAM', label: 'Instagram feeds' },
+              { value: 'YOUTUBE', label: 'youtube feeds' },
             ]}
           />
         </Form.Item>
-        <Form.Item className="mb-0" name="visibility">
+        <Form.Item className="mb-0" name="hidden.eq">
           <Select
             placeholder="Visibility"
             suffixIcon={
@@ -47,8 +58,8 @@ function PostsFilter() {
             }
             size="large"
             options={[
-              { value: 'visible', label: 'Visible poste' },
-              { value: 'hidden', label: 'Hidden post' },
+              { value: false, label: 'Visible post' },
+              { value: true, label: 'Hidden post' },
             ]}
           />
         </Form.Item>
