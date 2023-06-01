@@ -145,7 +145,7 @@ function Moderation() {
             loader={renderLoadingCards()}
             scrollableTarget="mainScrollableContent"
           >
-            <div className="grid auto-rows-fr gap-8 grid-cols-[repeat(auto-fit,minmax(200px,1fr))]">
+            <div className="grid auto-rows-fr gap-8 grid-cols-[repeat(auto-fill,minmax(200px,1fr))]">
               {allMedia.length ? (
                 allMedia.map((media) => (
                   <MediaCard
