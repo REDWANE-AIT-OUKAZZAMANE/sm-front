@@ -13,7 +13,8 @@ import { Media, Page, QueryParams } from '../../../types';
 import { togglePinMediaProducer } from '../../data/producers/pinnedPostProducer';
 import PostsFilter from './FilterForm';
 import './styles.scss';
-import { defaultFilter } from '../../../utils/constants';
+import { defaultPostsQueryParams } from '../../../utils/constants';
+import { MediaVisibilityProducer } from '../../data/producers/MediaVisibilityProducer';
 
 async function searchMedia(
   props: ProducerProps<Page<Media>, Error, never, [QueryParams]>
@@ -29,16 +30,20 @@ async function searchMedia(
 }
 
 function Moderation() {
-  const { state, run } = app.media.search.inject(searchMedia).useAsyncState();
+  const { state, run: runSearchMedia } = app.media.search
+    .inject(searchMedia)
+    .useAsyncState();
   const { status, data } = state;
   const { state: toggleState, run: runTogglePin } = app.media.toggle_media
     .inject(togglePinMediaProducer)
     .useAsyncState();
 
   const location = useLocation();
+  const { state: VisibilitytoggleState, run: runVisibilityToggle } =
+    app.media.media_visibility.inject(MediaVisibilityProducer).useAsyncState();
 
   const [allMedia, setAllMedia] = useState<Media[]>([]);
-  const [filter, setFilter] = useState(defaultFilter);
+  const [filter, setFilter] = useState(defaultPostsQueryParams);
   const [shouldRefetch, setShouldRefetch] = useState<boolean>(false);
 
   useEffect(() => {
@@ -47,7 +52,7 @@ function Moderation() {
     });
 
     setFilter({
-      ...defaultFilter,
+      ...defaultPostsQueryParams,
       ...parsedQueryParams,
       page: 0,
     });
@@ -61,13 +66,31 @@ function Moderation() {
   useEffect(() => {
     if (toggleState.status === Status.success) {
       setShouldRefetch(true);
-      run({ ...filter, size: filter.size * (filter.page + 1), page: 0 });
+      runSearchMedia({
+        ...filter,
+        size: filter.size * (filter.page + 1),
+        page: 0,
+      });
     }
   }, [toggleState]);
 
   const handleToggleVisibility = (mediaId: string) => {
-    console.log('Handle toggle visibility: ', mediaId);
+    runVisibilityToggle(mediaId);
   };
+
+  useEffect(() => {
+    if (
+      toggleState.status === Status.success ||
+      VisibilitytoggleState.status === Status.success
+    ) {
+      setShouldRefetch(true);
+      runSearchMedia({
+        ...filter,
+        size: filter.size * (filter.page + 1),
+        page: 0,
+      });
+    }
+  }, [VisibilitytoggleState.status, toggleState]);
 
   const fetchMoreMedia = () => {
     setShouldRefetch(false);
@@ -78,8 +101,8 @@ function Moderation() {
   };
 
   useEffect(() => {
-    run({ ...filter });
-  }, [run, filter]);
+    runSearchMedia(filter);
+  }, [runSearchMedia, filter]);
 
   useEffect(() => {
     if (status === Status.success) {

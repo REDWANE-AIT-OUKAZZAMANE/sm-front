@@ -53,7 +53,7 @@ export const sponsors = Object.freeze({
   Platinum: 'Platinum',
 });
 
-export const defaultFilter = {
+export const defaultPostsQueryParams = {
   page: 0,
   size: 15,
   sort: 'timestamp,desc',

@@ -27,20 +27,20 @@ const ShowSvg = () => (
 
 // PinIcon
 export function PinIcon(props: Partial<CustomIconComponentProps>) {
-  return <Icon component={PinSvg} {...props} />;
+  return <Icon rev={undefined} component={PinSvg} {...props} />;
 }
 
 // UnpinIcon
 export function UnpinIcon(props: Partial<CustomIconComponentProps>) {
-  return <Icon component={UnpinSvg} {...props} />;
+  return <Icon rev={undefined} component={UnpinSvg} {...props} />;
 }
 
 // HideIcon
 export function HideIcon(props: Partial<CustomIconComponentProps>) {
-  return <Icon component={HideSvg} {...props} />;
+  return <Icon rev={undefined} component={HideSvg} {...props} />;
 }
 
 // ShowIcon
 export function ShowIcon(props: Partial<CustomIconComponentProps>) {
-  return <Icon component={ShowSvg} {...props} />;
+  return <Icon rev={undefined} component={ShowSvg} {...props} />;
 }

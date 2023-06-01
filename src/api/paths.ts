@@ -8,9 +8,11 @@ export default {
   TOGGLE_PIN: (mediaId) => `/v1/media/${mediaId}/toggle-pin`,
   LOGOUT: '/v1/auth/logout',
   CURRENT_USER: '/v1/auth/current',
+  MEDIA_VISIBILITY: (mediaId: string) => `/v1/media/${mediaId}/hide-show-media`,
 };
 
 export const topics = Object.freeze({
   POSTS: '/media/ws',
   PINNEDPOST: '/media/ws/posts/pinned',
+  MEDIA_VISIBILITY: '/media/ws/posts/hidden',
 });

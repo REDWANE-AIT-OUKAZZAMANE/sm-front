@@ -17,6 +17,7 @@ import {
 } from '../components/CardsGrid/Card/animationSettings';
 import { pinedPost } from '../data/sources/PinnedPostSource';
 import { mediaPosts } from '../data/sources/PostsSource';
+import { hiddenPost } from '../data/sources/HiddenMediaSource';
 
 export interface AnimationContextProps {
   lastIndexRef: React.RefObject<number>;
@@ -41,6 +42,7 @@ export const AnimationContextProvider: React.FC<MyProviderProps> = ({
   const totalAnimationDuration = useRef(0);
   const postssourceRef = useRef(posts);
   const pinnedPostRef = useRef<Media | null>(null);
+  const { state: hiddenPostState } = useAsyncState(hiddenPost);
 
   const addToLastIndexRef = () => {
     if (lastIndexRef.current !== null) {
@@ -49,7 +51,9 @@ export const AnimationContextProvider: React.FC<MyProviderProps> = ({
   };
   const shiftList = () => {
     if (maxCards !== 0) {
-      const postssource = postssourceRef.current.filter((m) => !m.pinned);
+      const postssource = postssourceRef.current.filter(
+        (m) => !m.pinned && !m.hidden
+      );
       let newPostsList;
       if (postssource.length - lastIndexRef.current >= maxCards + 1) {
         newPostsList = postssource.slice(
@@ -130,7 +134,42 @@ export const AnimationContextProvider: React.FC<MyProviderProps> = ({
         }
       }
     }
-  }, [pinnedPostState]);
+  }, [pinnedPostState, posts]);
+
+  useEffect(() => {
+    if (hiddenPostState.status === Status.success) {
+      const toggledMedia = hiddenPostState.data;
+      if (toggledMedia) {
+        if (toggledMedia.hidden) {
+          // Hide the post
+          if (
+            pinnedPostRef.current &&
+            toggledMedia.id === pinnedPostRef.current.id
+          ) {
+            pinnedPostRef.current = null;
+          }
+        }
+        postssourceRef.current = posts.map((media) => {
+          if (media.id === toggledMedia.id)
+            return { ...media, hidden: toggledMedia.hidden };
+          return media;
+        });
+        if (postsList.some((m) => m.id === toggledMedia.id)) {
+          const newpostsList = postsList.map((media) => {
+            if (media.id === toggledMedia.id) {
+              return {
+                ...postssourceRef.current[lastIndexRef.current],
+                id: toggledMedia.id,
+              };
+            }
+            return media;
+          });
+          lastIndexRef.current += 1;
+          setPostsList(newpostsList);
+        }
+      }
+    }
+  }, [hiddenPostState, posts]);
 
   useEffect(() => {
     if (postsState.status === Status.success) {

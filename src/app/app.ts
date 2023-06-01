@@ -7,6 +7,7 @@ const myApp = {
   media: {
     search: api<Page<Media>, Error, never, [QueryParams]>(),
     toggle_media: api<AxiosResponse<any, any>, Error, any, [string]>(),
+    media_visibility: api<AxiosResponse<any, any>, Error, any, [string]>(),
   },
 };
 

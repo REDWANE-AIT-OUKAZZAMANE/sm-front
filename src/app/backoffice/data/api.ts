@@ -14,3 +14,6 @@ export const getCurrentUser = (): Promise<UserData | null> =>
   API.get(apiPaths.CURRENT_USER);
 export const togglePinMedia = (mediaId: string): Promise<AxiosResponse<void>> =>
   API.put(apiPaths.TOGGLE_PIN(mediaId));
+export const updateMediaVisibility = (
+  mediaId: string
+): Promise<AxiosResponse<void>> => API.put(apiPaths.MEDIA_VISIBILITY(mediaId));

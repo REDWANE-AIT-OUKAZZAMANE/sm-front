@@ -10,9 +10,11 @@ import Spinner from './components/Spinner';
 import { AnimationContextProvider } from './contexts/animationContext';
 import { pinedPost } from './data/sources/PinnedPostSource';
 import { announcement } from './components/AnnouncementOrPost/data/sources/AnnouncementSource';
+import { hiddenPost } from './data/sources/HiddenMediaSource';
 
 const defaultFilter = {
   sort: 'timestamp,desc',
+  'hidden.eq': false,
 };
 const Landing = () => {
   const { state: postsState } = useAsyncState(mediaPosts);
@@ -26,6 +28,7 @@ const Landing = () => {
             mediaPosts.run(defaultFilter);
             pinedPost.run();
             announcement.run();
+            hiddenPost.run();
           },
         },
       ],

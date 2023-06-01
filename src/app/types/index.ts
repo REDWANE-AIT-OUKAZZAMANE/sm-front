@@ -5,6 +5,7 @@ export type MediaChild = {
 };
 
 export type Media = {
+  visible: any;
   id: string;
   text?: string;
   type: 'VIDEO' | 'IMAGE' | 'CAROUSEL_ALBUM';
