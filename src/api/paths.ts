@@ -10,6 +10,9 @@ export default {
   CURRENT_USER: '/v1/auth/current',
   MEDIA_VISIBILITY: (mediaId: string) => `/v1/media/${mediaId}/hide-show-media`,
   WALL_SETTINGS: '/v1/wall/settings',
+  WALL_SETTINGS_LATEST: '/v1/wall/settings/latest',
+  WALL_SETTINGS_UPDATE: (settingsId: string) =>
+    `/v1/wall/settings/${settingsId}`,
 };
 
 export const topics = Object.freeze({

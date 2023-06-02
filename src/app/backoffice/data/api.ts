@@ -4,9 +4,9 @@ import apiPaths from '../../../api/paths';
 import { API } from '../../../api/index';
 import { UserData, WallSettings } from '../../types';
 
-export type WallSettingsCommande = {
+export type WallSettingsCommand = {
   title: string;
-  logo: File;
+  logo?: File;
 };
 
 export const getData = (email, password): Promise<AxiosResponse> =>
@@ -24,11 +24,11 @@ export const updateMediaVisibility = (
 ): Promise<AxiosResponse<void>> => API.put(apiPaths.MEDIA_VISIBILITY(mediaId));
 
 export const addWallSettings = (
-  wallSettings: WallSettingsCommande
+  wallSettings: WallSettingsCommand
 ): Promise<AxiosResponse<WallSettings>> => {
   const formData = new FormData();
 
-  formData.append('logo', wallSettings.logo);
+  formData.append('logo', wallSettings.logo as Blob);
   formData.append('title', wallSettings.title);
   return API.post(apiPaths.WALL_SETTINGS, formData, {
     headers: {
@@ -36,3 +36,24 @@ export const addWallSettings = (
     },
   });
 };
+
+export const updateWallSettings = (
+  wallSettingsId: string,
+  wallSettings: WallSettingsCommand
+): Promise<AxiosResponse<WallSettings>> => {
+  const formData = new FormData();
+
+  if (wallSettings.logo !== undefined && wallSettings.logo !== null) {
+    formData.append('logo', wallSettings.logo);
+  }
+
+  if (wallSettings.title) formData.append('title', wallSettings.title);
+  return API.patch(apiPaths.WALL_SETTINGS_UPDATE(wallSettingsId), formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+};
+
+export const getWallSettings = (): Promise<AxiosResponse<WallSettings>> =>
+  API.get(apiPaths.WALL_SETTINGS_LATEST);

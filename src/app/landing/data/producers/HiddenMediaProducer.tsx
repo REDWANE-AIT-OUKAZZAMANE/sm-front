@@ -17,7 +17,6 @@ export const subscribeToPostVisibility = (
   const sub = subscribe(topics.MEDIA_VISIBILITY, (message: string) => {
     try {
       const newMedia = JSON.parse(message);
-      console.log('post visibility status updated', newMedia);
       props.emit(() => newMedia);
     } catch (error) {
       console.error('Error parsing JSON:', error);

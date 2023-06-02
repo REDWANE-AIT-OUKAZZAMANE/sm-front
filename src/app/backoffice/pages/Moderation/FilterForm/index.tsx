@@ -68,14 +68,14 @@ function PostsFilter() {
             icon={
               <img src={filterIcon} alt="filterIcon" className="inline-block" />
             }
-            className="w-60 bg-dPurple font-['Lato'] text-center text-white hover:bg-[#492E65] focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 inline-flex items-center justify-center"
+            className="w-60 bg-dPurple font-['Lato'] text-center text-white hover:bg-darkPurple focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 inline-flex items-center justify-center"
             size="large"
             htmlType="submit"
           >
             <span className="text-white">Filter</span>
           </Button>
           <Button
-            className="bg-dPurple w-[40px] text-center text-white hover:bg-[#492E65] focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 inline-flex items-center justify-center "
+            className="bg-dPurple w-[40px] text-center text-white hover:bg-darkPurple focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 inline-flex items-center justify-center "
             size="large"
             htmlType="button"
             onClick={handleResetFields}

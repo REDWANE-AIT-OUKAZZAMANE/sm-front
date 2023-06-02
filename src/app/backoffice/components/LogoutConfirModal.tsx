@@ -38,7 +38,7 @@ const LogoutModal: React.FC<LogoutModalProps> = ({
 
           <button
             type="button"
-            className="flex-[2] text-center text-white bg-[#5F4080] hover:bg-[#492E65] focus:outline-none font-medium rounded-[10px] px-5 py-2.5 inline-flex items-center justify-center border-2 border-dPurple"
+            className="flex-[2] text-center text-white bg-[#5F4080] hover:bg-darkPurple focus:outline-none font-medium rounded-[10px] px-5 py-2.5 inline-flex items-center justify-center border-2 border-dPurple"
             style={{ marginLeft: 'auto' }}
             onClick={handelConfirm}
           >

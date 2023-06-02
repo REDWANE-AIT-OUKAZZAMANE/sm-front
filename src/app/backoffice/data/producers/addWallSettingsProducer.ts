@@ -1,7 +1,7 @@
 import { ProducerProps } from 'async-states';
 import { AxiosResponse } from 'axios';
 
-import { WallSettingsCommande, addWallSettings } from '../api';
+import { WallSettingsCommand, addWallSettings } from '../api';
 import { WallSettings } from '../../../types';
 
 export function addWallSettingsProducer(
@@ -9,9 +9,9 @@ export function addWallSettingsProducer(
     AxiosResponse<WallSettings>,
     Error,
     never,
-    [WallSettingsCommande]
+    [WallSettingsCommand]
   >
 ) {
-  const wallSettingsCommande = props.args[0];
-  return addWallSettings(wallSettingsCommande);
+  const wallSettingsCommand = props.args[0];
+  return addWallSettings(wallSettingsCommand);
 }
