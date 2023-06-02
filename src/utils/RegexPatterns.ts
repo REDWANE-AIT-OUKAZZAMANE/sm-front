@@ -3,6 +3,7 @@ const RegexPatterns = Object.freeze({
   password:
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
   wallTitle: /^(?=.*[a-z]).{5,}$/,
+  announcementTitle: /^[a-zA-Z0-9' -]{5,}$/,
 });
 
 export default RegexPatterns;

@@ -2,6 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .card-shaddow {
+    @apply border rounded-2xl overflow-hidden;
+    box-shadow: 0px 4.15814px 11.4349px rgba(0, 0, 0, 0.21);
+  }
+  .custom-scrollbar {
+    scrollbar-color: #cdd3e0 transparent;
+    scrollbar-width: thin;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    border-radius: 13px;
+    background: #cdd3e0;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #b3b9c9;
+  }
+}
+
+:root {
+  --border-grey: #8d91a0;
+}
+
 html {
   font-size: 62.5%;
 }

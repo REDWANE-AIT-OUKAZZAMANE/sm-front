@@ -1,0 +1,22 @@
+.ant-dropdown-menu {
+  padding: 15px 0 !important;
+
+  &-item {
+    color: #8d91a0 !important;
+    transition: color 200ms ease !important;
+
+    .icon {
+      transition: fill 200ms ease;
+
+      fill: #8d91a0;
+    }
+    &:hover {
+      color: black !important;
+      background-color: unset !important;
+
+      .icon {
+        fill: black;
+      }
+    }
+  }
+}

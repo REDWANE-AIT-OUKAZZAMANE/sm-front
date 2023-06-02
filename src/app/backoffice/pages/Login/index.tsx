@@ -69,7 +69,7 @@ function Login() {
           <Button
             size="large"
             htmlType="submit"
-            className="bg-[#66328E] text-white font-normal py-2 px-4 w-full rounded-lg uppercase"
+            className="bg-btnPurple text-white font-normal py-2 px-4 w-full rounded-lg uppercase"
             disabled={status === Status.pending}
           >
             {status === Status.pending ? (

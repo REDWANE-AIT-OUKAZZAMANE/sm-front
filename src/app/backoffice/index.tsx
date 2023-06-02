@@ -10,8 +10,8 @@ import Login from './pages/Login';
 import ProtectedRoutes from './pages/ProtectedRoutes/ProtectedRoutes';
 import NotFound from './pages/NotFound/NotFound';
 import Moderation from './pages/Moderation';
-import Spinner from '../landing/components/Spinner';
 import GeneralSettings from './pages/Settings/GeneralSettings';
+import Spinner from '../landing/components/Spinner';
 
 function Index() {
   const { state } = useAsyncState.auto(currentUserSource);
