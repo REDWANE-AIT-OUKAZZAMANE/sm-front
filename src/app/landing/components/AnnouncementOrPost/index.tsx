@@ -5,7 +5,6 @@ import utc from 'dayjs/plugin/utc';
 import { AxiosResponse } from 'axios';
 
 import Announcements from './Anouncments';
-import qrcode from '../../../../assets/qrcode.svg';
 import { announcement } from './data/sources/AnnouncementSource';
 import Card from '../CardsGrid/Card';
 import { getSocialMediaType } from '../../../utils';
@@ -72,30 +71,19 @@ const AnnoucementOrPost = () => {
     };
   }, [announcementState.data]);
 
-  return (
-    <div className="flex flex-col justify-between items-center ml-auto">
-      {!showAnnouncementNow ? (
-        post && (
-          <Card
-            key={post?.id}
-            media={post}
-            type={getSocialMediaType(post?.text || '', post?.source)}
-            maxCards={maxCards}
-            delay={0}
-            variantIsTall
-          />
-        )
-      ) : (
-        <Announcements data={(announcementState?.data as Test)?.content?.[0]} />
-      )}
-
-      <div className="flex items-center justify-center flex-col w-[25vh] mx-auto">
-        <p className="text-[2.2vh]">Engage with us</p>
-        <div className="max-w-[70%] flex items-center aspect-square rounded-2xl">
-          <img className="" src={qrcode} alt="qrcode" />
-        </div>
-      </div>
-    </div>
+  return !showAnnouncementNow ? (
+    post && (
+      <Card
+        key={post?.id}
+        media={post}
+        type={getSocialMediaType(post?.text || '', post?.source)}
+        maxCards={maxCards}
+        delay={0}
+        variantIsTall
+      />
+    )
+  ) : (
+    <Announcements data={(announcementState?.data as Test)?.content?.[0]} />
   );
 };
 

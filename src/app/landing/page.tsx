@@ -2,7 +2,6 @@ import { Status, useAsyncState } from 'react-async-states';
 
 import Header from './components/Header';
 import Cards from './components/CardsGrid';
-import AnnouncementOrPost from './components/AnnouncementOrPost';
 import Footer from './components/Footer';
 import { mediaPosts } from './data/sources/PostsSource';
 import { stompClientSource } from './data/sources/ClientSource';
@@ -43,7 +42,6 @@ const Landing = () => {
           {postsState.status === Status.success && (
             <AnimationContextProvider>
               <Cards />
-              <AnnouncementOrPost />
             </AnimationContextProvider>
           )}
           {postsState.status === Status.pending && (

@@ -5,6 +5,7 @@ import { Media } from '../../../types';
 import { getSocialMediaType } from '../../../utils';
 import { getAnimationDelay } from './Card/animationSettings';
 import MyContext from '../../contexts/animationContext';
+import AnnouncementOrPost from '../AnnouncementOrPost';
 
 export default function Cards() {
   const animationProps = useContext(MyContext);
@@ -12,7 +13,7 @@ export default function Cards() {
   return (
     <div
       ref={containerRef}
-      className="grow grid grid-cols-autofit overflow-y-hidden grid-rows-2 auto-rows-[0] gap-y-[1vw] gap-x-[2vw]"
+      className="h-[65vh] grow grid grid-cols-autofit overflow-hidden grid-rows-2 auto-rows-[0] gap-y-[1vw] gap-x-[2vw]"
     >
       {maxCards !== 0 &&
         postsList.length !== 0 &&
@@ -29,6 +30,7 @@ export default function Cards() {
               delay={getAnimationDelay(index, maxCards)}
             />
           ))}
+      <AnnouncementOrPost />
     </div>
   );
 }

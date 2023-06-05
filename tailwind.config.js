@@ -13,7 +13,7 @@ export default {
         dPurple: '#5F4080',
         lightGrey: '#C4C8CD',
         btnPurple: '#66328E',
-        darkPurple:"#492E65"
+        darkPurple: '#492E65',
       },
       fontSize: {
         dynamicXS: 'clamp(0.6rem, 0.5vw, 1.5rem)',
@@ -31,7 +31,7 @@ export default {
         '4/5': '4 / 3',
       },
       gridTemplateColumns: {
-        autofit: 'repeat(auto-fit, minmax(31vh,1fr))',
+        autofit: 'repeat(auto-fit, minmax(35vh,1fr))',
       },
     },
     fontFamily: {

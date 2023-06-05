@@ -210,7 +210,7 @@ export default function WallSettingss() {
                 validateTrigger="onBlur"
               >
                 <Input
-                  className="font-Lato text-[10px] w-[100%] p-[10px]"
+                  className="font-Lato text-[12px] w-[100%] p-[6px]"
                   placeholder="Enter your wall title here"
                 />
               </Form.Item>
@@ -228,7 +228,7 @@ export default function WallSettingss() {
               >
                 <Input
                   placeholder="Upload  your logo here"
-                  className="font-Lato text-[10px] w-[100%] p-[10px]"
+                  className="font-Lato text-[12px] w-[100%] p-[6px]"
                   value={wallSettings?.logoName ? wallSettings.logoName : ''}
                 />
               </Form.Item>
@@ -242,12 +242,12 @@ export default function WallSettingss() {
               maxCount={1}
               beforeUpload={beforeUpload}
             >
-              <Button className="w-[100%] h-100 mb-[15px] font-semibold font-Lato hover:bg-darkPurple focus:outline-none  bg-dPurple p-[18px]  text-center text-white rounded-lg text-[12px] inline-flex items-center justify-center">
+              <Button className="w-[100%] h-100 mb-[15px] font-semibold font-Lato hover:bg-darkPurple focus:outline-none  bg-dPurple p-[14px]  text-center text-white rounded-lg text-[12px] inline-flex items-center justify-center">
                 <span className="text-white">Upload logo</span>
               </Button>
             </Upload>
             <Button
-              className="w-[100%] h-100  bg-dPurple font-semibold font-Lato  hover:bg-darkPurple focus:outline-none p-[18px]  text-center text-white rounded-lg text-[12px] inline-flex items-center justify-center"
+              className="w-[100%] h-100  bg-dPurple font-semibold font-Lato  hover:bg-darkPurple focus:outline-none p-[14px]  text-center text-white rounded-lg text-[12px] inline-flex items-center justify-center"
               htmlType="submit"
               disabled={isButtonDisabled}
             >

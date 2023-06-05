@@ -72,17 +72,20 @@ const TextCard = ({
     }
     return variantsDown;
   };
+
   return (
     <motion.div
       initial="hidden"
       animate="visible"
       variants={getVariant()}
       transition={transitionCard}
+      style={{
+        gridColumnEnd: variantIsTall ? maxCards / 2 + 2 : 'auto',
+      }}
       className={classNames(
-        'relative overflow-hidden bg-gray-200/20 rounded-md px-[6%] flex flex-col gap-8 justify-center',
+        `relative overflow-hidden h-full bg-gray-200/20 rounded-md px-[6%] flex flex-col gap-8 justify-center  `,
         {
-          'aspect-[4.7/6.8] min-h-[37vh]': variantIsTall,
-          'h-full': !variantIsTall,
+          ' row-span-2 row-start-1 ': variantIsTall,
         }
       )}
     >
