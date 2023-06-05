@@ -57,3 +57,6 @@ export const updateWallSettings = (
 
 export const getWallSettings = (): Promise<AxiosResponse<WallSettings>> =>
   API.get(apiPaths.WALL_SETTINGS_LATEST);
+
+export const getAnnouncements = (): Promise<AxiosResponse<WallSettings>> =>
+  API.get(apiPaths.ANNOUNCEMENTS_LIST);

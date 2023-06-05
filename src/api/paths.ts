@@ -13,6 +13,7 @@ export default {
   WALL_SETTINGS_LATEST: '/v1/wall/settings/latest',
   WALL_SETTINGS_UPDATE: (settingsId: string) =>
     `/v1/wall/settings/${settingsId}`,
+  ANNOUNCEMENTS_LIST: '/v1/announcements',
 };
 
 export const topics = Object.freeze({

@@ -24,6 +24,7 @@ const myApp = {
       [string, WallSettingsCommand]
     >(),
     getWallSettings: api<AxiosResponse<WallSettings>, Error, never, never>(),
+    getAnnouncements: api<AxiosResponse<WallSettings>, Error, never, never>(),
   },
 };
 

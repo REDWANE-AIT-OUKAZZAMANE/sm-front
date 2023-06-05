@@ -56,7 +56,7 @@ function AnnounecementItem({ announcement }: AnnouncementItemProps) {
             {description}
           </p>
         </div>
-        <div>
+        <div className="w-[120px]">
           <h1 className="whitespace-nowrap text-[color:var(--border-grey)] font-bold text-lg mb-2">
             START DATE & TIME
           </h1>
@@ -69,7 +69,7 @@ function AnnounecementItem({ announcement }: AnnouncementItemProps) {
             </p>
           </div>
         </div>
-        <div>
+        <div className="w-[120px]">
           <h1 className="whitespace-nowrap text-[color:var(--border-grey)] font-bold text-lg mb-2">
             END DATE & TIME
           </h1>

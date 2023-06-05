@@ -47,6 +47,7 @@ export type Announcement = {
   description: string;
   startDate: Date;
   endDate: Date;
+  deleted?: boolean;
 };
 
 export type QueryParams = {};
