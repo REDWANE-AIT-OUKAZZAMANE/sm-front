@@ -13,25 +13,32 @@
     box-shadow: none;
     outline: none;
   }
+  .ant-select-item-option-content {
+    color: var(--border-grey);
+    font-size: 11px;
+  }
+  
+  .ant-image {
+    position: absolute;
+    left: 28.95%;
+    right: 28.12%;
+    top: 28.57%;
+    bottom: 28.57%;
+  }
+  
+  .ant-select-item.ant-select-item-option.ant-select-item-option-selected {
+    background-color: white;
+    color: black;
+  }
+  .ant-select-item-option-content:hover {
+    color: black;
+  }
+  .ant-btn:hover {
+    color: white;
+    border-color: transparent;
+  }
 }
 
-.ant-select-item-option-content {
-  color: var(--border-grey);
-  font-size: 11px;
-}
 
-.ant-image {
-  position: absolute;
-  left: 28.95%;
-  right: 28.12%;
-  top: 28.57%;
-  bottom: 28.57%;
-}
 
-.ant-select-item.ant-select-item-option.ant-select-item-option-selected {
-  background-color: white;
-  color: black;
-}
-.ant-select-item-option-content:hover {
-  color: black;
-}
+
