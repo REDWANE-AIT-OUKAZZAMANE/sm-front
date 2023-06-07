@@ -7,7 +7,7 @@ import checkmarkIcon from '../../../../../../assets/icons/checkmark.svg';
 import FormRules from '../../../../../../utils/FormRules';
 import './style.scss';
 
-function AnnouncementForm({ setAnnouncementList, closeForm }) {
+function AnnouncementForm({ closeForm }) {
   const [errors, setErrors] = useState<string[]>([]);
   const [form] = Form.useForm();
 
@@ -44,17 +44,8 @@ function AnnouncementForm({ setAnnouncementList, closeForm }) {
     }
   };
 
-  const onFinish = (values) => {
+  const onFinish = () => {
     setErrors([]);
-    setAnnouncementList((prev) => [
-      ...prev,
-      {
-        ...values,
-        id: `${Math.random()}`,
-        startDate: dayjs(values.startDate).toISOString(),
-        endDate: dayjs(values.endDate).toISOString(),
-      },
-    ]);
     form.resetFields();
     closeForm();
   };

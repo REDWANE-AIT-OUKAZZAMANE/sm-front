@@ -2,7 +2,11 @@ import { AxiosResponse } from 'axios';
 
 import apiPaths from '../../../api/paths';
 import { API } from '../../../api/index';
-import { UserData, WallSettings } from '../../types';
+import { Announcement, UserData, WallSettings } from '../../types';
+
+type AnnouncementResponse = {
+  content: Announcement[];
+};
 
 export type WallSettingsCommand = {
   title: string;
@@ -58,5 +62,6 @@ export const updateWallSettings = (
 export const getWallSettings = (): Promise<AxiosResponse<WallSettings>> =>
   API.get(apiPaths.WALL_SETTINGS_LATEST);
 
-export const getAnnouncements = (): Promise<AxiosResponse<WallSettings>> =>
-  API.get(apiPaths.ANNOUNCEMENTS_LIST);
+export const getAnnouncements = (): Promise<
+  AxiosResponse<AnnouncementResponse>
+> => API.get(apiPaths.ANNOUNCEMENTS_LIST);
