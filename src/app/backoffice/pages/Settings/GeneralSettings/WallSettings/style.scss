@@ -26,6 +26,13 @@
       background: #c4c8cd;
       border-color: #c4c8cd;
     }
+    &:active {
+      color: white;
+      border-color: #5f4080;
+    }
+    &:focus-visible {
+      outline: none;
+    }
   }
   .ant-upload {
     width: 100%;

@@ -38,11 +38,6 @@ function AnnouncementsSettings() {
       },
     });
 
-  const scrollbarVisible = useScrollbarVisible(
-    containerRef,
-    announcementsState.status
-  );
-
   const openAnnouncementForm = () => {
     setAnnouncementFormVisible(true);
     if (containerRef.current) {
@@ -50,8 +45,14 @@ function AnnouncementsSettings() {
     }
   };
 
+  const scrollbarVisible = useScrollbarVisible(
+    containerRef,
+    announcementsState.status,
+    openAnnouncementForm
+  );
+
   return (
-    <div className="announcement-container card-shaddow flex flex-col min-h-[300px] py-6 pl-[32px] pr-[32px] flex-1">
+    <div className="announcement-container card-shaddow flex flex-col py-6 pl-[32px] pr-[32px] flex-1">
       <div className="flex items-center justify-between h-[40px] mb-[22px]">
         <h1 className="text-[20px] font-semibold">Annoucements</h1>
         {announcementList.length > 0 && (
@@ -89,9 +90,10 @@ function AnnouncementsSettings() {
         <div
           ref={containerRef}
           className={classNames(
-            'custom-scrollbar pr-[12px] flex flex-col overflow-auto gap-[12px]',
+            'custom-scrollbar flex flex-col overflow-auto gap-[12px]',
             {
-              'pr-0': !scrollbarVisible,
+              'pr-[12px]': scrollbarVisible,
+              'pr-[0px]': !scrollbarVisible,
             }
           )}
         >

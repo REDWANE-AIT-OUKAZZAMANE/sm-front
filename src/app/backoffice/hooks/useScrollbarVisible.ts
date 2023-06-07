@@ -3,7 +3,8 @@ import { useEffect, useState, RefObject, useCallback } from 'react';
 
 export const useScrollbarVisible = (
   containerRef: RefObject<HTMLDivElement>,
-  containerFetchingStatus: Status
+  containerFetchingStatus: Status,
+  optionalTrigger?: any
 ) => {
   const [scrollbarVisible, setScrollbarVisible] = useState(false);
   const checkScrollbarVisibility = useCallback(() => {
@@ -25,7 +26,7 @@ export const useScrollbarVisible = (
   useEffect(() => {
     // Run the check initially when fetching is done to see wether the data is scrollable
     checkScrollbarVisibility();
-  }, [checkScrollbarVisibility, containerFetchingStatus]);
+  }, [checkScrollbarVisibility, containerFetchingStatus, optionalTrigger]);
 
   return scrollbarVisible;
 };
