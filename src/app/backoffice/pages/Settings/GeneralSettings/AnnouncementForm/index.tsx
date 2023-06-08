@@ -83,9 +83,7 @@ function AnnouncementForm({
   function onAddSuccess(result: any): void {
     if (result.data) {
       openSuccessNotification(
-        `The announcement has been successfully ${
-          annoucementData.id ? 'updated' : 'added'
-        }`
+        `The announcement has been successfully ${edit ? 'updated' : 'added'}`
       );
       runGetAnnouncements();
       form.resetFields();
@@ -94,7 +92,7 @@ function AnnouncementForm({
   }
   function onAddingError(): void {
     openErrorNotification(
-      `Error while ${annoucementData.id ? 'updating' : 'adding'} announcement`
+      `Error while ${edit ? 'updating' : 'adding'} announcement`
     );
   }
 

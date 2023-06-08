@@ -90,7 +90,7 @@ function AnnouncementsSettings() {
           >
             {announcementFormVisible && (
               <AnnouncementForm
-                runGetAnnouncements={() => runGetAnnouncements()}
+                runGetAnnouncements={runGetAnnouncements}
                 closeForm={() => setAnnouncementFormVisible(false)}
               />
             )}
