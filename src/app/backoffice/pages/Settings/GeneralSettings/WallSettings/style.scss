@@ -18,6 +18,8 @@
   }
   .ant-btn-default {
     border-color: #5f4080;
+    outline: none;
+    outline-color: transparent !important;
     &:not(:disabled):hover {
       border-color: #5f4080;
       box-shadow: 0 0px 0 rgba(0, 0, 0, 0.02);
