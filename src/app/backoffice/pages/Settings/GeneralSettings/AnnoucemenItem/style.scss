@@ -1,9 +1,15 @@
-.ant-dropdown-menu {
-  padding: 15px 0 !important;
+.announcement-dropdown {
+  padding: 10px 15px;
+  background-color: white;
+  border: 1px solid rgb(226,226,226);
+  border-radius: 20px;
+  font-family: 'Inter';
+  font-weight: 600 ;
 
-  &-item {
-    color: #8d91a0 !important;
-    transition: color 200ms ease !important;
+  button {
+    color: #8d91a0;
+    transition: color 200ms ease;
+    padding: 6px 0;
 
     .icon {
       transition: fill 200ms ease;

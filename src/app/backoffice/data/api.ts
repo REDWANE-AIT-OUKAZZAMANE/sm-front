@@ -24,11 +24,15 @@ export const getData = (email, password): Promise<AxiosResponse> =>
     email,
     password,
   });
+
 export const logout = (): Promise<AxiosResponse> => API.post(apiPaths.LOGOUT);
+
 export const getCurrentUser = (): Promise<UserData | null> =>
   API.get(apiPaths.CURRENT_USER);
+
 export const togglePinMedia = (mediaId: string): Promise<AxiosResponse<void>> =>
   API.put(apiPaths.TOGGLE_PIN(mediaId));
+
 export const updateMediaVisibility = (
   mediaId: string
 ): Promise<AxiosResponse<void>> => API.put(apiPaths.MEDIA_VISIBILITY(mediaId));
@@ -81,3 +85,9 @@ export const deleteAnnouncement = (
   announcementId: string
 ): Promise<AxiosResponse<void>> =>
   API.delete(apiPaths.DELETE_ANNOUNCEMENT(announcementId));
+
+export const updateAnnouncement = (
+  announcementId: string,
+  announcement: AnnouncementCommand
+): Promise<AxiosResponse<Announcement>> =>
+  API.patch(apiPaths.ANNOUNCEMENT_UPDATE(announcementId), announcement);

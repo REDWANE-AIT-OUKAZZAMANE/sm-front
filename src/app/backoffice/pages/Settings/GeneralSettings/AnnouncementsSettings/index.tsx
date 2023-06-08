@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Status } from 'async-states';
 import classNames from 'classnames';
 
-import AnnouncementForm from '../AnnounecementForm';
+import AnnouncementForm from '../AnnouncementForm';
 import AnnouncementItem from '../AnnoucemenItem';
 import { Announcement } from '../../../../../types';
 import { app } from '../../../../../app';
@@ -90,7 +90,7 @@ function AnnouncementsSettings() {
           >
             {announcementFormVisible && (
               <AnnouncementForm
-                refetchAnnouncement={() => runGetAnnouncements}
+                runGetAnnouncements={() => runGetAnnouncements()}
                 closeForm={() => setAnnouncementFormVisible(false)}
               />
             )}

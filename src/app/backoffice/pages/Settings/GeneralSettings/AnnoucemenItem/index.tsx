@@ -1,8 +1,9 @@
-import { Dropdown, MenuProps, notification } from 'antd';
-import dayjs from 'dayjs';
+import { Dropdown, notification } from 'antd';
 import { useState } from 'react';
+import dayjs from 'dayjs';
 
 import { Announcement } from '../../../../../types';
+import AnnouncementForm from '../AnnouncementForm';
 import dots from '../../../../../../assets/icons/vertical_dots.svg';
 import { ReactComponent as Pen } from '../../../../../../assets/icons/pen.svg';
 import { ReactComponent as Bin } from '../../../../../../assets/icons/bin.svg';
@@ -17,6 +18,31 @@ type AnnouncementItemProps = {
   runGetAnnouncemnets: () => void;
 };
 
+const dropdownMenu = (setEdit, setIsdeleteModalOpen) => (
+  <div className="announcement-dropdown">
+    <button
+      onClick={() => setEdit(true)}
+      type="button"
+      className="flex items-center mb-2"
+    >
+      <span className="mr-4">
+        <Pen className="icon" />
+      </span>{' '}
+      Edit announcement
+    </button>
+    <button
+      onClick={() => setIsdeleteModalOpen(true)}
+      type="button"
+      className="flex items-center mt-2"
+    >
+      <span className="mr-4">
+        <Bin className="icon" />
+      </span>{' '}
+      Delete announcement
+    </button>
+  </div>
+);
+
 function AnnouncementItem({
   announcement,
   runGetAnnouncemnets,
@@ -29,6 +55,7 @@ function AnnouncementItem({
     endDate,
   } = announcement;
   const [isDeleteModalOpen, setIsdeleteModalOpen] = useState(false);
+  const [edit, setEdit] = useState(false);
 
   function onDeleteSuccess() {
     notification.open({
@@ -63,36 +90,14 @@ function AnnouncementItem({
     setIsdeleteModalOpen(false);
   };
 
-  const items: MenuProps['items'] = [
-    {
-      label: (
-        <button type="button" className="flex items-center mb-2">
-          <span className="mr-4">
-            <Pen className="icon" />
-          </span>{' '}
-          Edit announcement
-        </button>
-      ),
-      key: '0',
-    },
-    {
-      label: (
-        <button
-          type="button"
-          className="flex items-center mt-2"
-          onClick={() => setIsdeleteModalOpen(true)}
-        >
-          <span className="mr-4">
-            <Bin className="icon" />
-          </span>{' '}
-          Delete announcement
-        </button>
-      ),
-      key: '1',
-    },
-  ];
-
-  return (
+  return edit ? (
+    <AnnouncementForm
+      closeForm={() => setEdit(false)}
+      edit
+      annoucementData={announcement}
+      runGetAnnouncements={runGetAnnouncemnets}
+    />
+  ) : (
     <div className="border-[#E2E2E2] rounded-2xl border p-[20px]">
       <div className="flex gap-10">
         <div className="max-w-[126px]">
@@ -136,7 +141,10 @@ function AnnouncementItem({
           </div>
         </div>
         <div className="flex items-center">
-          <Dropdown menu={{ items }} trigger={['click']}>
+          <Dropdown
+            trigger={['click']}
+            dropdownRender={() => dropdownMenu(setEdit, setIsdeleteModalOpen)}
+          >
             <button className="px-[10px] h-[20px]" type="button">
               <img src={dots} alt="fots" />
             </button>

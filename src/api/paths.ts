@@ -16,6 +16,8 @@ export default {
   ANNOUNCEMENTS_LIST: '/v1/announcements',
   DELETE_ANNOUNCEMENT: (announcementId: string) =>
     `/v1/announcements/${announcementId}`,
+  ANNOUNCEMENT_UPDATE: (announcementId: string) =>
+    `/v1/announcements/${announcementId}`,
 };
 
 export const topics = Object.freeze({

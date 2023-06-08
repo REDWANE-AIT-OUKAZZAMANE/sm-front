@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DatePicker, Input, Form, notification } from 'antd';
 import dayjs from 'dayjs';
 
@@ -10,8 +10,21 @@ import errorIcon from '../../../../../../assets/icons/errorIcon.svg';
 import './style.scss';
 import { app } from '../../../../../app';
 import { addAnnouncementProducer } from '../../../../data/producers/addAnnouncementProducer';
+import { updateAnnouncementProducer } from '../../../../data/producers/updateAnnouncementsProducer';
 
-function AnnouncementForm({ refetchAnnouncement, closeForm }) {
+interface AnnouncementFormProps {
+  closeForm: Function;
+  edit?: boolean;
+  annoucementData?: any;
+  runGetAnnouncements: Function;
+}
+
+function AnnouncementForm({
+  closeForm,
+  edit,
+  annoucementData,
+  runGetAnnouncements,
+}: AnnouncementFormProps) {
   const [errors, setErrors] = useState<string[]>([]);
   const [form] = Form.useForm();
 
@@ -69,33 +82,66 @@ function AnnouncementForm({ refetchAnnouncement, closeForm }) {
 
   function onAddSuccess(result: any): void {
     if (result.data) {
-      openSuccessNotification(`The announcement has been successfully added`);
-      refetchAnnouncement();
+      openSuccessNotification(
+        `The announcement has been successfully ${
+          annoucementData.id ? 'updated' : 'added'
+        }`
+      );
+      runGetAnnouncements();
       form.resetFields();
       closeForm();
     }
   }
   function onAddingError(): void {
-    openErrorNotification(`Error while  adding announcement`);
+    openErrorNotification(
+      `Error while ${annoucementData.id ? 'updating' : 'adding'} announcement`
+    );
   }
 
   const onFinish = (values) => {
-    console.log(values);
     setErrors([]);
-    app.wall.addAnnouncement
-      .inject(addAnnouncementProducer)()
-      .runc({
-        onSuccess: onAddSuccess,
-        onError: onAddingError,
-        args: [
-          {
-            ...values,
-            startDate: dayjs(values.startDate).toISOString(),
-            endDate: dayjs(values.endDate).toISOString(),
-          },
-        ],
-      });
+    if (edit) {
+      app.wall.updateAnnouncement
+        .inject(updateAnnouncementProducer)()
+        .runc({
+          onSuccess: onAddSuccess,
+          onError: onAddingError,
+          args: [
+            annoucementData.id,
+            {
+              ...values,
+              startDate: dayjs(values.startDate).toISOString(),
+              endDate: dayjs(values.endDate).toISOString(),
+            },
+          ],
+        });
+    } else {
+      app.wall.addAnnouncement
+        .inject(addAnnouncementProducer)()
+        .runc({
+          onSuccess: onAddSuccess,
+          onError: onAddingError,
+          args: [
+            {
+              ...values,
+              startDate: dayjs(values.startDate).toISOString(),
+              endDate: dayjs(values.endDate).toISOString(),
+            },
+          ],
+        });
+    }
   };
+
+  useEffect(() => {
+    if (edit) {
+      form.setFieldsValue({
+        title: annoucementData.title,
+        description: annoucementData.description,
+        startDate: dayjs(annoucementData.startDate),
+        endDate: dayjs(annoucementData.endDate),
+      });
+    }
+  }, [annoucementData, edit, form]);
 
   return (
     <div className="border-[#E2E2E2] rounded-2xl border p-[20px]">
@@ -173,7 +219,11 @@ function AnnouncementForm({ refetchAnnouncement, closeForm }) {
               alt="checkmark_icon"
             />
           </button>
-          <button className="cursor-pointer" type="button" onClick={closeForm}>
+          <button
+            className="cursor-pointer"
+            type="button"
+            onClick={() => closeForm()}
+          >
             <img className="w-5" src={xIcon} alt="x_icon" />
           </button>
         </div>
@@ -190,5 +240,4 @@ function AnnouncementForm({ refetchAnnouncement, closeForm }) {
     </div>
   );
 }
-
 export default AnnouncementForm;
