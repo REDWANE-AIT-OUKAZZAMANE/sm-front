@@ -14,6 +14,8 @@ export default {
   WALL_SETTINGS_UPDATE: (settingsId: string) =>
     `/v1/wall/settings/${settingsId}`,
   ANNOUNCEMENTS_LIST: '/v1/announcements',
+  DELETE_ANNOUNCEMENT: (announcementId: string) =>
+    `/v1/announcements/${announcementId}`,
 };
 
 export const topics = Object.freeze({

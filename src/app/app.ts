@@ -45,6 +45,8 @@ const myApp = {
       never,
       [AnnouncementCommand]
     >(),
+
+    deleteAnnouncement: api<AxiosResponse<void>, Error, any, [string]>(),
   },
 };
 

@@ -4,7 +4,7 @@ import { Status } from 'async-states';
 import classNames from 'classnames';
 
 import AnnouncementForm from '../AnnounecementForm';
-import AnnounecementItem from '../AnnoucemenItem';
+import AnnouncementItem from '../AnnoucemenItem';
 import { Announcement } from '../../../../../types';
 import { app } from '../../../../../app';
 import { getAnnouncementsProducer } from '../../../../data/producers/getAnnouncements';
@@ -97,9 +97,10 @@ function AnnouncementsSettings() {
 
             {announcementsState.data.data.content.map(
               (announcement: Announcement) => (
-                <AnnounecementItem
+                <AnnouncementItem
                   announcement={announcement}
                   key={announcement.id}
+                  runGetAnnouncemnets={runGetAnnouncements}
                 />
               )
             )}

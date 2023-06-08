@@ -76,3 +76,8 @@ export const addAnnouncement = (
   announcement: AnnouncementCommand
 ): Promise<AxiosResponse<Announcement>> =>
   API.post(apiPaths.ANNOUNCEMENTS_LIST, announcement);
+
+export const deleteAnnouncement = (
+  announcementId: string
+): Promise<AxiosResponse<void>> =>
+  API.delete(apiPaths.DELETE_ANNOUNCEMENT(announcementId));
