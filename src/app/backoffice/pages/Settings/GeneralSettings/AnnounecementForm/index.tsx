@@ -1,13 +1,17 @@
 import { useState } from 'react';
-import { DatePicker, Input, Form } from 'antd';
+import { DatePicker, Input, Form, notification } from 'antd';
 import dayjs from 'dayjs';
 
 import xIcon from '../../../../../../assets/icons/x.svg';
 import checkmarkIcon from '../../../../../../assets/icons/checkmark.svg';
 import FormRules from '../../../../../../utils/FormRules';
+import successIcon from '../../../../../../assets/icons/successIcon.svg';
+import errorIcon from '../../../../../../assets/icons/errorIcon.svg';
 import './style.scss';
+import { app } from '../../../../../app';
+import { addAnnouncementProducer } from '../../../../data/producers/addAnnouncementProducer';
 
-function AnnouncementForm({ closeForm }) {
+function AnnouncementForm({ refetchAnnouncement, closeForm }) {
   const [errors, setErrors] = useState<string[]>([]);
   const [form] = Form.useForm();
 
@@ -44,10 +48,53 @@ function AnnouncementForm({ closeForm }) {
     }
   };
 
-  const onFinish = () => {
+  function openErrorNotification(message) {
+    notification.open({
+      message: 'Error',
+      description: message,
+      placement: 'bottomRight',
+      duration: 3,
+      icon: <img src={errorIcon} alt="errorIcon" />,
+    });
+  }
+  function openSuccessNotification(message) {
+    notification.open({
+      message: 'Success',
+      description: message,
+      placement: 'bottomRight',
+      duration: 3,
+      icon: <img src={successIcon} alt="successIcon" />,
+    });
+  }
+
+  function onAddSuccess(result: any): void {
+    if (result.data) {
+      openSuccessNotification(`The announcement has been successfully added`);
+      refetchAnnouncement();
+      form.resetFields();
+      closeForm();
+    }
+  }
+  function onAddingError(): void {
+    openErrorNotification(`Error while  adding announcement`);
+  }
+
+  const onFinish = (values) => {
+    console.log(values);
     setErrors([]);
-    form.resetFields();
-    closeForm();
+    app.wall.addAnnouncement
+      .inject(addAnnouncementProducer)()
+      .runc({
+        onSuccess: onAddSuccess,
+        onError: onAddingError,
+        args: [
+          {
+            ...values,
+            startDate: dayjs(values.startDate).toISOString(),
+            endDate: dayjs(values.endDate).toISOString(),
+          },
+        ],
+      });
   };
 
   return (

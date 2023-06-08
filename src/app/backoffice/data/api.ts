@@ -12,6 +12,12 @@ export type WallSettingsCommand = {
   title: string;
   logo?: File;
 };
+export type AnnouncementCommand = {
+  title: string;
+  description: string;
+  startDate: Date;
+  endDate: Date;
+};
 
 export const getData = (email, password): Promise<AxiosResponse> =>
   API.post(apiPaths.LOGIN, {
@@ -65,3 +71,8 @@ export const getWallSettings = (): Promise<AxiosResponse<WallSettings>> =>
 export const getAnnouncements = (): Promise<
   AxiosResponse<AnnouncementResponse>
 > => API.get(apiPaths.ANNOUNCEMENTS_LIST);
+
+export const addAnnouncement = (
+  announcement: AnnouncementCommand
+): Promise<AxiosResponse<Announcement>> =>
+  API.post(apiPaths.ANNOUNCEMENTS_LIST, announcement);

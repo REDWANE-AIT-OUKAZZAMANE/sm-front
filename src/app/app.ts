@@ -2,7 +2,10 @@ import { api, createApplication } from 'react-async-states';
 import { AxiosResponse } from 'axios';
 
 import { Media, Page, QueryParams, WallSettings, Announcement } from './types';
-import { WallSettingsCommand } from './backoffice/data/api';
+import {
+  WallSettingsCommand,
+  AnnouncementCommand,
+} from './backoffice/data/api';
 
 type AnnouncementResponse = {
   content: Announcement[];
@@ -28,11 +31,19 @@ const myApp = {
       [string, WallSettingsCommand]
     >(),
     getWallSettings: api<AxiosResponse<WallSettings>, Error, never, never>(),
+
     getAnnouncements: api<
       AxiosResponse<AnnouncementResponse>,
       Error,
       never,
       never
+    >(),
+
+    addAnnouncement: api<
+      AxiosResponse<Announcement>,
+      Error,
+      never,
+      [AnnouncementCommand]
     >(),
   },
 };

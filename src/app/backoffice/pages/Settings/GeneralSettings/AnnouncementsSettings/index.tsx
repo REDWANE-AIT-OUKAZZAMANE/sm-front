@@ -90,6 +90,7 @@ function AnnouncementsSettings() {
           >
             {announcementFormVisible && (
               <AnnouncementForm
+                refetchAnnouncement={() => runGetAnnouncements}
                 closeForm={() => setAnnouncementFormVisible(false)}
               />
             )}
