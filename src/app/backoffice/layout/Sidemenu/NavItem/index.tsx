@@ -47,7 +47,7 @@ function NavItem({ item, active }) {
         <ul
           className={classNames(
             'nav-submenu pl-[47px] pr-2 pt-[4px] flex flex-col gap-2 relative after:bg-xPurple',
-            { animate }
+            { 'before:h-[54%]': item.subItems.length === 1, animate }
           )}
         >
           {item.subItems.map((subItem) => (
