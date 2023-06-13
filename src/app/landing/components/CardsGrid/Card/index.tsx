@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
 
+import PinnedIcon from './PinnedIcon';
 import VideoIcon from '../../../../../assets/icons/video.svg';
 import HighlightedText from '../HighlightedText';
 import {
@@ -89,6 +90,11 @@ const TextCard = ({
         }
       )}
     >
+      {media.pinned && (
+        <div className="absolute top-0 left-2 w-12 h-12 z-30">
+          <PinnedIcon />
+        </div>
+      )}
       {type === contentTypes.ANIMATED ? (
         <>
           <motion.div
