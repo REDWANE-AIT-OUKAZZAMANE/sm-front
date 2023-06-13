@@ -8,7 +8,7 @@ import { getWallSettingsProducer } from '../../../backoffice/data/producers/getW
 
 function Header() {
   const {
-    state: { responseData: header, isPending, isSuccess },
+    state: { responseData: headerData, isPending, isSuccess },
   } = useAsyncState({
     lazy: false,
     producer: getWallSettingsProducer,
@@ -23,11 +23,11 @@ function Header() {
         <>
           <img
             className="h-[8vh] max-h-sm"
-            src={header.data?.logoBase64}
+            src={headerData.data?.logoBase64}
             alt="logo"
           />
           <div className="text-3xl">
-            <span className="font-semibold">{header.data?.title}</span>
+            <span className="font-semibold">{headerData.data?.title}</span>
 
             <div className="flex items-center space-x-4 mt-2">
               <img className="w-7" src={IGIcon} alt="instagram icon" />

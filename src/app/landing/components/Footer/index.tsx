@@ -9,7 +9,7 @@ import Spinner from '../Spinner';
 
 function Footer() {
   const {
-    state: { responseData: footer, isPending, isSuccess },
+    state: { responseData: footerData, isPending, isSuccess },
   } = useAsyncState({
     lazy: false,
     source: footerSource,
@@ -30,7 +30,7 @@ function Footer() {
                 </p>
                 <img
                   className="max-h-[6vh] object-contain mt-1"
-                  src={footer?.logoUrl}
+                  src={footerData?.logoUrl}
                   alt="Logo"
                 />
               </div>
@@ -40,7 +40,7 @@ function Footer() {
                 </p>
                 <img
                   className="max-h-[6vh] object-contain mt-1"
-                  src={footer?.coOrganizer}
+                  src={footerData?.coOrganizer}
                   alt="coOrganizer"
                 />
               </div>
@@ -49,7 +49,7 @@ function Footer() {
                   Institutional Partners
                 </p>
                 <div className="flex gap-1">
-                  {footer?.institutionalPartners.map((source, index) => (
+                  {footerData?.institutionalPartners.map((source, index) => (
                     <img
                       // eslint-disable-next-line react/no-array-index-key
                       key={index}
@@ -66,7 +66,7 @@ function Footer() {
                 </p>
                 <div className="flex h-[80%] gap-5">
                   {Object.entries(sponsors).map(([type, typeName]) => {
-                    const sponsorImages = footer?.sponsors?.[type] || [];
+                    const sponsorImages = footerData?.sponsors?.[type] || [];
                     return (
                       <div key={type}>
                         <div className="flex gap-1 mb-2">
