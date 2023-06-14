@@ -1,5 +1,5 @@
 import { api, createApplication } from 'react-async-states';
-import { AxiosResponse } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 
 import { Media, Page, QueryParams, WallSettings, Announcement } from './types';
 import {
@@ -9,6 +9,9 @@ import {
 
 type AnnouncementResponse = {
   content: Announcement[];
+};
+type ErrorType = {
+  code: number;
 };
 
 const myApp = {
@@ -41,7 +44,7 @@ const myApp = {
 
     addAnnouncement: api<
       AxiosResponse<Announcement>,
-      Error,
+      AxiosError<ErrorType>,
       never,
       [AnnouncementCommand]
     >(),

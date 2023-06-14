@@ -8,6 +8,8 @@ export function errorCodeToMessage(code: number | undefined): string {
       return 'Constraints violation';
     case 10:
       return 'Your email/password are incorrect. Try again.';
+    case 13:
+      return 'Announcement date range overlaps with existing announcements';
 
     default:
       return 'Unknown error occured';

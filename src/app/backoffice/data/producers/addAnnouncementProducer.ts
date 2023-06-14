@@ -1,13 +1,17 @@
 import { ProducerProps } from 'async-states';
-import { AxiosResponse } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 
 import { Announcement } from '../../../types';
 import { AnnouncementCommand, addAnnouncement } from '../api';
 
+type ErrorType = {
+  code: number;
+};
+
 export function addAnnouncementProducer(
   props: ProducerProps<
     AxiosResponse<Announcement>,
-    Error,
+    AxiosError<ErrorType>,
     never,
     [AnnouncementCommand]
   >

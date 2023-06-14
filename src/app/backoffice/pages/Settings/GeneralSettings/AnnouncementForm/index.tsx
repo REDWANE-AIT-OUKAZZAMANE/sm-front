@@ -11,6 +11,7 @@ import './style.scss';
 import { app } from '../../../../../app';
 import { addAnnouncementProducer } from '../../../../data/producers/addAnnouncementProducer';
 import { updateAnnouncementProducer } from '../../../../data/producers/updateAnnouncementsProducer';
+import { errorCodeToMessage } from '../../../../../../api/errorCodeToMessage';
 
 interface AnnouncementFormProps {
   closeForm: Function;
@@ -61,10 +62,10 @@ function AnnouncementForm({
     }
   };
 
-  function openErrorNotification(message) {
+  function openErrorNotification(code) {
     notification.open({
       message: 'Error',
-      description: message,
+      description: errorCodeToMessage(code),
       placement: 'bottomRight',
       duration: 3,
       icon: <img src={errorIcon} alt="errorIcon" />,
@@ -90,10 +91,9 @@ function AnnouncementForm({
       closeForm();
     }
   }
-  function onAddingError(): void {
-    openErrorNotification(
-      `Error while ${edit ? 'updating' : 'adding'} announcement`
-    );
+
+  function onAddingError({ data }): void {
+    openErrorNotification(data?.response?.data?.code);
   }
 
   const onFinish = (values) => {
