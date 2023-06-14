@@ -1,10 +1,13 @@
-import FrontOffice from './app/landing/page';
-import BackOffice from './app/backoffice';
+import React from 'react';
+
 import NotFound from './app/backoffice/pages/NotFound/NotFound';
 
+const LazyFrontoffice = React.lazy(() => import('./app/landing/page'));
+const LazyBackoffice = React.lazy(() => import('./app/backoffice'));
+
 function App() {
-  if (window.location.pathname === '/') return <FrontOffice />;
-  if (window.location.pathname.startsWith('/admin')) return <BackOffice />;
+  if (window.location.pathname === '/') return <LazyFrontoffice />;
+  if (window.location.pathname.startsWith('/admin')) return <LazyBackoffice />;
   return (
     <div className="h-screen w-screen">
       <NotFound />
