@@ -20,3 +20,10 @@ export const removeUndefinedValues = (obj) =>
     }
     return acc;
   }, {});
+
+export const postTextLimiter = (text: string | undefined, limit: number) => {
+  if (text && text.length > limit) {
+    return `${text.slice(0, limit)} ...`;
+  }
+  return text || '';
+};

@@ -10,6 +10,7 @@ import HighlightedText from '../HighlightedText';
 import {
   contentTypes,
   mediaTypes,
+  postTextCharacter,
   socialMediaIcons,
   socialMediaSources,
 } from '../../../../utils/constants';
@@ -26,6 +27,7 @@ import {
   wallAnimationDelay,
   wallCardAnimationDuration,
 } from './animationSettings';
+import { postTextLimiter } from '../../../../utils';
 
 type CardProps = {
   media: Media;
@@ -133,7 +135,9 @@ const TextCard = ({
               variants={textAnimation}
               className="text-[1.5vh] z-10 text-justify leading-12"
             >
-              <HighlightedText text={media?.text} />
+              <HighlightedText
+                text={postTextLimiter(media?.text, postTextCharacter.limit)}
+              />
             </motion.div>
           )}
 
