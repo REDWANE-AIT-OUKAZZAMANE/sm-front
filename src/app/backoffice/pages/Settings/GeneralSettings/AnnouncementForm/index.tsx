@@ -43,7 +43,9 @@ function AnnouncementForm({
 
   // Validate start date making sure the selected date is after current time and start date when submitting
   const validateStartDate = (_, value, callback) => {
-    if (value && value < dayjs()) {
+    if (edit) {
+      callback();
+    } else if (value && value < dayjs()) {
       callback('Start date must be in the future.');
     } else {
       callback();
@@ -107,8 +109,8 @@ function AnnouncementForm({
           args: [
             annoucementData.id,
             {
-              ...values,
-              startDate: dayjs(values.startDate).toISOString(),
+              title: values.title,
+              description: values.description,
               endDate: dayjs(values.endDate).toISOString(),
             },
           ],
@@ -172,6 +174,7 @@ function AnnouncementForm({
               <DatePicker
                 placeholder="Start Date & Time"
                 showTime={{ format: 'HH:mm', showSecond: false }}
+                disabled={edit}
                 disabledDate={handleDisabledDate}
               />
             </Form.Item>

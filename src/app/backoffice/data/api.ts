@@ -12,11 +12,16 @@ export type WallSettingsCommand = {
   title: string;
   logo?: File;
 };
-export type AnnouncementCommand = {
+export type AnnouncementAddCommand = {
   title: string;
   description: string;
-  startDate: Date;
-  endDate: Date;
+  startDate: string;
+  endDate: string;
+};
+export type AnnouncementUpdateCommand = {
+  title: string;
+  description: string;
+  endDate: string;
 };
 
 export const getData = (email, password): Promise<AxiosResponse> =>
@@ -77,7 +82,7 @@ export const getAnnouncements = (): Promise<
 > => API.get(apiPaths.ANNOUNCEMENTS_LIST);
 
 export const addAnnouncement = (
-  announcement: AnnouncementCommand
+  announcement: AnnouncementAddCommand
 ): Promise<AxiosResponse<Announcement>> =>
   API.post(apiPaths.ANNOUNCEMENTS_LIST, announcement);
 
@@ -88,6 +93,6 @@ export const deleteAnnouncement = (
 
 export const updateAnnouncement = (
   announcementId: string,
-  announcement: AnnouncementCommand
+  announcement: AnnouncementUpdateCommand
 ): Promise<AxiosResponse<Announcement>> =>
   API.patch(apiPaths.ANNOUNCEMENT_UPDATE(announcementId), announcement);

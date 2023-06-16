@@ -1,7 +1,7 @@
 import { ProducerProps } from 'async-states';
 import { AxiosResponse } from 'axios';
 
-import { AnnouncementCommand, updateAnnouncement } from '../api';
+import { AnnouncementUpdateCommand, updateAnnouncement } from '../api';
 import { Announcement } from '../../../types';
 
 export function updateAnnouncementProducer(
@@ -9,7 +9,7 @@ export function updateAnnouncementProducer(
     AxiosResponse<Announcement>,
     Error,
     never,
-    [string, AnnouncementCommand]
+    [string, AnnouncementUpdateCommand]
   >
 ) {
   return updateAnnouncement(props.args[0], props.args[1]);

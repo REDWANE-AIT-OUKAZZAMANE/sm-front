@@ -4,7 +4,8 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { Media, Page, QueryParams, WallSettings, Announcement } from './types';
 import {
   WallSettingsCommand,
-  AnnouncementCommand,
+  AnnouncementAddCommand,
+  AnnouncementUpdateCommand,
 } from './backoffice/data/api';
 
 type AnnouncementResponse = {
@@ -46,7 +47,7 @@ const myApp = {
       AxiosResponse<Announcement>,
       AxiosError<ErrorType>,
       never,
-      [AnnouncementCommand]
+      [AnnouncementAddCommand]
     >(),
 
     deleteAnnouncement: api<AxiosResponse<void>, Error, any, [string]>(),
@@ -54,7 +55,7 @@ const myApp = {
       AxiosResponse<Announcement>,
       Error,
       never,
-      [string, AnnouncementCommand]
+      [string, AnnouncementUpdateCommand]
     >(),
   },
 };
