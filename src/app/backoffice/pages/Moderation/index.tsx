@@ -1,6 +1,6 @@
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useEffect, useState } from 'react';
-import { Skeleton } from 'antd';
+import { Skeleton, notification } from 'antd';
 import { ProducerProps, Status } from 'async-states';
 import { useLocation } from 'react-router-dom';
 import queryString from 'query-string';
@@ -15,6 +15,8 @@ import PostsFilter from './FilterForm';
 import './styles.scss';
 import { defaultPostsQueryParams } from '../../../utils/constants';
 import { MediaVisibilityProducer } from '../../data/producers/MediaVisibilityProducer';
+import errorIcon from '../../../../assets/icons/errorIcon.svg';
+import { errorCodeToMessage } from '../../../../api/errorCodeToMessage';
 
 async function searchMedia(
   props: ProducerProps<Page<Media>, Error, never, [QueryParams]>
@@ -46,6 +48,16 @@ function Moderation() {
   const [filter, setFilter] = useState(defaultPostsQueryParams);
   const [shouldRefetch, setShouldRefetch] = useState<boolean>(false);
 
+  const openErrorNotification = (code) => {
+    notification.open({
+      message: 'Error',
+      description: errorCodeToMessage(code),
+      placement: 'bottomRight',
+      duration: 5,
+      icon: <img src={errorIcon} alt="errorIcon" />,
+    });
+  };
+
   useEffect(() => {
     const parsedQueryParams = queryString.parse(location.search.slice(1), {
       parseBooleans: true,
@@ -71,6 +83,10 @@ function Moderation() {
         size: filter.size * (filter.page + 1),
         page: 0,
       });
+    }
+    if (toggleState.status === Status.error) {
+      const { data: toggleData } = toggleState as any;
+      openErrorNotification(toggleData.response?.data?.code);
     }
   }, [toggleState]);
 

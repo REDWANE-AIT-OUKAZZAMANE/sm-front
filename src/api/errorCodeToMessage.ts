@@ -10,6 +10,8 @@ export function errorCodeToMessage(code: number | undefined): string {
       return 'Your email/password are incorrect. Try again.';
     case 13:
       return 'Announcement date range overlaps with existing announcements';
+    case 14:
+      return "We can't pin a hidden post";
 
     default:
       return 'Unknown error occured';
