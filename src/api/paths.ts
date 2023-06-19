@@ -3,6 +3,7 @@ export default {
   HEADER: '/v1/header',
   FOOTER: '/v1/footer',
   LOGIN: '/v1/auth/login',
+  CURRENT_ANNOUNCEMENT: '/v1/announcements/CurrentAnnouncement',
   ANNOUNCEMENT:
     '/v1/announcements?page=0&size=1&sort=startDate,asc&endDate.after=',
   TOGGLE_PIN: (mediaId) => `/v1/media/${mediaId}/toggle-pin`,
@@ -22,6 +23,7 @@ export default {
 
 export const topics = Object.freeze({
   POSTS: '/media/ws',
+  ANNOUNCEMENTS: '/announcements/ws',
   PINNEDPOST: '/media/ws/posts/pinned',
   MEDIA_VISIBILITY: '/media/ws/posts/hidden',
 });

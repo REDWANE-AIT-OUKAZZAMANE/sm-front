@@ -8,8 +8,8 @@ import { stompClientSource } from './data/sources/ClientSource';
 import Spinner from './components/Spinner';
 import { AnimationContextProvider } from './contexts/animationContext';
 import { pinedPost } from './data/sources/PinnedPostSource';
-import { announcement } from './components/AnnouncementOrPost/data/sources/AnnouncementSource';
 import { hiddenPost } from './data/sources/HiddenMediaSource';
+import { announcements } from './data/sources/AnnouncementsSource';
 
 const defaultFilter = {
   sort: 'timestamp,desc',
@@ -26,7 +26,7 @@ const Landing = () => {
           handler() {
             mediaPosts.run(defaultFilter);
             pinedPost.run();
-            announcement.run();
+            announcements.run();
             hiddenPost.run();
           },
         },

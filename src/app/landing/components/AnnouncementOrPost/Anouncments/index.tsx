@@ -33,10 +33,9 @@ const Annoucements = ({ data }) => {
        row-span-2 row-start-1 h-full"
     >
       <img src={bell} alt="icon" className="w-[25%]" />
-      <h1 className="text-3xl font-semibold text-textOrange">ANNOUNCEMENTS</h1>
+      <h1 className="text-3xl font-semibold text-textOrange">{data?.title}</h1>
       <div className="text-xl text-center">
-        <h1 className="font-semibold text-2xl">{data?.title}</h1>
-        <p>{data?.description}</p>
+        <p className="break-all">{data?.description}</p>
       </div>
     </motion.div>
   );

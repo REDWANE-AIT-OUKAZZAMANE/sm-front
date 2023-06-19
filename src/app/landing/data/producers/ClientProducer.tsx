@@ -35,7 +35,6 @@ export function stompClientProducer(props: any): Promise<{
           client,
           subscribe: (topic, onMessage) => {
             const subscription = client.subscribe(topic, (frame) => {
-              console.log('frame', frame);
               onMessage(frame.body);
             });
 
