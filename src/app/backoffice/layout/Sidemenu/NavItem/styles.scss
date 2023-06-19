@@ -16,6 +16,12 @@
     background-color: #876b91;
     width: 2px;
   }
+  &.short-line {
+    &::before {
+      height: 30%;
+      width: 1px;
+    }
+  }
 
   // styling for the quarter circle that simulates lines being drawn from top to bottom, the z index is higher that the hooks lines and lower that the submenu buttons
   &::after {
