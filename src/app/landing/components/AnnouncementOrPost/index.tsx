@@ -27,9 +27,10 @@ const AnnoucementOrPost = () => {
     let startTimerId;
     let endTimerId;
 
-    if (announcementState.data && !('message' in announcementState.data)) {
-      const content = announcementState.data as Announcement;
-      if (content) {
+    if (announcementState.data) {
+      const content = announcementState.data as Announcement | string;
+      if (typeof content === 'string') setShowAnnoumcement(false);
+      if (typeof content !== 'string') {
         const { startDate, endDate } = content;
         const startTimer = dayjs().diff(startDate) * -1;
         const endTimer = dayjs().diff(endDate) * -1;

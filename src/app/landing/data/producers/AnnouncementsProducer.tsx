@@ -6,7 +6,7 @@ import { API } from '../../../../api';
 import { Announcement } from '../../../types';
 
 export const fetchAnnouncementAndSubscribe = (
-  props: ProducerProps<Announcement, Error, never, never>
+  props: ProducerProps<Announcement | string, Error, never, never>
 ) => {
   const controller = new AbortController();
   const clientState = stompClientSource.getState();
@@ -16,11 +16,15 @@ export const fetchAnnouncementAndSubscribe = (
   const { subscribe } = clientState.data;
 
   const sub = subscribe(topics.ANNOUNCEMENTS, (message) => {
-    try {
-      const newAnnouncement = JSON.parse(message);
-      props.emit(() => newAnnouncement);
-    } catch (error) {
-      console.error('Error parsing JSON:', error);
+    if (message !== 'NO_CURRENT_ANNOUNCEMENT_FOUND') {
+      try {
+        const newAnnouncement = JSON.parse(message);
+        props.emit(() => newAnnouncement);
+      } catch (error) {
+        console.error('Error parsing JSON:', error);
+      }
+    } else {
+      props.emit(() => 'No announcement found');
     }
   });
 
