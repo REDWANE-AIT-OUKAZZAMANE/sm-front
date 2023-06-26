@@ -18,6 +18,7 @@ interface AnnouncementFormProps {
   edit?: boolean;
   annoucementData?: any;
   runGetAnnouncements: Function;
+  setLoading: Function;
 }
 
 function AnnouncementForm({
@@ -25,6 +26,7 @@ function AnnouncementForm({
   edit,
   annoucementData,
   runGetAnnouncements,
+  setLoading,
 }: AnnouncementFormProps) {
   const [errors, setErrors] = useState<string[]>([]);
   const [form] = Form.useForm();
@@ -89,17 +91,20 @@ function AnnouncementForm({
         `The announcement has been successfully ${edit ? 'updated' : 'added'}`
       );
       runGetAnnouncements();
+      setLoading(false);
       form.resetFields();
       closeForm();
     }
   }
 
   function onAddingError({ data }): void {
+    setLoading(false);
     openErrorNotification(data?.response?.data?.code);
   }
 
   const onFinish = (values) => {
     setErrors([]);
+    setLoading(true);
     if (edit) {
       app.wall.updateAnnouncement
         .inject(updateAnnouncementProducer)()

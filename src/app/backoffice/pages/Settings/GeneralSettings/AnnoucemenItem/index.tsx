@@ -16,6 +16,7 @@ import errorIcon from '../../../../../../assets/icons/errorIcon.svg';
 type AnnouncementItemProps = {
   announcement: Announcement;
   runGetAnnouncemnets: () => void;
+  setLoading: Function;
 };
 
 const dropdownMenu = (setEdit, setIsdeleteModalOpen) => (
@@ -46,6 +47,7 @@ const dropdownMenu = (setEdit, setIsdeleteModalOpen) => (
 function AnnouncementItem({
   announcement,
   runGetAnnouncemnets,
+  setLoading,
 }: AnnouncementItemProps) {
   const {
     id: announcementId,
@@ -96,6 +98,7 @@ function AnnouncementItem({
       edit
       annoucementData={announcement}
       runGetAnnouncements={runGetAnnouncemnets}
+      setLoading={setLoading}
     />
   ) : (
     <div className="border-[#E2E2E2] rounded-2xl border p-[20px]">

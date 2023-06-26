@@ -17,6 +17,7 @@ function AnnouncementsSettings() {
     useState<boolean>(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
+  const [loading, setLoading] = useState(false);
 
   const { state: announcementsState, run: runGetAnnouncements } =
     app.wall.getAnnouncements.inject(getAnnouncementsProducer).useAsyncState();
@@ -55,9 +56,9 @@ function AnnouncementsSettings() {
             </Button>
           )}
       </div>
-      {announcementsState.status === Status.pending ? (
+      {announcementsState.status === Status.pending || loading ? (
         <div className="w-full grid place-items-center flex-1">
-          <Spinner className="w-12 h-12 mr-2 mb-[22px] text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" />
+          <Spinner className="w-12 h-12 mr-2 mb-[22px] text-gray-200 animate-spin dark:text-gray-600 fill-dPurple" />
         </div>
       ) : (
         announcementsState.status === Status.success &&
@@ -92,6 +93,7 @@ function AnnouncementsSettings() {
               <AnnouncementForm
                 runGetAnnouncements={runGetAnnouncements}
                 closeForm={() => setAnnouncementFormVisible(false)}
+                setLoading={setLoading}
               />
             )}
 
@@ -101,6 +103,7 @@ function AnnouncementsSettings() {
                   announcement={announcement}
                   key={announcement.id}
                   runGetAnnouncemnets={runGetAnnouncements}
+                  setLoading={setLoading}
                 />
               )
             )}
