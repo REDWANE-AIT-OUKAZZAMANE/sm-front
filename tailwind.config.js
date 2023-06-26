@@ -14,6 +14,7 @@ export default {
         lightGrey: '#C4C8CD',
         btnPurple: '#66328E',
         darkPurple: '#492E65',
+        lightRed:"#df797a"
       },
       fontSize: {
         dynamicXS: 'clamp(0.6rem, 0.5vw, 1.5rem)',

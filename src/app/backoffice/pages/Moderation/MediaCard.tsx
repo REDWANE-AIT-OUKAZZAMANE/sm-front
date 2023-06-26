@@ -59,6 +59,7 @@ export default function MediaCard(props: MediaCardProps) {
         `flex flex-col divide-y border rounded-2xl overflow-hidden shadow-md `,
         {
           ' order-[-1]': props.media.pinned,
+          'border-lightRed border-2': !props.media.clean,
         }
       )}
     >

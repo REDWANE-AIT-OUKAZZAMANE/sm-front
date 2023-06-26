@@ -24,6 +24,7 @@ export type Media = {
   children: MediaChild[];
   pinned: boolean;
   hidden: boolean;
+  clean: boolean;
 };
 
 export type HeaderData = {
