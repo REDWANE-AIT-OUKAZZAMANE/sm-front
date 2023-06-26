@@ -82,7 +82,7 @@ function AnnouncementsSettings() {
           <div
             ref={containerRef}
             className={classNames(
-              'custom-scrollbar flex flex-col overflow-auto gap-[12px]',
+              'custom-scrollbar flex flex-col overflow-auto gap-[12px] container-scroll',
               {
                 'pr-[12px]': scrollbarVisible,
                 'pr-[0px]': !scrollbarVisible,
