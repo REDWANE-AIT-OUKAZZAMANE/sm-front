@@ -26,6 +26,7 @@ const LogoutModal: React.FC<LogoutModalProps> = ({
       onCancel={onLogoutCancel}
       closeIcon={<img src={CloseIcon} alt="icon" />}
       className="font-poppins"
+      maskClosable={false}
       footer={
         <div className="flex items-center justify-between">
           <button
