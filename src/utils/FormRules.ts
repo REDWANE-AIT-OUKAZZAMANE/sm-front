@@ -41,10 +41,19 @@ const FormRules = Object.freeze<{ [key in Rules]: (args?: any) => Rule }>({
     message,
   }),
   announcementDescription: (
-    message = 'Description must contain a maximum of 200 characters'
+    messageMin = 'Description must contain a minimum of 25 characters',
+    messageMax = 'Description must contain a maximum of 200 characters'
   ) => ({
-    max: 200,
-    message,
+    pattern: RegexPatterns.announcementDescription,
+    validator: (rule, value, callback) => {
+      if (value && value.length < 25) {
+        callback(messageMin);
+      } else if (value && value.length > 200) {
+        callback(messageMax);
+      } else {
+        callback();
+      }
+    },
   }),
 });
 
