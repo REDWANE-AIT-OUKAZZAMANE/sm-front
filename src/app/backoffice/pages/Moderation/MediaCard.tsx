@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import { Tooltip } from 'antd';
 import { PlayCircleOutlined } from '@ant-design/icons';
+import classNames from 'classnames';
 
 import {
   PinIcon,
@@ -53,7 +54,14 @@ export default function MediaCard(props: MediaCardProps) {
   };
 
   return (
-    <div className="flex flex-col divide-y border rounded-2xl overflow-hidden shadow-md">
+    <div
+      className={classNames(
+        `flex flex-col divide-y border rounded-2xl overflow-hidden shadow-md `,
+        {
+          ' order-[-1]': props.media.pinned,
+        }
+      )}
+    >
       <div className="relative h-72">
         {renderMediaVisual()}
 
