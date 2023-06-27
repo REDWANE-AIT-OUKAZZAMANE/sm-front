@@ -43,6 +43,15 @@ function AnnouncementForm({
   const handleDisabledDate = (current) =>
     current && current < dayjs().startOf('day');
 
+  const handleDisabledEndDate = (current) => {
+    if (form.getFieldValue('startDate')) {
+      return (
+        current &&
+        current < dayjs(form.getFieldValue('startDate')).startOf('day')
+      );
+    }
+    return current && current < dayjs().startOf('day');
+  };
   // Validate start date making sure the selected date is after current time and start date when submitting
   const validateStartDate = (_, value, callback) => {
     if (edit) {
@@ -116,6 +125,9 @@ function AnnouncementForm({
             {
               title: values.title,
               description: values.description,
+              ...(dayjs(annoucementData.startDate) > dayjs() && {
+                startDate: dayjs(values.endDate).toISOString(),
+              }),
               endDate: dayjs(values.endDate).toISOString(),
             },
           ],
@@ -179,7 +191,7 @@ function AnnouncementForm({
               <DatePicker
                 placeholder="Start Date & Time"
                 showTime={{ format: 'HH:mm', showSecond: false }}
-                disabled={edit}
+                disabled={edit && dayjs(annoucementData.startDate) < dayjs()}
                 disabledDate={handleDisabledDate}
               />
             </Form.Item>
@@ -197,7 +209,7 @@ function AnnouncementForm({
               <DatePicker
                 placeholder="End Date & Time"
                 showTime={{ format: 'HH:mm', showSecond: false }}
-                disabledDate={handleDisabledDate}
+                disabledDate={handleDisabledEndDate}
               />
             </Form.Item>
           </div>

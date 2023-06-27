@@ -19,7 +19,11 @@ type AnnouncementItemProps = {
   setLoading: Function;
 };
 
-const dropdownMenu = (setEdit, setIsdeleteModalOpen) => (
+const dropdownMenu = (
+  setEdit,
+  setIsdeleteModalOpen,
+  setDropdownActionsOpen
+) => (
   <div className="announcement-dropdown">
     <button
       onClick={() => setEdit(true)}
@@ -32,7 +36,10 @@ const dropdownMenu = (setEdit, setIsdeleteModalOpen) => (
       Edit announcement
     </button>
     <button
-      onClick={() => setIsdeleteModalOpen(true)}
+      onClick={() => {
+        setIsdeleteModalOpen(true);
+        setDropdownActionsOpen(false);
+      }}
       type="button"
       className="flex items-center mt-2"
     >
@@ -58,6 +65,7 @@ function AnnouncementItem({
   } = announcement;
   const [isDeleteModalOpen, setIsdeleteModalOpen] = useState(false);
   const [edit, setEdit] = useState(false);
+  const [dropdownActionsOpen, setDropdownActionsOpen] = useState(false);
 
   function onDeleteSuccess() {
     notification.open({
@@ -146,7 +154,15 @@ function AnnouncementItem({
         <div className="flex items-center">
           <Dropdown
             trigger={['click']}
-            dropdownRender={() => dropdownMenu(setEdit, setIsdeleteModalOpen)}
+            open={dropdownActionsOpen}
+            onOpenChange={(open) => setDropdownActionsOpen(open)}
+            dropdownRender={() =>
+              dropdownMenu(
+                setEdit,
+                setIsdeleteModalOpen,
+                setDropdownActionsOpen
+              )
+            }
           >
             <button className="px-[10px] h-[20px]" type="button">
               <img src={dots} alt="fots" />

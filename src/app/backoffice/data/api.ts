@@ -21,6 +21,7 @@ export type AnnouncementAddCommand = {
 export type AnnouncementUpdateCommand = {
   title: string;
   description: string;
+  startDate?: string;
   endDate: string;
 };
 
