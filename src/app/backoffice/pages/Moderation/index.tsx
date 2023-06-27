@@ -149,11 +149,11 @@ function Moderation() {
   return (
     <div className="flex flex-col mx-[32px] mb-[17px] h-full">
       <PostsFilter />
-      <div
-        id="mainScrollableContent"
-        className="media-cards overflow-auto rounded-2xl shadow-xl border flex-1 h-full"
-      >
-        <div className="p-8">
+      <div className="media-cards__outer rounded-2xl shadow-xl overflow-auto border h-full">
+        <div
+          id="mainScrollableContent"
+          className="media-cards__inner custom-scrollbar overflow-auto  flex-1 h-full"
+        >
           <InfiniteScroll
             dataLength={allMedia.length}
             next={fetchMoreMedia}
