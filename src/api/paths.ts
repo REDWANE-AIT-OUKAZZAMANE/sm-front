@@ -23,7 +23,7 @@ export default {
 
 export const topics = Object.freeze({
   POSTS: '/media/ws',
-  ANNOUNCEMENTS: '/announcements/ws',
+  ANNOUNCEMENTS: '/topic/closest-announcement',
   PINNEDPOST: '/media/ws/posts/pinned',
   MEDIA_VISIBILITY: '/media/ws/posts/hidden',
 });

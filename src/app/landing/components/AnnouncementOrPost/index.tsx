@@ -1,4 +1,4 @@
-import { useAsyncState } from 'react-async-states';
+import { Status, useAsyncState } from 'react-async-states';
 import { useContext, useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
@@ -10,12 +10,23 @@ import { Announcement } from '../../../types';
 import AnimationContext, {
   AnimationContextProps,
 } from '../../contexts/animationContext';
-import { announcements } from '../../data/sources/AnnouncementsSource';
+import {
+  announcements,
+  closestAnnouncement,
+} from '../../data/sources/AnnouncementsSource';
 
 dayjs.extend(utc);
 
 const AnnoucementOrPost = () => {
-  const { state: announcementState, run } = useAsyncState(announcements) as any;
+  const [announcementToDisplay, setAnnouncementToDisplay] = useState<
+    string | Announcement
+  >('');
+
+  const { state: announcementState } = useAsyncState(announcements) as any;
+  const { state: closestAnnouncementState, run } = useAsyncState(
+    closestAnnouncement
+  ) as any;
+
   const [showAnnouncement, setShowAnnoumcement] = useState(false);
   const animationProps: AnimationContextProps | null =
     useContext(AnimationContext);
@@ -27,11 +38,10 @@ const AnnoucementOrPost = () => {
     let startTimerId;
     let endTimerId;
 
-    if (announcementState.data) {
-      const content = announcementState.data as Announcement | string;
-      if (typeof content === 'string') setShowAnnoumcement(false);
-      if (typeof content !== 'string') {
-        const { startDate, endDate } = content;
+    if (announcementToDisplay) {
+      if (typeof announcementToDisplay === 'string') setShowAnnoumcement(false);
+      if (typeof announcementToDisplay !== 'string') {
+        const { startDate, endDate } = announcementToDisplay;
         const startTimer = dayjs().diff(startDate) * -1;
         const endTimer = dayjs().diff(endDate) * -1;
 
@@ -55,6 +65,19 @@ const AnnoucementOrPost = () => {
       clearTimeout(startTimerId);
       clearTimeout(endTimerId);
     };
+  }, [announcementToDisplay]);
+
+  useEffect(() => {
+    if (closestAnnouncementState.status === Status.success) {
+      setAnnouncementToDisplay(closestAnnouncementState.data.content[0]);
+    }
+  }, [closestAnnouncementState]);
+
+  useEffect(() => {
+    if (announcementState.data) {
+      const content = announcementState.data as Announcement | string;
+      setAnnouncementToDisplay(content);
+    }
   }, [announcementState.data]);
 
   return !showAnnouncement ? (
