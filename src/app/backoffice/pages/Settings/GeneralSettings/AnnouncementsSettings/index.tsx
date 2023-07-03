@@ -15,9 +15,10 @@ import Spinner from '../../../../../landing/components/Spinner';
 function AnnouncementsSettings() {
   const [announcementFormVisible, setAnnouncementFormVisible] =
     useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [editedAnnouncement, setEditedAnnouncement] = useState<string>('');
 
   const containerRef = useRef<HTMLDivElement>(null);
-  const [loading, setLoading] = useState(false);
 
   const { state: announcementsState, run: runGetAnnouncements } =
     app.wall.getAnnouncements.inject(getAnnouncementsProducer).useAsyncState();
@@ -49,7 +50,7 @@ function AnnouncementsSettings() {
               size="large"
               htmlType="button"
               onClick={openAnnouncementForm}
-              disabled={announcementFormVisible}
+              disabled={announcementFormVisible || editedAnnouncement !== ''}
               className="bg-btnPurple text-white font-normal  py-2 px-4 w-[244px] rounded-lg"
             >
               Add announcement
@@ -104,6 +105,9 @@ function AnnouncementsSettings() {
                   key={announcement.id}
                   runGetAnnouncemnets={runGetAnnouncements}
                   setLoading={setLoading}
+                  editedAnnouncementId={editedAnnouncement}
+                  setEditedAnnouncementId={setEditedAnnouncement}
+                  announcementFormVisible={announcementFormVisible}
                 />
               )
             )}

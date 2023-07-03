@@ -1,5 +1,5 @@
 import { Dropdown, notification } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 
 import { Announcement } from '../../../../../types';
@@ -17,16 +17,19 @@ type AnnouncementItemProps = {
   announcement: Announcement;
   runGetAnnouncemnets: () => void;
   setLoading: Function;
+  editedAnnouncementId: string;
+  setEditedAnnouncementId: Function;
+  announcementFormVisible: boolean;
 };
 
 const dropdownMenu = (
-  setEdit,
+  editAnnouncement,
   setIsdeleteModalOpen,
   setDropdownActionsOpen
 ) => (
   <div className="announcement-dropdown">
     <button
-      onClick={() => setEdit(true)}
+      onClick={() => editAnnouncement(true)}
       type="button"
       className="flex items-center mb-2"
     >
@@ -55,6 +58,9 @@ function AnnouncementItem({
   announcement,
   runGetAnnouncemnets,
   setLoading,
+  editedAnnouncementId: editedAnnouncement,
+  setEditedAnnouncementId: setEditedAnnouncement,
+  announcementFormVisible: setAnnouncementFormVisible,
 }: AnnouncementItemProps) {
   const {
     id: announcementId,
@@ -66,6 +72,18 @@ function AnnouncementItem({
   const [isDeleteModalOpen, setIsdeleteModalOpen] = useState(false);
   const [edit, setEdit] = useState(false);
   const [dropdownActionsOpen, setDropdownActionsOpen] = useState(false);
+
+  useEffect(() => {
+    if (editedAnnouncement !== announcementId) {
+      setEdit(false);
+      setDropdownActionsOpen(false);
+    }
+  }, [editedAnnouncement]);
+
+  function editAnnouncement() {
+    setEdit(true);
+    setEditedAnnouncement(announcementId);
+  }
 
   function onDeleteSuccess() {
     notification.open({
@@ -102,7 +120,10 @@ function AnnouncementItem({
 
   return edit ? (
     <AnnouncementForm
-      closeForm={() => setEdit(false)}
+      closeForm={() => {
+        setEdit(false);
+        setEditedAnnouncement('');
+      }}
       edit
       annoucementData={announcement}
       runGetAnnouncements={runGetAnnouncemnets}
@@ -153,12 +174,13 @@ function AnnouncementItem({
         </div>
         <div className="flex items-center">
           <Dropdown
+            disabled={setAnnouncementFormVisible}
             trigger={['click']}
             open={dropdownActionsOpen}
             onOpenChange={(open) => setDropdownActionsOpen(open)}
             dropdownRender={() =>
               dropdownMenu(
-                setEdit,
+                editAnnouncement,
                 setIsdeleteModalOpen,
                 setDropdownActionsOpen
               )
