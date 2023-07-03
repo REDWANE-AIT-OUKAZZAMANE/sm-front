@@ -21,8 +21,8 @@ export type AnnouncementAddCommand = {
 export type AnnouncementUpdateCommand = {
   title: string;
   description: string;
-  startDate?: string;
   endDate: string;
+  startDate: string;
 };
 
 export const getData = (email, password): Promise<AxiosResponse> =>
@@ -80,7 +80,17 @@ export const getWallSettings = (): Promise<AxiosResponse<WallSettings>> =>
 
 export const getAnnouncements = (): Promise<
   AxiosResponse<AnnouncementResponse>
-> => API.get(apiPaths.ANNOUNCEMENTS_LIST);
+> => {
+  const currentDate = new Date();
+
+  const queryParameters = {
+    'endDate.after': currentDate.toISOString(),
+    sort: 'startDate,asc',
+  };
+  return API.get(apiPaths.ANNOUNCEMENTS_LIST, {
+    params: queryParameters,
+  });
+};
 
 export const addAnnouncement = (
   announcement: AnnouncementAddCommand

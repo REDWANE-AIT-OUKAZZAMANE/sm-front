@@ -129,6 +129,7 @@ function AnnouncementForm({
                 startDate: dayjs(values.endDate).toISOString(),
               }),
               endDate: dayjs(values.endDate).toISOString(),
+              startDate: dayjs(values.startDate).toISOString(),
             },
           ],
         });
