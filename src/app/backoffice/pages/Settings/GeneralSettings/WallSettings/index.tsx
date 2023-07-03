@@ -183,13 +183,13 @@ export default function WallSettingss() {
   };
 
   return (
-    <div className="p-[30px] wallSettings w-[100%]">
-      <h4 className="text-textBlack text-[20px] font-semibold mb-[20px]">
+    <div className="wallSettings w-[100%] p-[30px]">
+      <h4 className="mb-[20px] text-[20px] font-semibold text-textBlack">
         Wall Settings
       </h4>
       {wallSettingsState.status === Status.pending ? (
-        <div className="w-full grid place-items-center">
-          <Spinner className="w-12 h-12 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" />
+        <div className="grid w-full place-items-center">
+          <Spinner className="mr-2 h-12 w-12 animate-spin fill-blue-600 text-gray-200 dark:text-gray-600" />
         </div>
       ) : (
         <Form
@@ -200,7 +200,7 @@ export default function WallSettingss() {
         >
           <div className="flex w-[80%]  gap-2">
             <div className="w-[50%]">
-              <h2 className="font-backoffice text-textBlack text-[12px] font-semibold mb-[5px]">
+              <h2 className="font-backoffice mb-[5px] text-[12px] font-semibold text-textBlack">
                 Wall title *
               </h2>
               <Form.Item
@@ -210,13 +210,13 @@ export default function WallSettingss() {
                 validateTrigger="onBlur"
               >
                 <Input
-                  className="font-Lato text-[12px] w-[100%] p-[6px]"
+                  className="w-[100%] p-[6px] font-Lato text-[12px]"
                   placeholder="Enter your wall title here"
                 />
               </Form.Item>
             </div>
             <div className="w-[50%]">
-              <h2 className="font-backoffice text-textBlack text-[12px] font-semibold mb-[5px]">
+              <h2 className="font-backoffice mb-[5px] text-[12px] font-semibold text-textBlack">
                 Wall logo *
               </h2>
               <Form.Item
@@ -228,26 +228,26 @@ export default function WallSettingss() {
               >
                 <Input
                   placeholder="Upload  your logo here"
-                  className="font-Lato text-[12px] w-[100%] p-[6px]"
+                  className="w-[100%] p-[6px] font-Lato text-[12px]"
                   value={wallSettings?.logoName ? wallSettings.logoName : ''}
                 />
               </Form.Item>
             </div>
           </div>
 
-          <div className="grow mt-[24px]">
+          <div className="mt-[24px] grow">
             <Upload
               showUploadList={false}
               accept=".png,.jpeg,.svg"
               maxCount={1}
               beforeUpload={beforeUpload}
             >
-              <Button className="w-[100%] h-100 mb-[15px] font-semibold font-Lato hover:bg-darkPurple focus:outline-none  bg-dPurple p-[14px]  text-center text-white rounded-lg text-[12px] inline-flex items-center justify-center">
+              <Button className="h-100 mb-[15px] inline-flex w-[100%] items-center justify-center rounded-lg  bg-dPurple p-[14px]  text-center font-Lato text-[12px] font-semibold text-white hover:bg-darkPurple focus:outline-none">
                 <span className="text-white">Upload logo</span>
               </Button>
             </Upload>
             <Button
-              className="w-[100%] h-100  bg-dPurple font-semibold font-Lato  hover:bg-darkPurple focus:outline-none p-[14px]  text-center text-white rounded-lg text-[12px] inline-flex items-center justify-center"
+              className="h-100 inline-flex  w-[100%] items-center justify-center  rounded-lg bg-dPurple p-[14px]  text-center font-Lato text-[12px] font-semibold text-white hover:bg-darkPurple focus:outline-none"
               htmlType="submit"
               disabled={isButtonDisabled}
             >

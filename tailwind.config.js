@@ -14,7 +14,7 @@ export default {
         lightGrey: '#C4C8CD',
         btnPurple: '#66328E',
         darkPurple: '#492E65',
-        lightRed:"#df797a"
+        lightRed: '#df797a',
       },
       fontSize: {
         dynamicXS: 'clamp(0.6rem, 0.5vw, 1.5rem)',
@@ -27,6 +27,7 @@ export default {
       fontFamily: {
         backOffice: ['inter'],
         Lato: ['Lato'],
+        poppins: ['Poppins', 'sans-serif'],
       },
       aspectRatio: {
         '4/5': '4 / 3',
@@ -35,9 +36,5 @@ export default {
         autofit: 'repeat(auto-fit, minmax(35vh,1fr))',
       },
     },
-    fontFamily: {
-      poppins: ['Poppins', 'sans-serif'],
-    },
   },
-  plugins: [require('@tailwindcss/line-clamp')],
 };

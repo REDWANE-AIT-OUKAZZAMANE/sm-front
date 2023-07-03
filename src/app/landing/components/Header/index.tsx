@@ -17,19 +17,19 @@ function Header() {
   return (
     <div className="flex items-center justify-between">
       {isPending && (
-        <Spinner className="w-12 h-12 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" />
+        <Spinner className="mr-2 h-12 w-12 animate-spin fill-blue-600 text-gray-200 dark:text-gray-600" />
       )}
       {isSuccess && (
         <>
           <img
-            className="h-[8vh] max-h-sm"
+            className="max-h-sm h-[8vh]"
             src={headerData.data?.logoBase64}
             alt="logo"
           />
           <div className="text-3xl">
             <span className="font-semibold">{headerData.data?.title}</span>
 
-            <div className="flex items-center space-x-4 mt-2">
+            <div className="mt-2 flex items-center space-x-4">
               <img className="w-7" src={IGIcon} alt="instagram icon" />
               <img className="w-12" src={YoutubeIcon} alt="youtube icon" />
               <p className="ml-7">Join us live</p>

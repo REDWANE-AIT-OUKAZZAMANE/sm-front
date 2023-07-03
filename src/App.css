@@ -4,7 +4,7 @@
 
 @layer components {
   .card-shaddow {
-    @apply border rounded-2xl overflow-hidden;
+    @apply overflow-hidden rounded-2xl border;
     box-shadow: 0px 4.15814px 11.4349px rgba(0, 0, 0, 0.21);
   }
   .custom-scrollbar {

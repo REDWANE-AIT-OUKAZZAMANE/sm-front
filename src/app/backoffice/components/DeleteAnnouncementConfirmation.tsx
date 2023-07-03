@@ -30,7 +30,7 @@ const DeleteAnnouncementModal: React.FC<DeleteAnnouncementModalProps> = ({
         <div className="flex items-center justify-between">
           <button
             type="button"
-            className="flex-1 text-dPurple border-2 border-dPurple rounded-[10px] mr-[60px] text-center px-5 py-2.5 inline-flex items-center justify-center font-medium"
+            className="mr-[60px] inline-flex flex-1 items-center justify-center rounded-[10px] border-2 border-dPurple px-5 py-2.5 text-center font-medium text-dPurple"
             onClick={onDeleteCancel}
           >
             No
@@ -38,7 +38,7 @@ const DeleteAnnouncementModal: React.FC<DeleteAnnouncementModalProps> = ({
 
           <button
             type="button"
-            className="flex-[2] text-center text-white bg-[#5F4080] hover:bg-darkPurple focus:outline-none font-medium rounded-[10px] px-5 py-2.5 inline-flex items-center justify-center border-2 border-dPurple"
+            className="inline-flex flex-[2] items-center justify-center rounded-[10px] border-2 border-dPurple bg-[#5F4080] px-5 py-2.5 text-center font-medium text-white hover:bg-darkPurple focus:outline-none"
             style={{ marginLeft: 'auto' }}
             onClick={handelConfirm}
           >

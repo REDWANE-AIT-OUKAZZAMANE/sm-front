@@ -48,9 +48,9 @@ function Login() {
   }, [status, data]);
 
   return (
-    <div className="container flex h-screen w-full justify-center items-center max-w-full">
-      <Form onFinish={onFinish} className="w-1/4 min-w-[240px] mb-12">
-        <img src={logo} alt="Logo" className="mb-6 mx-auto scale-125" />
+    <div className="container flex h-screen w-full max-w-full items-center justify-center">
+      <Form onFinish={onFinish} className="mb-12 w-1/4 min-w-[240px]">
+        <img src={logo} alt="Logo" className="mx-auto mb-6 scale-125" />
         <Form.Item
           name="email"
           rules={[FormRules.required(), FormRules.email()]}
@@ -69,18 +69,18 @@ function Login() {
           <Button
             size="large"
             htmlType="submit"
-            className="bg-btnPurple text-white font-normal py-2 px-4 w-full rounded-lg uppercase"
+            className="w-full rounded-lg bg-btnPurple px-4 py-2 font-normal uppercase text-white"
             disabled={status === Status.pending}
           >
             {status === Status.pending ? (
-              <Spinner className="w-10 h-10 mx-auto text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" />
+              <Spinner className="mx-auto h-10 w-10 animate-spin fill-blue-600 text-gray-200 dark:text-gray-600" />
             ) : (
               'LOGIN'
             )}
           </Button>
         </Form.Item>
       </Form>
-      <div className="absolute bottom-48 left-0 w-full text-center text-gray-500 text-lg py-2">
+      <div className="absolute bottom-48 left-0 w-full py-2 text-center text-lg text-gray-500">
         All rights reserved @xHub
       </div>
     </div>

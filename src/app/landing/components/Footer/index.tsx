@@ -16,36 +16,36 @@ function Footer() {
     selector: defaultSelector,
   });
   return (
-    <div className="p-2 w-full flex justify-between items-center max-h-[15%]">
+    <div className="flex max-h-[15%] w-full items-center justify-between p-2">
       {isPending && (
-        <Spinner className="w-12 h-12 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" />
+        <Spinner className="mr-2 h-12 w-12 animate-spin fill-blue-600 text-gray-200 dark:text-gray-600" />
       )}
       {isSuccess && (
         <>
           <div className="h-full flex-1 pr-[2vw]">
-            <div className="flex h-[80%] gap-5 justify-between">
+            <div className="flex h-[80%] justify-between gap-5">
               <div>
-                <p className="text-dynamicM text-textOrange mb-4 h-[20%]">
+                <p className="mb-4 h-[20%] text-dynamicM text-textOrange">
                   Provided by
                 </p>
                 <img
-                  className="max-h-[6vh] object-contain mt-1"
+                  className="mt-1 max-h-[6vh] object-contain"
                   src={footerData?.logoUrl}
                   alt="Logo"
                 />
               </div>
               <div>
-                <p className="text-dynamicM text-textOrange mb-4 h-[20%]">
+                <p className="mb-4 h-[20%] text-dynamicM text-textOrange">
                   Organized By
                 </p>
                 <img
-                  className="max-h-[6vh] object-contain mt-1"
+                  className="mt-1 max-h-[6vh] object-contain"
                   src={footerData?.coOrganizer}
                   alt="coOrganizer"
                 />
               </div>
               <div>
-                <p className="text-dynamicM text-textOrange mb-4 h-[20%]">
+                <p className="mb-4 h-[20%] text-dynamicM text-textOrange">
                   Institutional Partners
                 </p>
                 <div className="flex gap-1">
@@ -53,7 +53,7 @@ function Footer() {
                     <img
                       // eslint-disable-next-line react/no-array-index-key
                       key={index}
-                      className="max-h-[6vh] object-contain overflow-hidden mt-1"
+                      className="mt-1 max-h-[6vh] overflow-hidden object-contain"
                       src={source}
                       alt="institutionalPartners"
                     />
@@ -61,7 +61,7 @@ function Footer() {
                 </div>
               </div>
               <div>
-                <p className="text-dynamicM text-textOrange mb-4 h-[20%]">
+                <p className="mb-4 h-[20%] text-dynamicM text-textOrange">
                   Sponsors
                 </p>
                 <div className="flex h-[80%] gap-5">
@@ -69,18 +69,18 @@ function Footer() {
                     const sponsorImages = footerData?.sponsors?.[type] || [];
                     return (
                       <div key={type}>
-                        <div className="flex gap-1 mb-2">
+                        <div className="mb-2 flex gap-1">
                           {sponsorImages.map((sponsor, index) => (
                             <img
                               // eslint-disable-next-line react/no-array-index-key
                               key={index}
-                              className="max-h-[6vh] object-contain overflow-hidden mt-1"
+                              className="mt-1 max-h-[6vh] overflow-hidden object-contain"
                               src={sponsor}
                               alt="sponsor"
                             />
                           ))}
                         </div>
-                        <p className="text-dynamicM text-textBlanc mb-4 h-[20%]">
+                        <p className="text-textBlanc mb-4 h-[20%] text-dynamicM">
                           {typeName}
                         </p>
                       </div>
@@ -91,14 +91,14 @@ function Footer() {
             </div>
           </div>
           <div className="">
-            <p className="flex h-full text-[1.8vw] items-baseline font-['Lato'] ml-auto">
+            <p className="ml-auto flex h-full items-baseline font-['Lato'] text-[1.8vw]">
               Made with{' '}
-              <img src={heart} alt="" className="w-[2vw] mx-2 relative top-1" />{' '}
+              <img src={heart} alt="" className="relative top-1 mx-2 w-[2vw]" />{' '}
               By{' '}
               <img
                 src={XLogo}
                 alt="logo"
-                className="w-[3.8vw] ml-2 relative top-1"
+                className="relative top-1 ml-2 w-[3.8vw]"
               />
             </p>
           </div>

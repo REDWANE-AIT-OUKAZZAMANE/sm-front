@@ -31,7 +31,7 @@ const dropdownMenu = (
     <button
       onClick={() => editAnnouncement(true)}
       type="button"
-      className="flex items-center mb-2"
+      className="mb-2 flex items-center"
     >
       <span className="mr-4">
         <Pen className="icon" />
@@ -44,7 +44,7 @@ const dropdownMenu = (
         setDropdownActionsOpen(false);
       }}
       type="button"
-      className="flex items-center mt-2"
+      className="mt-2 flex items-center"
     >
       <span className="mr-4">
         <Bin className="icon" />
@@ -130,44 +130,44 @@ function AnnouncementItem({
       setLoading={setLoading}
     />
   ) : (
-    <div className="border-[#E2E2E2] rounded-2xl border p-[20px]">
+    <div className="rounded-2xl border border-[#E2E2E2] p-[20px]">
       <div className="flex gap-10">
         <div className="max-w-[126px]">
-          <h1 className="whitespace-nowrap text-[color:var(--border-grey)] font-bold text-lg mb-2">
+          <h1 className="mb-2 whitespace-nowrap text-lg font-bold text-[color:var(--border-grey)]">
             ANNOUNCMENT TITLE
           </h1>
-          <p className="text-xl text-black font-medium">{title}</p>
+          <p className="text-xl font-medium text-black">{title}</p>
         </div>
         <div className="flex-1">
-          <h1 className="whitespace-nowrap text-[color:var(--border-grey)] font-bold text-lg mb-2">
+          <h1 className="mb-2 whitespace-nowrap text-lg font-bold text-[color:var(--border-grey)]">
             ANNOUNCMENT DESCRIPTION
           </h1>
-          <p className="text-xl break-all text-black font-medium">
+          <p className="break-all text-xl font-medium text-black">
             {description}
           </p>
         </div>
         <div className="w-[120px]">
-          <h1 className="whitespace-nowrap text-[color:var(--border-grey)] font-bold text-lg mb-2">
+          <h1 className="mb-2 whitespace-nowrap text-lg font-bold text-[color:var(--border-grey)]">
             START DATE & TIME
           </h1>
           <div>
-            <p className=" text-xl text-black font-medium">
+            <p className=" text-xl font-medium text-black">
               {dayjs(startDate).format('MMMM D, YYYY')}
             </p>
-            <p className=" text-xl text-black font-medium">
+            <p className=" text-xl font-medium text-black">
               {dayjs(startDate).format('h:mm A')}
             </p>
           </div>
         </div>
         <div className="w-[120px]">
-          <h1 className="whitespace-nowrap text-[color:var(--border-grey)] font-bold text-lg mb-2">
+          <h1 className="mb-2 whitespace-nowrap text-lg font-bold text-[color:var(--border-grey)]">
             END DATE & TIME
           </h1>
           <div>
-            <p className="text-xl text-black font-medium">
+            <p className="text-xl font-medium text-black">
               {dayjs(endDate).format('MMMM D, YYYY')}
             </p>
-            <p className="text-xl text-black font-medium">
+            <p className="text-xl font-medium text-black">
               {dayjs(endDate).format('h:mm A')}
             </p>
           </div>
@@ -186,7 +186,7 @@ function AnnouncementItem({
               )
             }
           >
-            <button className="px-[10px] h-[20px]" type="button">
+            <button className="h-[20px] px-[10px]" type="button">
               <img src={dots} alt="fots" />
             </button>
           </Dropdown>

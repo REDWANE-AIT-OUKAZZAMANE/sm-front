@@ -2,16 +2,16 @@ import pushpinBackground from '../../../../../assets/pushpinBackground.svg';
 import pushpin from '../../../../../assets/icons/pushpin.svg';
 
 const PinnedIcon = () => (
-  <div className="absolute top-0 left-2 w-15 h-20 z-30">
+  <div className="w-15 absolute left-2 top-0 z-30 h-20">
     <img
       src={pushpinBackground}
       alt="pushpin-background"
-      className="w-20 h-17"
+      className="h-17 w-20"
     />
     <img
       src={pushpin}
       alt="pushpin-icon"
-      className="w-8 h-6 absolute top-[38%] left-1/2 transform -translate-x-1/2 translate-y-0"
+      className="absolute left-1/2 top-[38%] h-6 w-8 -translate-x-1/2 translate-y-0 transform"
     />
   </div>
 );

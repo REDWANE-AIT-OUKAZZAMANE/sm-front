@@ -28,8 +28,8 @@ function Index() {
 
   if (loading) {
     return (
-      <div className="bg-white text-white w-screen h-screen flex items-center justify-center">
-        <Spinner className="w-12 h-12 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" />
+      <div className="flex h-screen w-screen items-center justify-center bg-white text-white">
+        <Spinner className="mr-2 h-12 w-12 animate-spin fill-blue-600 text-gray-200 dark:text-gray-600" />
       </div>
     );
   }
@@ -41,9 +41,9 @@ function Index() {
         path="/admin"
         element={
           <ProtectedRoutes user={loggedIn}>
-            <div className="h-[100vh] w-[100vw] flex font-backOffice">
+            <div className="flex h-[100vh] w-[100vw] font-backOffice">
               <Sidemenu userData={state.data} />
-              <div className="flex flex-col flex-1 h-screen ">
+              <div className="flex h-screen flex-1 flex-col ">
                 <Header />
                 <Content />
               </div>

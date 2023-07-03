@@ -28,7 +28,7 @@ function PostsFilter() {
   };
 
   return (
-    <div className="form flex items-center justify-between bg-white pb-2 font-['Lato'] mb-12">
+    <div className="form mb-12 flex items-center justify-between bg-white pb-2 font-['Lato']">
       <Form form={form} onFinish={onFinish} className="flex w-full">
         <Form.Item className="mb-0 mr-1" name="q">
           <Input
@@ -63,19 +63,19 @@ function PostsFilter() {
             ]}
           />
         </Form.Item>
-        <div className="flex items-center space-x-1 ml-auto">
+        <div className="ml-auto flex items-center space-x-1">
           <Button
             icon={
               <img src={filterIcon} alt="filterIcon" className="inline-block" />
             }
-            className="w-60 bg-dPurple font-['Lato'] text-center text-white hover:bg-darkPurple focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 inline-flex items-center justify-center"
+            className="inline-flex w-60 items-center justify-center rounded-lg bg-dPurple px-5 py-2.5 text-center font-['Lato'] text-sm font-medium text-white hover:bg-darkPurple focus:outline-none"
             size="large"
             htmlType="submit"
           >
             <span className="text-white">Filter</span>
           </Button>
           <Button
-            className="bg-dPurple w-[40px] text-center text-white hover:bg-darkPurple focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 inline-flex items-center justify-center "
+            className="inline-flex w-[40px] items-center justify-center rounded-lg bg-dPurple px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-darkPurple focus:outline-none "
             size="large"
             htmlType="button"
             onClick={handleResetFields}

@@ -13,7 +13,7 @@ export default function Cards() {
   return (
     <div
       ref={containerRef}
-      className="h-[65vh] grow grid grid-cols-autofit overflow-hidden grid-rows-2 auto-rows-[0] gap-y-[1vw] gap-x-[2vw]"
+      className="grid h-[65vh] grow auto-rows-[0] grid-cols-autofit grid-rows-2 gap-x-[2vw] gap-y-[1vw] overflow-hidden"
     >
       {maxCards !== 0 &&
         postsList.length !== 0 &&

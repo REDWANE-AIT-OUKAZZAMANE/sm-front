@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 
 function Content() {
   return (
-    <div className="max-h-[calc(100vh-113px)] mb-[20px] h-screen">
+    <div className="mb-[20px] h-screen max-h-[calc(100vh-113px)]">
       <Outlet />
     </div>
   );

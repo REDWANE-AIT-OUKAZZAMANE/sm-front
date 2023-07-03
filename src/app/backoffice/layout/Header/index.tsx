@@ -44,13 +44,13 @@ function Header() {
   }, [pathname]);
 
   return (
-    <div className=" h-[88px] flex justify-between items-center px-[34px]">
+    <div className=" flex h-[88px] items-center justify-between px-[34px]">
       <LogoutModal
         onLogoutConfirm={handleLogout}
         onLogoutCancel={handleCancelLogout}
         showLogoutModal={isLogoutModalOpen}
       />
-      <h1 className="text-textBlack text-[27px] font-semibold">{title}</h1>
+      <h1 className="text-[27px] font-semibold text-textBlack">{title}</h1>
       <button
         type="button"
         className="cursor-pointer"

@@ -14,7 +14,7 @@ export function stompClientProducer(props: any): Promise<{
     const socket = new Sockjs(API_URL);
     const client = Stomp.over(() => socket);
 
-    client.debug = console.log;
+    // client.debug = console.log;
 
     client.connect(
       {},

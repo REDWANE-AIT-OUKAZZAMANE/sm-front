@@ -86,14 +86,14 @@ const TextCard = ({
         gridColumnEnd: variantIsTall ? maxCards / 2 + 2 : 'auto',
       }}
       className={classNames(
-        `relative overflow-hidden h-full bg-gray-200/20 rounded-md px-[6%] flex flex-col gap-8 justify-center  `,
+        `relative flex h-full flex-col justify-center gap-8 overflow-hidden rounded-md bg-gray-200/20 px-[6%]  `,
         {
           ' row-span-2 row-start-1 ': variantIsTall,
         }
       )}
     >
       {media.pinned && (
-        <div className="absolute top-0 left-2 w-12 h-12 z-30">
+        <div className="absolute left-2 top-0 z-30 h-12 w-12">
           <PinnedIcon />
         </div>
       )}
@@ -104,19 +104,19 @@ const TextCard = ({
             animate="animate"
             transition={{ ...CardDescirptiontransition, repeatType: 'reverse' }}
             variants={textAnimation}
-            className="flex items-center z-10"
+            className="z-10 flex items-center"
           >
-            <div className="h-[4.6vh] rounded-full aspect-square overflow-hidden mr-[3.8%]">
+            <div className="mr-[3.8%] aspect-square h-[4.6vh] overflow-hidden rounded-full">
               {media?.owner && (
                 <img
-                  className="object-cover h-full"
+                  className="h-full object-cover"
                   src={media?.owner.avatar}
                   alt="user"
                 />
               )}
             </div>
             <div>
-              <div className="font-bold text-[1.7vh]">
+              <div className="text-[1.7vh] font-bold">
                 {media?.owner ? media?.owner.username : 'Unknown'}
               </div>
               <div className="text-[1.2vh] text-textMuted">
@@ -133,7 +133,7 @@ const TextCard = ({
                 repeatType: 'reverse',
               }}
               variants={textAnimation}
-              className="text-[1.5vh] z-10 text-justify leading-12"
+              className="leading-12 z-10 text-justify text-[1.5vh]"
             >
               <HighlightedText
                 text={postTextLimiter(media?.text, postTextCharacter.limit)}
@@ -146,7 +146,7 @@ const TextCard = ({
             animate="animate"
             variants={opacityAnimation}
             transition={{ ...CardDescirptiontransition, repeatType: 'reverse' }}
-            className="absolute w-[80%] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-dynamicIcon z-[5]"
+            className="absolute left-1/2 top-1/2 z-[5] w-[80%] -translate-x-1/2 -translate-y-1/2 transform text-dynamicIcon"
           >
             <img
               src={media?.source && socialMediaIcons[media?.source]?.default}
@@ -160,25 +160,25 @@ const TextCard = ({
             animate="animate"
             variants={opacityAnimation}
             transition={{ ...CardDescirptiontransition, repeatType: 'reverse' }}
-            className="w-[100%] h-[100%] top-0 left-0 z-[7] absolute bg-gradient-to-t from-black to-gray-700/60"
+            className="absolute left-0 top-0 z-[7] h-[100%] w-[100%] bg-gradient-to-t from-black to-gray-700/60"
           />
         </>
       ) : (
-        <div className="w-full right-0 absolute bottom-0 flex items-center justify-between z-[20] backdrop-blur-[30px] h-[13%]">
-          <div className="h-full flex items-center pl-[3.6%]">
+        <div className="absolute bottom-0 right-0 z-[20] flex h-[13%] w-full items-center justify-between backdrop-blur-[30px]">
+          <div className="flex h-full items-center pl-[3.6%]">
             {media?.owner && (
               <img
-                className="mr-[5%] h-[70%] aspect-square object-cover rounded-full"
+                className="mr-[5%] aspect-square h-[70%] rounded-full object-cover"
                 src={media?.owner.avatar}
                 alt="card"
               />
             )}
 
             <div>
-              <p className="font-bold text-white text-[1.2vh] leading-1 whitespace-nowrap">
+              <p className="leading-1 whitespace-nowrap text-[1.2vh] font-bold text-white">
                 {media?.owner ? media?.owner.username : 'Unknown'}
               </p>
-              <p className="text-white text-[0.8vh] whitespace-nowrap">
+              <p className="whitespace-nowrap text-[0.8vh] text-white">
                 {dayjs(media?.timestamp).format('DD MMM YYYY')}
               </p>
             </div>
@@ -195,8 +195,8 @@ const TextCard = ({
       )}
 
       {media?.source === socialMediaSources.YOUTUBE ? (
-        <div className="w-full h-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
-          <div className="w-full h-full absolute z-10">
+        <div className="absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 transform ">
+          <div className="absolute z-10 h-full w-full">
             <ReactPlayer
               width="100%"
               height="100%"
@@ -210,28 +210,28 @@ const TextCard = ({
           </div>
         </div>
       ) : media?.type === mediaTypes.VIDEO ? (
-        <div className="w-full h-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
-          <div className="w-full h-full absolute z-10">
+        <div className="absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 transform ">
+          <div className="absolute z-10 h-full w-full">
             <img
               src={VideoIcon}
               alt="video-icon"
               className="absolute right-5 top-5 w-[12%]"
             />
 
-            <video loop autoPlay muted className="w-full h-full object-contain">
+            <video loop autoPlay muted className="h-full w-full object-contain">
               <source src={media?.url} type="video/mp4" />
             </video>
           </div>
-          <div className="w-full h-full absolute blur-lg">
-            <video muted className="w-full h-full object-cover">
+          <div className="absolute h-full w-full blur-lg">
+            <video muted className="h-full w-full object-cover">
               <source src={media?.url} type="video/mp4" />
             </video>
           </div>
         </div>
       ) : (
-        <div className="w-full h-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
+        <div className="absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 transform ">
           <motion.img
-            className="object-cover w-full h-full"
+            className="h-full w-full object-cover"
             src={media?.url}
             alt="background-img"
             initial={type === contentTypes.ANIMATED && 'initial'}

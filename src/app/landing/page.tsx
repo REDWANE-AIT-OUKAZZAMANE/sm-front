@@ -35,18 +35,18 @@ const Landing = () => {
   });
 
   return clientState.status === Status.success ? (
-    <div className="bg-darkBlue min-h-screen w-screen">
-      <div className="text-white flex flex-col justify-between min-h-screen px-8 pt-5">
+    <div className="min-h-screen w-screen bg-darkBlue">
+      <div className="flex min-h-screen flex-col justify-between px-8 pt-5 text-white">
         <Header />
-        <div className="grow flex gap-x-[2vw] flex-1 justify-between items-stretch w-full my-[4vh]">
+        <div className="my-[4vh] flex w-full flex-1 grow items-stretch justify-between gap-x-[2vw]">
           {postsState.status === Status.success && (
             <AnimationContextProvider>
               <Cards />
             </AnimationContextProvider>
           )}
           {postsState.status === Status.pending && (
-            <div className="w-full grid place-items-center">
-              <Spinner className="w-12 h-12 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" />
+            <div className="grid w-full place-items-center">
+              <Spinner className="mr-2 h-12 w-12 animate-spin fill-blue-600 text-gray-200 dark:text-gray-600" />
             </div>
           )}
         </div>
@@ -54,8 +54,8 @@ const Landing = () => {
       </div>
     </div>
   ) : (
-    <div className="bg-darkBlue text-white w-screen h-screen flex items-center justify-center">
-      <Spinner className="w-12 h-12 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" />
+    <div className="flex h-screen w-screen items-center justify-center bg-darkBlue text-white">
+      <Spinner className="mr-2 h-12 w-12 animate-spin fill-blue-600 text-gray-200 dark:text-gray-600" />
     </div>
   );
 };

@@ -29,12 +29,12 @@ const Annoucements = ({ data }) => {
       style={{
         gridColumnEnd: maxCards / 2 + 2,
       }}
-      className="relative overflow-hidden  rounded-md p-[6%] flex flex-col gap-8 justify-center items-center border-[5px] border-textOrange 
-       row-span-2 row-start-1 h-full"
+      className="relative row-span-2  row-start-1 flex h-full flex-col items-center justify-center gap-8 overflow-hidden rounded-md 
+       border-[5px] border-textOrange p-[6%]"
     >
       <img src={bell} alt="icon" className="w-[25%]" />
       <h1 className="text-3xl font-semibold text-textOrange">{data?.title}</h1>
-      <div className="text-xl text-center">
+      <div className="text-center text-xl">
         <p className="break-all">{data?.description}</p>
       </div>
     </motion.div>

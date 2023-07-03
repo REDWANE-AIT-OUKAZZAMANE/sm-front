@@ -37,12 +37,13 @@ function AnnouncementsSettings() {
   );
 
   useEffect(() => {
+    // @ts-ignore
     runGetAnnouncements();
   }, [runGetAnnouncements]);
 
   return (
-    <div className="announcement-container card-shaddow flex flex-col py-6 pl-[32px] pr-[32px] flex-1">
-      <div className="flex items-center justify-between h-[40px] mb-[22px]">
+    <div className="announcement-container card-shaddow flex flex-1 flex-col py-6 pl-[32px] pr-[32px]">
+      <div className="mb-[22px] flex h-[40px] items-center justify-between">
         <h1 className="text-[20px] font-semibold">Annoucements</h1>
         {announcementsState.status === Status.success &&
           announcementsState.data.data.content.length > 0 && (
@@ -51,22 +52,22 @@ function AnnouncementsSettings() {
               htmlType="button"
               onClick={openAnnouncementForm}
               disabled={announcementFormVisible || editedAnnouncement !== ''}
-              className="bg-btnPurple text-white font-normal  py-2 px-4 w-[244px] rounded-lg"
+              className="w-[244px] rounded-lg bg-btnPurple  px-4 py-2 font-normal text-white"
             >
               Add announcement
             </Button>
           )}
       </div>
       {announcementsState.status === Status.pending || loading ? (
-        <div className="w-full grid place-items-center flex-1">
-          <Spinner className="w-12 h-12 mr-2 mb-[22px] text-gray-200 animate-spin dark:text-gray-600 fill-dPurple" />
+        <div className="grid w-full flex-1 place-items-center">
+          <Spinner className="mb-[22px] mr-2 h-12 w-12 animate-spin fill-dPurple text-gray-200 dark:text-gray-600" />
         </div>
       ) : (
         announcementsState.status === Status.success &&
         (announcementsState.data.data.content.length === 0 &&
         !announcementFormVisible ? (
-          <div className="flex-1 flex flex-col gap-10 items-center justify-center">
-            <p className="text-[color:var(--border-grey)] text-[16px]">
+          <div className="flex flex-1 flex-col items-center justify-center gap-10">
+            <p className="text-[16px] text-[color:var(--border-grey)]">
               Please click on the button bellow to start creating the
               announcements.
             </p>
@@ -74,7 +75,7 @@ function AnnouncementsSettings() {
               size="large"
               htmlType="button"
               onClick={openAnnouncementForm}
-              className="bg-btnPurple text-white font-normal  py-2 px-4 w-[264px] rounded-lg"
+              className="w-[264px] rounded-lg bg-btnPurple  px-4 py-2 font-normal text-white"
             >
               Add announcement
             </Button>
@@ -83,7 +84,7 @@ function AnnouncementsSettings() {
           <div
             ref={containerRef}
             className={classNames(
-              'custom-scrollbar flex flex-col overflow-auto gap-[12px] container-scroll',
+              'custom-scrollbar container-scroll flex grow flex-col gap-[12px] overflow-auto rounded-xl',
               {
                 'pr-[12px]': scrollbarVisible,
                 'pr-[0px]': !scrollbarVisible,

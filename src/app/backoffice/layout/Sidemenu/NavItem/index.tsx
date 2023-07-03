@@ -18,12 +18,12 @@ function NavItem({ item, active }) {
     }
   };
   return (
-    <div className="relative font-medium select-none">
+    <div className="relative select-none font-medium">
       <button
         className={classNames(
-          ' px-[24px] py-[18px] w-full rounded-[12px] border-[1px] border-transparent text-[14px] flex items-center cursor-pointer justify-between hover:bg-white/[0.03] ease duration-200',
+          ' ease flex w-full cursor-pointer items-center justify-between rounded-[12px] border-[1px] border-transparent px-[24px] py-[18px] text-[14px] duration-200 hover:bg-white/[0.03]',
           {
-            'bg-white/[0.03] border-[#5b446d] border-[1px]': active,
+            'border-[1px] border-[#5b446d] bg-white/[0.03]': active,
           }
         )}
         onClick={handleItemClick}
@@ -46,22 +46,22 @@ function NavItem({ item, active }) {
       {item.subItems && (
         <ul
           className={classNames(
-            'nav-submenu pl-[47px] pr-2 pt-[4px] flex flex-col gap-2 relative after:bg-xPurple',
+            'nav-submenu relative flex flex-col gap-2 pl-[47px] pr-2 pt-[4px] after:bg-xPurple',
             { 'short-line': item.subItems.length === 1, animate }
           )}
         >
           {item.subItems.map((subItem) => (
             <li
-              className={classNames('flex relative w-full', {
+              className={classNames('relative flex w-full', {
                 animate,
               })}
               key={subItem.link}
             >
               <button
                 className={classNames(
-                  'nav-submenu__item px-[14px] text-left flex-1 py-[8px] rounded-[12px] cursor-pointer hover:bg-white/[0.03] text-[12px] relative fade-in',
+                  'nav-submenu__item fade-in relative flex-1 cursor-pointer rounded-[12px] px-[14px] py-[8px] text-left text-[12px] hover:bg-white/[0.03]',
                   {
-                    'bg-white/[0.03] border-[#5b446d] border-[1px] active':
+                    'active border-[1px] border-[#5b446d] bg-white/[0.03]':
                       pathname.split('/')[3] === subItem.link.split('/')[1],
                     animate,
                   }

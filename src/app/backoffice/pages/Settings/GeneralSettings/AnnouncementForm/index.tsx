@@ -162,14 +162,14 @@ function AnnouncementForm({
   }, [annoucementData, edit, form]);
 
   return (
-    <div className="border-[#E2E2E2] rounded-2xl border p-[20px]">
+    <div className="rounded-2xl border border-[#E2E2E2] p-[20px]">
       <Form
         form={form}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         className="annoucement-form flex w-full gap-[9px] "
       >
-        <div className="flex-1 flex flex-col gap-[9px]">
+        <div className="flex flex-1 flex-col gap-[9px]">
           <Form.Item
             name="title"
             rules={[FormRules.allRequired(), FormRules.announcementTitle()]}
@@ -250,7 +250,7 @@ function AnnouncementForm({
       {errors.length > 0 && (
         <div className="mt-2">
           {errors.map((error) => (
-            <p className="text-[#ff4d4f] text-xl" key={error}>
+            <p className="text-xl text-[#ff4d4f]" key={error}>
               {error}
             </p>
           ))}
