@@ -7,7 +7,7 @@ import { API } from '../../../../api';
 import { Announcement } from '../../../types';
 
 export const fetchAnnouncementAndSubscribe = (
-  props: ProducerProps<Announcement | string, Error, never, never>
+  props: ProducerProps<Announcement | string, Error, never, any>
 ) => {
   const controller = new AbortController();
   const clientState = stompClientSource.getState();

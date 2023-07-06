@@ -5,6 +5,7 @@ import {
   useEffect,
   useState,
   useMemo,
+  useContext,
 } from 'react';
 import { Status, useAsyncState } from 'react-async-states';
 
@@ -30,6 +31,7 @@ interface MyProviderProps {
 }
 
 const AnimationContext = createContext<AnimationContextProps | null>(null);
+
 export const AnimationContextProvider: React.FC<MyProviderProps> = ({
   children,
 }) => {
@@ -204,4 +206,14 @@ export const AnimationContextProvider: React.FC<MyProviderProps> = ({
   );
 };
 
-export default AnimationContext;
+const useAnimationContext = () => {
+  const context = useContext(AnimationContext);
+  if (context === undefined) {
+    throw new Error(
+      'useAnimationContext must be used within a AnimationContextProvider'
+    );
+  }
+  return context;
+};
+
+export default useAnimationContext;

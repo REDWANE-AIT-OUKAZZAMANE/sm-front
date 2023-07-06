@@ -5,7 +5,7 @@ import { topics } from '../../../../api/paths';
 import { Media } from '../../../types';
 
 export const subscribeToPostVisibility = (
-  props: ProducerProps<Media, Error, never, never>
+  props: ProducerProps<Media, Error, never, any>
 ): Promise<Media> => {
   const controller = new AbortController();
   const clientState = stompClientSource.getState();

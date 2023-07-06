@@ -1,14 +1,14 @@
-import { useContext } from 'react';
+// import { useContext } from 'react';
 
 import Card from './Card';
 import { Media } from '../../../types';
 import { getSocialMediaType } from '../../../utils';
 import { getAnimationDelay } from './Card/animationSettings';
-import MyContext from '../../contexts/animationContext';
+import useAnimationContext from '../../contexts/animationContext';
 import AnnouncementOrPost from '../AnnouncementOrPost';
 
 export default function Cards() {
-  const animationProps = useContext(MyContext);
+  const animationProps = useAnimationContext();
   const { containerRef, maxCards, postsList } = animationProps!;
   return (
     <div

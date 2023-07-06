@@ -1,5 +1,5 @@
 import { Status, useAsyncState } from 'react-async-states';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 
@@ -7,7 +7,7 @@ import Announcements from './Anouncments';
 import Card from '../CardsGrid/Card';
 import { getSocialMediaType } from '../../../utils';
 import { Announcement } from '../../../types';
-import AnimationContext, {
+import useAnimationContext, {
   AnimationContextProps,
 } from '../../contexts/animationContext';
 import {
@@ -28,8 +28,7 @@ const AnnoucementOrPost = () => {
   ) as any;
 
   const [showAnnouncement, setShowAnnoumcement] = useState(false);
-  const animationProps: AnimationContextProps | null =
-    useContext(AnimationContext);
+  const animationProps: AnimationContextProps | null = useAnimationContext();
 
   const { maxCards, postsList } = animationProps!;
   const post = postsList[postsList.length - 1];

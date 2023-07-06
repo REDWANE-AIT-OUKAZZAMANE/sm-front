@@ -1,18 +1,14 @@
 import { motion } from 'framer-motion';
-import { useContext } from 'react';
 
 import bell from '../../../../../assets/icons/bell.svg';
 import {
   variantsCardRight,
   wallCardAnimationDuration,
 } from '../../CardsGrid/Card/animationSettings';
-import AnimationContext, {
-  AnimationContextProps,
-} from '../../../contexts/animationContext';
+import useAnimationContext from '../../../contexts/animationContext';
 
 const Annoucements = ({ data }) => {
-  const animationProps: AnimationContextProps | null =
-    useContext(AnimationContext);
+  const animationProps = useAnimationContext();
 
   const { maxCards } = animationProps!;
   const transitionCard = {

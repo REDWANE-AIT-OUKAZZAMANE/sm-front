@@ -13,7 +13,7 @@ import Moderation from './pages/Moderation';
 import GeneralSettings from './pages/Settings/GeneralSettings';
 import Spinner from '../landing/components/Spinner';
 
-function Index() {
+function Backoffice() {
   const { state } = useAsyncState.auto(currentUserSource);
   const [loggedIn, setLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -66,4 +66,4 @@ function Index() {
   );
 }
 
-export default Index;
+export default Backoffice;

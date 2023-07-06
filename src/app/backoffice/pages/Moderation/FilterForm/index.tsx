@@ -6,6 +6,7 @@ import resetIcon from '../../../../../assets/icons/resetIcon.svg';
 import filterIcon from '../../../../../assets/icons/filterIcon.svg';
 import selectIcon from '../../../../../assets/icons/selectIcon.svg';
 import './styles.scss';
+import { testIds } from '../../../../../tests/constants';
 
 function PostsFilter() {
   const [form] = Form.useForm();
@@ -28,7 +29,10 @@ function PostsFilter() {
   };
 
   return (
-    <div className="form mb-12 flex items-center justify-between bg-white pb-2 font-['Lato']">
+    <div
+      data-testid={testIds.moderation.postsFilter}
+      className="form mb-12 flex items-center justify-between bg-white pb-2 font-['Lato']"
+    >
       <Form form={form} onFinish={onFinish} className="flex w-full">
         <Form.Item className="mb-0 mr-1" name="q">
           <Input

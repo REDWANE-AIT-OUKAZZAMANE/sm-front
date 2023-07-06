@@ -17,6 +17,7 @@ import { defaultPostsQueryParams } from '../../../utils/constants';
 import { MediaVisibilityProducer } from '../../data/producers/MediaVisibilityProducer';
 import errorIcon from '../../../../assets/icons/errorIcon.svg';
 import { errorCodeToMessage } from '../../../../api/errorCodeToMessage';
+import { testIds } from '../../../../tests/constants';
 
 async function searchMedia(
   props: ProducerProps<Page<Media>, Error, never, [QueryParams]>
@@ -149,7 +150,10 @@ function Moderation() {
   return (
     <div className="mx-[32px] mb-[17px] flex h-full flex-col">
       <PostsFilter />
-      <div className="media-cards__outer h-full overflow-auto rounded-2xl border shadow-xl">
+      <div
+        data-testid={testIds.moderation.moderationList}
+        className="media-cards__outer h-full overflow-auto rounded-2xl border shadow-xl"
+      >
         <div
           id="mainScrollableContent"
           className="media-cards__inner custom-scrollbar h-full  flex-1 overflow-auto"
