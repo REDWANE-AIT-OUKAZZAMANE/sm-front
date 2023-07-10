@@ -6,6 +6,7 @@ import { NavItems } from '../Sidemenu/nav-settings';
 import logoutIcon from '../../../../assets/icons/logout.svg';
 import { logoutSource } from '../../data/sources/logoutSource';
 import LogoutModal from '../../components/LogoutConfirModal';
+import { testIds } from '../../../../tests/constants';
 
 function Header() {
   const { run: logout } = useAsyncState(logoutSource);
@@ -44,7 +45,10 @@ function Header() {
   }, [pathname]);
 
   return (
-    <div className=" flex h-[88px] items-center justify-between px-[34px]">
+    <div
+      data-testid={testIds.header}
+      className=" flex h-[88px] items-center justify-between px-[34px]"
+    >
       <LogoutModal
         onLogoutConfirm={handleLogout}
         onLogoutCancel={handleCancelLogout}

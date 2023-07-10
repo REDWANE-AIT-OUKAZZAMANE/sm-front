@@ -9,7 +9,10 @@ function Sidemenu({ userData }) {
   const { pathname } = useLocation();
 
   return (
-    <div className="flex w-[256px] flex-col justify-between bg-xPurple pb-8 pt-3 text-white shadow-[0_64px_64px_-32px_rgba(41,15,0,0.56)]">
+    <div
+      data-testid={testIds.sidemenu.container}
+      className="flex w-[256px] flex-col justify-between bg-xPurple pb-8 pt-3 text-white shadow-[0_64px_64px_-32px_rgba(41,15,0,0.56)]"
+    >
       <div className="px-[23px]">
         <img
           data-testid={testIds.sidemenu.logo}

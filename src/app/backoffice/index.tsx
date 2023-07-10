@@ -3,15 +3,14 @@ import { Status, useAsyncState } from 'react-async-states';
 import { useEffect, useState } from 'react';
 
 import { currentUserSource } from './data/sources/currentUserSource';
-import Header from './layout/Header';
-import Sidemenu from './layout/Sidemenu';
-import Content from './layout/Content';
 import Login from './pages/Login';
 import ProtectedRoutes from './pages/ProtectedRoutes/ProtectedRoutes';
+import Layout from './layout';
 import NotFound from './pages/NotFound/NotFound';
 import Moderation from './pages/Moderation';
 import GeneralSettings from './pages/Settings/GeneralSettings';
 import Spinner from '../landing/components/Spinner';
+import { testIds } from '../../tests/constants';
 
 function Backoffice() {
   const { state } = useAsyncState.auto(currentUserSource);
@@ -28,7 +27,10 @@ function Backoffice() {
 
   if (loading) {
     return (
-      <div className="flex h-screen w-screen items-center justify-center bg-white text-white">
+      <div
+        data-testid={testIds.backofficeLoader}
+        className="flex h-screen w-screen items-center justify-center bg-white text-white"
+      >
         <Spinner className="mr-2 h-12 w-12 animate-spin fill-blue-600 text-gray-200 dark:text-gray-600" />
       </div>
     );
@@ -41,13 +43,7 @@ function Backoffice() {
         path="/admin"
         element={
           <ProtectedRoutes user={loggedIn}>
-            <div className="flex h-[100vh] w-[100vw] font-backOffice">
-              <Sidemenu userData={state.data} />
-              <div className="flex h-screen flex-1 flex-col ">
-                <Header />
-                <Content />
-              </div>
-            </div>
+            <Layout userData={state.data} />
           </ProtectedRoutes>
         }
       >
