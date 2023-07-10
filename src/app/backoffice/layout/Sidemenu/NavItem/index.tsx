@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import downChevron from '../../../../../assets/icons/downChevron.svg';
 import './styles.scss';
+import { testIds } from '../../../../../tests/constants';
 
 function NavItem({ item, active }) {
   const { pathname } = useLocation();
@@ -20,6 +21,7 @@ function NavItem({ item, active }) {
   return (
     <div className="relative select-none font-medium">
       <button
+        data-testid={testIds.sidemenu.menuButton}
         className={classNames(
           ' ease flex w-full cursor-pointer items-center justify-between rounded-[12px] border-[1px] border-transparent px-[24px] py-[18px] text-[14px] duration-200 hover:bg-white/[0.03]',
           {
@@ -58,6 +60,7 @@ function NavItem({ item, active }) {
               key={subItem.link}
             >
               <button
+                data-testid={testIds.sidemenu.menuItem}
                 className={classNames(
                   'nav-submenu__item fade-in relative flex-1 cursor-pointer rounded-[12px] px-[14px] py-[8px] text-left text-[12px] hover:bg-white/[0.03]',
                   {
