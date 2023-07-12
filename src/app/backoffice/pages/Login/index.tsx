@@ -11,6 +11,7 @@ import errorIcon from '../../../../assets/icons/errorIcon.svg';
 import { getLoginProducer } from '../../data/producers/LoginProducer';
 import { currentUserSource } from '../../data/sources/currentUserSource';
 import Spinner from '../../../landing/components/Spinner';
+import { testIds } from '../../../../tests/constants';
 
 function Login() {
   const navigate = useNavigate();
@@ -48,7 +49,10 @@ function Login() {
   }, [status, data]);
 
   return (
-    <div className="container flex h-screen w-full max-w-full items-center justify-center">
+    <div
+      data-testid={testIds.loginPage}
+      className="container flex h-screen w-full max-w-full items-center justify-center"
+    >
       <Form onFinish={onFinish} className="mb-12 w-1/4 min-w-[240px]">
         <img src={logo} alt="Logo" className="mx-auto mb-6 scale-125" />
         <Form.Item

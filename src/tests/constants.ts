@@ -20,4 +20,5 @@ export const testIds = {
   layout: 'LAYOUT',
   header: 'HEADER',
   content: 'CONTENT',
+  loginPage: 'LOGIN_page',
 };
