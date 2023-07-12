@@ -11,6 +11,7 @@ import { updateWallSettingsProducer } from '../../../../data/producers/updateWal
 import { getWallSettingsProducer } from '../../../../data/producers/getWallSettingsProducer';
 import Spinner from '../../../../../landing/components/Spinner';
 import './style.scss';
+import { testIds } from '../../../../../../tests/constants';
 
 type WallSettingsType = {
   id: string;
@@ -72,7 +73,6 @@ export default function WallSettingss() {
         const hasErrors = Object.values(getFieldsError()).some(
           (error) => error.errors.length > 0
         );
-
         setIsButtonDisabled(
           (wallSettings.id === '' && !form.isFieldsTouched()) ||
             fileErrorMessage !== '' ||
@@ -110,7 +110,8 @@ export default function WallSettingss() {
     }
   }
 
-  function onUpdatingError(): void {
+  function onUpdatingError(result): void {
+    console.log(result);
     notification.open({
       message: `Error`,
       description: 'error while updating wall settings',
@@ -212,6 +213,7 @@ export default function WallSettingss() {
                 <Input
                   className="w-[100%] p-[6px] font-Lato text-[12px]"
                   placeholder="Enter your wall title here"
+                  data-testid={testIds.wallSettings.titleInput}
                 />
               </Form.Item>
             </div>
@@ -230,6 +232,7 @@ export default function WallSettingss() {
                   placeholder="Upload  your logo here"
                   className="w-[100%] p-[6px] font-Lato text-[12px]"
                   value={wallSettings?.logoName ? wallSettings.logoName : ''}
+                  data-testid={testIds.wallSettings.fileInput}
                 />
               </Form.Item>
             </div>
@@ -241,6 +244,7 @@ export default function WallSettingss() {
               accept=".png,.jpeg,.svg"
               maxCount={1}
               beforeUpload={beforeUpload}
+              data-testid={testIds.wallSettings.uploadWrapper}
             >
               <Button className="h-100 mb-[15px] inline-flex w-[100%] items-center justify-center rounded-lg  bg-dPurple p-[14px]  text-center font-Lato text-[12px] font-semibold text-white hover:bg-darkPurple focus:outline-none">
                 <span className="text-white">Upload logo</span>
@@ -250,6 +254,7 @@ export default function WallSettingss() {
               className="h-100 inline-flex  w-[100%] items-center justify-center  rounded-lg bg-dPurple p-[14px]  text-center font-Lato text-[12px] font-semibold text-white hover:bg-darkPurple focus:outline-none"
               htmlType="submit"
               disabled={isButtonDisabled}
+              data-testid={testIds.wallSettings.submitButton}
             >
               <span className="text-white">Save changes</span>
             </Button>

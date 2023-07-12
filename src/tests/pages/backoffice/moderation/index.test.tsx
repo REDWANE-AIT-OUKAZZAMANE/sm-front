@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 
 import PostsFilter from '../../../../app/backoffice/pages/Moderation/FilterForm';
@@ -13,8 +13,5 @@ function renderWithRouter(ui: React.ReactElement) {
 describe('Moderation', () => {
   it('does something', () => {
     renderWithRouter(<PostsFilter />);
-
-    // use only for debugging, remove when done
-    screen.debug();
   });
 });
