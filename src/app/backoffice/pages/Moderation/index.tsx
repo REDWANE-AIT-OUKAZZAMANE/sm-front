@@ -163,7 +163,12 @@ function Moderation() {
                   />
                 ))
               ) : (
-                <div className="text-center text-3xl">No media found</div>
+                <div
+                  data-testid={testIds.moderation.no_media}
+                  className="text-center text-3xl"
+                >
+                  No media found
+                </div>
               )}
             </div>
           </InfiniteScroll>

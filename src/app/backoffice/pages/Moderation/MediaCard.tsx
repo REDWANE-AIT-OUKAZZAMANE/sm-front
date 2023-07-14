@@ -11,6 +11,7 @@ import {
 } from '../../components/CustomIcons';
 import { Media } from '../../../types';
 import { mediaTypes } from '../../../utils/constants';
+import { testIds } from '../../../../tests/constants';
 
 type MediaCardProps = {
   media: Media;
@@ -55,6 +56,7 @@ export default function MediaCard(props: MediaCardProps) {
 
   return (
     <div
+      data-testid={testIds.moderation.mediaCard}
       className={classNames(
         `flex flex-col divide-y overflow-hidden rounded-2xl border shadow-md `,
         {

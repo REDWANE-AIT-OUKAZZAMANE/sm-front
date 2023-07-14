@@ -3,6 +3,8 @@ export const testIds = {
   moderation: {
     postsFilter: 'POSTS_FILTER',
     moderationList: 'MODERATION_LIST',
+    mediaCard: 'MEDIA_CARD',
+    no_media: 'NO_MEDIA_FOUND',
     FilterForm: {
       container: 'FILTER_FORM_CONTAINER',
       searchInput: 'FILTER_SEARCH_INPUT',
