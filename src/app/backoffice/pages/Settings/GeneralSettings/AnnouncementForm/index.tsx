@@ -12,6 +12,7 @@ import { app } from '../../../../../app';
 import { addAnnouncementProducer } from '../../../../data/producers/addAnnouncementProducer';
 import { updateAnnouncementProducer } from '../../../../data/producers/updateAnnouncementsProducer';
 import { errorCodeToMessage } from '../../../../../../api/errorCodeToMessage';
+import { testIds } from '../../../../../../tests/constants';
 
 interface AnnouncementFormProps {
   closeForm: Function;
@@ -162,7 +163,10 @@ function AnnouncementForm({
   }, [annoucementData, edit, form]);
 
   return (
-    <div className="rounded-2xl border border-[#E2E2E2] p-[20px]">
+    <div
+      className="rounded-2xl border border-[#E2E2E2] p-[20px]"
+      data-testid={testIds.announcements.announcementForm.container}
+    >
       <Form
         form={form}
         onFinish={onFinish}
@@ -242,6 +246,7 @@ function AnnouncementForm({
             className="cursor-pointer"
             type="button"
             onClick={() => closeForm()}
+            data-testid={testIds.announcements.announcementForm.closeButton}
           >
             <img className="w-5" src={xIcon} alt="x_icon" />
           </button>

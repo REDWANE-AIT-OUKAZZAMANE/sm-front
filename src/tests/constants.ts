@@ -17,8 +17,25 @@ export const testIds = {
     menuButton: 'MENU_BUTTON',
     userEmail: 'USER_EMAIL',
   },
+  announcements: {
+    deleteAnnouncementModal: {
+      container: 'DELETE_ANNOUNCEMENT_MODAL',
+      confirmButton: 'CONFIRM_BUTTON',
+      closeButton: 'CLOSE_BUTTON',
+    },
+    announcementForm: {
+      container: 'ANNOUNCEMENT_FORM',
+      closeButton: 'CLOSE_BUTTON',
+      submitButton: 'SUBMIT_BUTTON',
+    },
+    announcementItem: {
+      dots: 'DTOS',
+      edit: 'EDIT',
+      delete: 'DELETE',
+    },
+  },
   layout: 'LAYOUT',
   header: 'HEADER',
   content: 'CONTENT',
-  loginPage: 'LOGIN_page',
+  loginPage: 'LOGIN_PAGE',
 };

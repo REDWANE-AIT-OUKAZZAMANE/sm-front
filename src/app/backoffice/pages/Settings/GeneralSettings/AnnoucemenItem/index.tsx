@@ -12,6 +12,7 @@ import DeleteAnnouncementModal from '../../../../components/DeleteAnnouncementCo
 import { deleteAnnouncement } from '../../../../data/sources/deleteAnnouncementSource';
 import successIcon from '../../../../../../assets/icons/successIcon.svg';
 import errorIcon from '../../../../../../assets/icons/errorIcon.svg';
+import { testIds } from '../../../../../../tests/constants';
 
 type AnnouncementItemProps = {
   announcement: Announcement;
@@ -32,6 +33,7 @@ const dropdownMenu = (
       onClick={() => editAnnouncement(true)}
       type="button"
       className="mb-2 flex items-center"
+      data-testid={testIds.announcements.announcementItem.edit}
     >
       <span className="mr-4">
         <Pen className="icon" />
@@ -45,6 +47,7 @@ const dropdownMenu = (
       }}
       type="button"
       className="mt-2 flex items-center"
+      data-testid={testIds.announcements.announcementItem.delete}
     >
       <span className="mr-4">
         <Bin className="icon" />
@@ -186,7 +189,11 @@ function AnnouncementItem({
               )
             }
           >
-            <button className="h-[20px] px-[10px]" type="button">
+            <button
+              className="h-[20px] px-[10px]"
+              type="button"
+              data-testid={testIds.announcements.announcementItem.dots}
+            >
               <img src={dots} alt="fots" />
             </button>
           </Dropdown>

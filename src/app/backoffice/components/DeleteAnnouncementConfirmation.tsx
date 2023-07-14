@@ -2,6 +2,7 @@ import { Modal } from 'antd';
 
 import CloseIcon from '../../../assets/icons/CloseIcon.svg';
 import './modalStyle.scss';
+import { testIds } from '../../../tests/constants';
 
 interface DeleteAnnouncementModalProps {
   showDeleteModal: boolean;
@@ -19,6 +20,7 @@ const DeleteAnnouncementModal: React.FC<DeleteAnnouncementModalProps> = ({
   };
   return (
     <Modal
+      data-testid={testIds.announcements.deleteAnnouncementModal.container}
       width={470}
       open={showDeleteModal}
       title="Delete announcement"

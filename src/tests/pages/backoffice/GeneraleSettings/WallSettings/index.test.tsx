@@ -1,8 +1,13 @@
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import {
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  act,
+} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { act } from 'react-dom/test-utils';
 import { notification } from 'antd';
 
 import WallSettings from '../../../../../app/backoffice/pages/Settings/GeneralSettings/WallSettings';
