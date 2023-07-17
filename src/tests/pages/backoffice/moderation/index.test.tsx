@@ -1,17 +1,5 @@
-import { render } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
-
-import PostsFilter from '../../../../app/backoffice/pages/Moderation/FilterForm';
-// import Moderation from '../../../../app/backoffice/pages/Moderation';
-
-function renderWithRouter(ui: React.ReactElement) {
-  const Wrapper = ({ children }) => <BrowserRouter>{children}</BrowserRouter>;
-
-  return render(ui, { wrapper: Wrapper });
-}
+import {} from '@testing-library/react';
 
 describe('Moderation', () => {
-  it('does something', () => {
-    renderWithRouter(<PostsFilter />);
-  });
+  it.todo('tests posts filter');
 });

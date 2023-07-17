@@ -16,6 +16,7 @@ export default ({ mode }) => {
       environment: 'jsdom',
       setupFiles: './src/tests/setup.ts',
       css: true,
+      include: ['src/tests/**/*.test.tsx'],
     },
     build: {
       rollupOptions: {

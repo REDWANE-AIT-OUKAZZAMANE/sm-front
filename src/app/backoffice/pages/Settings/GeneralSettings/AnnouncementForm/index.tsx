@@ -172,6 +172,7 @@ function AnnouncementForm({
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         className="annoucement-form flex w-full gap-[9px] "
+        data-testid={testIds.announcements.announcementForm.form}
       >
         <div className="flex flex-1 flex-col gap-[9px]">
           <Form.Item
@@ -179,7 +180,11 @@ function AnnouncementForm({
             rules={[FormRules.allRequired(), FormRules.announcementTitle()]}
             validateTrigger="onSubmit"
           >
-            <Input autoComplete="off" placeholder="Announcement title" />
+            <Input
+              autoComplete="off"
+              placeholder="Announcement title"
+              data-testid={testIds.announcements.announcementForm.titleInput}
+            />
           </Form.Item>
           <div className="flex gap-[9px]">
             <Form.Item
@@ -198,6 +203,9 @@ function AnnouncementForm({
                 showTime={{ format: 'HH:mm', showSecond: false }}
                 disabled={edit && dayjs(annoucementData.startDate) < dayjs()}
                 disabledDate={handleDisabledDate}
+                data-testid={
+                  testIds.announcements.announcementForm.startDateInput
+                }
               />
             </Form.Item>
             <Form.Item
@@ -215,6 +223,9 @@ function AnnouncementForm({
                 placeholder="End Date & Time"
                 showTime={{ format: 'HH:mm', showSecond: false }}
                 disabledDate={handleDisabledEndDate}
+                data-testid={
+                  testIds.announcements.announcementForm.endDateInput
+                }
               />
             </Form.Item>
           </div>
@@ -231,11 +242,18 @@ function AnnouncementForm({
             <Input.TextArea
               placeholder="Announcement description"
               autoSize={{ minRows: 2.85, maxRows: 3 }}
+              data-testid={
+                testIds.announcements.announcementForm.descriptionInput
+              }
             />
           </Form.Item>
         </div>
         <div className="flex gap-5">
-          <button className="ml-[6px] cursor-pointer" type="submit">
+          <button
+            className="ml-[6px] cursor-pointer"
+            type="submit"
+            data-testid={testIds.announcements.announcementForm.submitButton}
+          >
             <img
               className="w-[15px]"
               src={checkmarkIcon}

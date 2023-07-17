@@ -18,15 +18,20 @@ export const testIds = {
     userEmail: 'USER_EMAIL',
   },
   announcements: {
-    deleteAnnouncementModal: {
-      container: 'DELETE_ANNOUNCEMENT_MODAL',
-      confirmButton: 'CONFIRM_BUTTON',
-      closeButton: 'CLOSE_BUTTON',
-    },
     announcementForm: {
       container: 'ANNOUNCEMENT_FORM',
       closeButton: 'CLOSE_BUTTON',
       submitButton: 'SUBMIT_BUTTON',
+      titleInput: 'TITLE_INPUT',
+      startDateInput: 'START_DATE_INPUT',
+      endDateInput: 'END_DATE_INPUT',
+      descriptionInput: 'DESCRIPTION_INPUT',
+      form: 'FORM',
+    },
+    deleteAnnouncementModal: {
+      container: 'DELETE_ANNOUNCEMENT_MODAL',
+      confirmButton: 'CONFIRM_BUTTON',
+      closeButton: 'CLOSE_BUTTON',
     },
     announcementItem: {
       dots: 'DTOS',
