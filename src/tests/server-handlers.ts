@@ -2,7 +2,10 @@ import { rest } from 'msw';
 
 import { WALL_SETTINGS_WITHOUT_ID } from './pages/backoffice/GeneraleSettings/WallSettings/data';
 import paths from '../api/paths';
-import { AnnouncementAddCommand } from '../app/backoffice/data/api';
+import {
+  AnnouncementAddCommand,
+  AnnouncementUpdateCommand,
+} from '../app/backoffice/data/api';
 
 export const handlers = [
   rest.get(`/api${paths.WALL_SETTINGS_LATEST}`, (req, res, ctx) =>
@@ -46,6 +49,20 @@ export const handlers = [
   }),
   rest.post(`/api${paths.ANNOUNCEMENTS_LIST}`, (req, res, ctx) => {
     const announcementCommand = req.body as AnnouncementAddCommand;
+
+    return res(
+      ctx.status(200),
+      ctx.json({
+        id: '1',
+        title: announcementCommand.title,
+        description: announcementCommand.description,
+        startDate: announcementCommand.startDate,
+        endDate: announcementCommand.endDate,
+      })
+    );
+  }),
+  rest.patch(`/api${paths.ANNOUNCEMENT_UPDATE(':id')}`, (req, res, ctx) => {
+    const announcementCommand = req.body as AnnouncementUpdateCommand;
 
     return res(
       ctx.status(200),

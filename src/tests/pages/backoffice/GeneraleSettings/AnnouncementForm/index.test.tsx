@@ -3,35 +3,33 @@ import { setupServer } from 'msw/node';
 import userEvent from '@testing-library/user-event';
 import { notification } from 'antd';
 import { rest } from 'msw';
+import { UserEvent } from '@testing-library/user-event/dist/types/setup/setup';
 
 import AnnouncementForm from '../../../../../app/backoffice/pages/Settings/GeneralSettings/AnnouncementForm';
 import { testIds } from '../../../../constants';
 import { handlers } from '../../../../server-handlers';
 import paths from '../../../../../api/paths';
-import { AnnouncementAddCommand } from '../../../../../app/backoffice/data/api';
+import {
+  AnnouncementAddCommand,
+  AnnouncementUpdateCommand,
+} from '../../../../../app/backoffice/data/api';
 
 const server = setupServer(...handlers);
+const user: UserEvent = userEvent.setup();
 let closeForm;
 let runGetAnnouncements;
 let setLoading;
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
-beforeEach(() => {
-  closeForm = vi.fn();
-  runGetAnnouncements = vi.fn();
-  setLoading = vi.fn();
 
-  render(
-    <AnnouncementForm
-      closeForm={closeForm}
-      runGetAnnouncements={runGetAnnouncements}
-      setLoading={setLoading}
-    />
-  );
-});
 afterAll(() => server.close());
 
-const setDates = async (user, startDateInput, endDateInput, start, end) => {
+const setDates = async (
+  startDateInput: HTMLElement,
+  endDateInput: HTMLElement,
+  start: Date,
+  end: Date
+) => {
   await user.click(startDateInput);
   await user.click(screen.getAllByTitle(start.toISOString().slice(0, 10))[0]);
   await user.click(screen.getAllByText('OK')[0]);
@@ -40,8 +38,21 @@ const setDates = async (user, startDateInput, endDateInput, start, end) => {
   await user.click(screen.getAllByTitle(end.toISOString().slice(0, 10))[1]);
   await user.click(screen.getAllByText('OK')[1]);
 };
-describe('Announcemnt Form', () => {
-  const user = userEvent.setup();
+describe('Announcement Form and adding', () => {
+  beforeEach(() => {
+    closeForm = vi.fn();
+    runGetAnnouncements = vi.fn();
+    setLoading = vi.fn();
+
+    render(
+      <AnnouncementForm
+        closeForm={closeForm}
+        runGetAnnouncements={runGetAnnouncements}
+        setLoading={setLoading}
+      />
+    );
+  });
+
   it('form inputs and buttons are rendered', () => {
     // Input fields
     const titleInput = screen.getByTestId(
@@ -73,6 +84,7 @@ describe('Announcemnt Form', () => {
     expect(submitButton).toBeInTheDocument();
     expect(cancelButton).toBeInTheDocument();
   });
+
   it('should display error messages for invalid title and description', async () => {
     // Input fields
     const titleInput = screen.getByTestId(
@@ -111,6 +123,7 @@ describe('Announcemnt Form', () => {
       ).toBeInTheDocument();
     });
   });
+
   it('should display error messages for old start and end dates ', async () => {
     const currentDate = new Date();
 
@@ -125,13 +138,7 @@ describe('Announcemnt Form', () => {
       testIds.announcements.announcementForm.submitButton
     );
 
-    await setDates(
-      user,
-      startDateInput,
-      endDateInput,
-      currentDate,
-      currentDate
-    );
+    await setDates(startDateInput, endDateInput, currentDate, currentDate);
 
     fireEvent.click(submitButton);
     await waitFor(() => {
@@ -144,6 +151,7 @@ describe('Announcemnt Form', () => {
       ).toBeInTheDocument();
     });
   });
+
   it('should display error messages for endDate after startDate ', async () => {
     const currentDate = new Date();
     const startDate = new Date(currentDate);
@@ -162,7 +170,7 @@ describe('Announcemnt Form', () => {
       testIds.announcements.announcementForm.submitButton
     );
 
-    await setDates(user, endDateInput, startDateInput, endDate, startDate);
+    await setDates(endDateInput, startDateInput, endDate, startDate);
 
     fireEvent.click(submitButton);
 
@@ -172,6 +180,7 @@ describe('Announcemnt Form', () => {
       ).toBeInTheDocument();
     });
   });
+
   it('ednDate before startDate should  be disabled ', async () => {
     const currentDate = new Date();
     const startDate = new Date(currentDate);
@@ -199,6 +208,7 @@ describe('Announcemnt Form', () => {
       screen.getAllByTitle(endDate.toISOString().slice(0, 10))[1]
     ).toHaveClass('ant-picker-cell-disabled ');
   });
+
   it('should add valid announcement call runGetannouncement and close the form', async () => {
     const currentDate = new Date();
     const startDate = new Date(currentDate);
@@ -239,7 +249,7 @@ describe('Announcemnt Form', () => {
       },
     });
 
-    await setDates(user, startDateInput, endDateInput, startDate, endDate);
+    await setDates(startDateInput, endDateInput, startDate, endDate);
 
     fireEvent.click(submitButton);
 
@@ -259,6 +269,7 @@ describe('Announcemnt Form', () => {
       expect(closeForm).toHaveBeenCalled();
     });
   });
+
   it('should show notification error on no success response', async () => {
     const currentDate = new Date();
     const startDate = new Date(currentDate);
@@ -316,7 +327,161 @@ describe('Announcemnt Form', () => {
       },
     });
 
-    await setDates(user, startDateInput, endDateInput, startDate, endDate);
+    await setDates(startDateInput, endDateInput, startDate, endDate);
+
+    fireEvent.click(submitButton);
+
+    const notificationOpenSpy = vi.spyOn(notification, 'open');
+
+    await waitFor(() => {
+      expect(notificationOpenSpy).toHaveBeenCalledWith({
+        message: 'Error',
+        description: 'Unknown error occured',
+        duration: 3,
+        placement: 'bottomRight',
+        icon: expect.any(Object),
+      });
+    });
+  });
+});
+describe('Announcement Form Update', () => {
+  beforeEach(() => {
+    closeForm = vi.fn();
+    runGetAnnouncements = vi.fn();
+    setLoading = vi.fn();
+    const currentDate = new Date();
+    const startDate = new Date(currentDate);
+    const endDate = new Date(currentDate);
+
+    startDate.setDate(currentDate.getDate() + 1);
+    endDate.setDate(currentDate.getDate() + 2);
+    render(
+      <AnnouncementForm
+        closeForm={closeForm}
+        runGetAnnouncements={runGetAnnouncements}
+        setLoading={setLoading}
+        edit
+        annoucementData={{
+          title: 'title to be updated',
+          description:
+            'Test this is a vlid long announcement for testing to be updated',
+          startDate,
+          endDate,
+        }}
+      />
+    );
+  });
+
+  it('should update valid announcement call runGetannouncement and close the form', async () => {
+    const currentDate = new Date();
+    const startDate = new Date(currentDate);
+    const endDate = new Date(currentDate);
+
+    startDate.setDate(currentDate.getDate() + 2);
+    endDate.setDate(currentDate.getDate() + 3);
+
+    await waitFor(() => {
+      expect(
+        screen.getByTestId(testIds.announcements.announcementForm.container)
+      ).toBeInTheDocument();
+    });
+
+    // Input fields
+    const titleInput = screen.getByTestId(
+      testIds.announcements.announcementForm.titleInput
+    );
+    const descriptionInput = screen.getByTestId(
+      testIds.announcements.announcementForm.descriptionInput
+    );
+    const endDateInput = screen.getByTestId(
+      testIds.announcements.announcementForm.endDateInput
+    );
+
+    const submitButton = screen.getByTestId(
+      testIds.announcements.announcementForm.submitButton
+    );
+
+    fireEvent.change(titleInput, { target: { value: 'Closing Keynote' } });
+
+    fireEvent.change(descriptionInput, {
+      target: {
+        value: 'Test this is a vlid long announcement for testing',
+      },
+    });
+    await user.click(endDateInput);
+    await user.click(
+      screen.getAllByTitle(endDate.toISOString().slice(0, 10))[0]
+    );
+    await user.click(screen.getAllByText('OK')[0]);
+
+    fireEvent.click(submitButton);
+
+    const notificationOpenSpy = vi.spyOn(notification, 'open');
+
+    await waitFor(() => {
+      expect(notificationOpenSpy).toHaveBeenCalledWith({
+        message: 'Success',
+        description: 'The announcement has been successfully updated',
+        duration: 3,
+        placement: 'bottomRight',
+        icon: expect.any(Object),
+      });
+
+      expect(runGetAnnouncements).toHaveBeenCalled();
+      expect(setLoading).toHaveBeenCalled();
+      expect(closeForm).toHaveBeenCalled();
+    });
+  });
+
+  it('should show notification error on no success response', async () => {
+    const currentDate = new Date();
+    const startDate = new Date(currentDate);
+    const endDate = new Date(currentDate);
+
+    startDate.setDate(currentDate.getDate() + 1);
+    endDate.setDate(currentDate.getDate() + 2);
+
+    server.use(
+      rest.patch(`/api${paths.ANNOUNCEMENT_UPDATE(':id')}`, (req, res, ctx) => {
+        const announcementCommand = req.body as AnnouncementUpdateCommand;
+
+        return res(
+          ctx.status(403),
+          ctx.json({
+            id: '1',
+            title: announcementCommand.title,
+            description: announcementCommand.description,
+            startDate: announcementCommand.startDate,
+            endDate: announcementCommand.endDate,
+          })
+        );
+      })
+    );
+
+    await waitFor(() => {
+      expect(
+        screen.getByTestId(testIds.announcements.announcementForm.container)
+      ).toBeInTheDocument();
+    });
+
+    const titleInput = screen.getByTestId(
+      testIds.announcements.announcementForm.titleInput
+    );
+    const descriptionInput = screen.getByTestId(
+      testIds.announcements.announcementForm.descriptionInput
+    );
+
+    const submitButton = screen.getByTestId(
+      testIds.announcements.announcementForm.submitButton
+    );
+
+    fireEvent.change(titleInput, { target: { value: 'Closing Keynote' } });
+
+    fireEvent.change(descriptionInput, {
+      target: {
+        value: 'Test this is a vlid long announcement for testing',
+      },
+    });
 
     fireEvent.click(submitButton);
 
