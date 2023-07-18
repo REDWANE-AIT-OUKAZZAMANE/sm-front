@@ -75,4 +75,7 @@ export const handlers = [
       })
     );
   }),
+  rest.delete(`/api${paths.DELETE_ANNOUNCEMENT(':id')}`, (req, res, ctx) =>
+    res(ctx.status(200))
+  ),
 ];

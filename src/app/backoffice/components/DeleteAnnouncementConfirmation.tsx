@@ -34,6 +34,9 @@ const DeleteAnnouncementModal: React.FC<DeleteAnnouncementModalProps> = ({
             type="button"
             className="mr-[60px] inline-flex flex-1 items-center justify-center rounded-[10px] border-2 border-dPurple px-5 py-2.5 text-center font-medium text-dPurple"
             onClick={onDeleteCancel}
+            data-testid={
+              testIds.announcements.deleteAnnouncementModal.closeButton
+            }
           >
             No
           </button>
@@ -43,6 +46,9 @@ const DeleteAnnouncementModal: React.FC<DeleteAnnouncementModalProps> = ({
             className="inline-flex flex-[2] items-center justify-center rounded-[10px] border-2 border-dPurple bg-[#5F4080] px-5 py-2.5 text-center font-medium text-white hover:bg-darkPurple focus:outline-none"
             style={{ marginLeft: 'auto' }}
             onClick={handelConfirm}
+            data-testid={
+              testIds.announcements.deleteAnnouncementModal.confirmButton
+            }
           >
             Yes
           </button>
