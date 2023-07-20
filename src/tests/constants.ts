@@ -3,6 +3,14 @@ export const testIds = {
   moderation: {
     postsFilter: 'POSTS_FILTER',
     moderationList: 'MODERATION_LIST',
+    FilterForm: {
+      container: 'FILTER_FORM_CONTAINER',
+      searchInput: 'FILTER_SEARCH_INPUT',
+      sourceInput: 'FILTER_SOURCE_INPUT',
+      visibiltyInput: 'FILTER_VISIBILTY_INPUT',
+      submitButton: 'FILTER_SUBMIT_BUTTON',
+      resetButton: 'FILTER_RESET_BUTTON',
+    },
   },
   wallSettings: {
     titleInput: 'TITLE_INPUT',

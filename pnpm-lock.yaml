@@ -10,6 +10,9 @@ dependencies:
   '@testing-library/user-event':
     specifier: ^14.4.3
     version: 14.4.3(@testing-library/dom@9.3.1)
+  '@types/antd':
+    specifier: ^1.0.0
+    version: 1.0.0(react-dom@18.2.0)(react@18.2.0)
   antd:
     specifier: ^5.5.0
     version: 5.5.0(react-dom@18.2.0)(react@18.2.0)
@@ -823,7 +826,7 @@ packages:
     resolution: {integrity: sha512-eGjZ3JRAt0Fzi5FgXiV/P3bJGj0NqsN7vBS0J0FO2AQRQ0jCKQS4lEFm4wvlSgKQNfeuc/Vz6d81VtU3Gkx/zg==}
     dependencies:
       '@open-draft/until': 1.0.3
-      '@xmldom/xmldom': 0.7.12
+      '@xmldom/xmldom': 0.7.13
       debug: 4.3.4
       headers-utils: 3.0.2
       outvariant: 1.4.0
@@ -1162,6 +1165,19 @@ packages:
     engines: {node: '>= 10'}
     dev: true
 
+  /@types/antd@1.0.0(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-wnRh+S6vPMahsuSN6lFJQzNXuhUKr9JKic1L/NMdIChsuu9Fc+mDyF7H17eFPQlgpLVdT0DyYIgB1di8DA9AuQ==}
+    deprecated: This is a stub types definition for antd (https://github.com/ant-design/ant-design). antd provides its own type definitions, so you don't need @types/antd installed!
+    dependencies:
+      antd: 5.5.0(react-dom@18.2.0)(react@18.2.0)
+    transitivePeerDependencies:
+      - date-fns
+      - luxon
+      - moment
+      - react
+      - react-dom
+    dev: false
+
   /@types/aria-query@5.0.1:
     resolution: {integrity: sha512-XTIieEY+gvJ39ChLcB4If5zHtPxt3Syj5rgZR+e1ctpmK8NjPf0zFqsz4JpLJT0xla9GFDKjy8Cpu331nrmE1Q==}
 
@@ -1474,8 +1490,8 @@ packages:
       pretty-format: 29.6.1
     dev: true
 
-  /@xmldom/xmldom@0.7.12:
-    resolution: {integrity: sha512-JpcbUyxzrUShspIZ9uzcIuxTdE+X15sY7dCKGfXrXbQ1CqpMBfqkrNSde2dGqhlC4+EdAF+csoTCiAvYAKVKlA==}
+  /@xmldom/xmldom@0.7.13:
+    resolution: {integrity: sha512-lm2GW5PkosIzccsaZIz7tp8cPADSIlIHWDFTR1N0SzfinhhYgeIQjFMz4rYzanCScr3DqQLeomUDArp6MWKm+g==}
     engines: {node: '>=10.0.0'}
     dev: false
 

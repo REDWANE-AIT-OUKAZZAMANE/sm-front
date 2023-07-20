@@ -39,6 +39,7 @@ function PostsFilter() {
             placeholder="Search by user name, description"
             className="w-[351px]"
             size="large"
+            data-testid={testIds.moderation.FilterForm.searchInput}
           />
         </Form.Item>
         <Form.Item className="mb-0 mr-1" name="source.eq">
@@ -52,6 +53,7 @@ function PostsFilter() {
               { value: 'INSTAGRAM', label: 'Instagram feeds' },
               { value: 'YOUTUBE', label: 'youtube feeds' },
             ]}
+            data-testid={testIds.moderation.FilterForm.sourceInput}
           />
         </Form.Item>
         <Form.Item className="mb-0" name="hidden.eq">
@@ -65,6 +67,7 @@ function PostsFilter() {
               { value: false, label: 'Visible post' },
               { value: true, label: 'Hidden post' },
             ]}
+            data-testid={testIds.moderation.FilterForm.visibiltyInput}
           />
         </Form.Item>
         <div className="ml-auto flex items-center space-x-1">
@@ -75,6 +78,7 @@ function PostsFilter() {
             className="inline-flex w-60 items-center justify-center rounded-lg bg-dPurple px-5 py-2.5 text-center font-['Lato'] text-sm font-medium text-white hover:bg-darkPurple focus:outline-none"
             size="large"
             htmlType="submit"
+            data-testid={testIds.moderation.FilterForm.submitButton}
           >
             <span className="text-white">Filter</span>
           </Button>
@@ -83,6 +87,7 @@ function PostsFilter() {
             size="large"
             htmlType="button"
             onClick={handleResetFields}
+            data-testid={testIds.moderation.FilterForm.resetButton}
           >
             <Image src={resetIcon} preview={false} />
           </Button>
