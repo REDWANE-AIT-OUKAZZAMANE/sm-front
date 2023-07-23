@@ -47,6 +47,16 @@ export const testIds = {
       delete: 'DELETE',
     },
   },
+  landing: {
+    Card: {
+      container: 'CARD_CONTAINER',
+      pinnedIcon: 'PINNED_ICON',
+      backgroundImage: 'BACKGROUND_IMAGE',
+      video: 'VIDEO',
+      youtubeVideo: 'YOUTUBE-VIDEO',
+      socialIcon: 'SOCIAL_ICON',
+    },
+  },
   layout: 'LAYOUT',
   header: 'HEADER',
   content: 'CONTENT',

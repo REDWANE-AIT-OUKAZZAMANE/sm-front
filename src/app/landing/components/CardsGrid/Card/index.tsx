@@ -28,6 +28,7 @@ import {
   wallCardAnimationDuration,
 } from './animationSettings';
 import { postTextLimiter } from '../../../../utils';
+import { testIds } from '../../../../../tests/constants';
 
 type CardProps = {
   media: Media;
@@ -91,9 +92,13 @@ const TextCard = ({
           ' row-span-2 row-start-1 ': variantIsTall,
         }
       )}
+      data-testid={testIds.landing.Card.container}
     >
       {media.pinned && (
-        <div className="absolute left-2 top-0 z-30 h-12 w-12">
+        <div
+          className="absolute left-2 top-0 z-30 h-12 w-12"
+          data-testid={testIds.landing.Card.pinnedIcon}
+        >
           <PinnedIcon />
         </div>
       )}
@@ -152,6 +157,7 @@ const TextCard = ({
               src={media?.source && socialMediaIcons[media?.source]?.default}
               alt="icon"
               className="w-full"
+              data-testid={testIds.landing.Card.socialIcon}
             />
           </motion.div>
 
@@ -189,6 +195,7 @@ const TextCard = ({
               className="h-[70%] pr-[3%]"
               src={socialMediaIcons[media?.source]?.color}
               alt="social network icon"
+              data-testid={testIds.landing.Card.socialIcon}
             />
           )}
         </div>
@@ -198,6 +205,7 @@ const TextCard = ({
         <div className="absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 transform ">
           <div className="absolute z-10 h-full w-full">
             <ReactPlayer
+              data-testid={testIds.landing.Card.youtubeVideo}
               width="100%"
               height="100%"
               url={media?.url}
@@ -218,7 +226,13 @@ const TextCard = ({
               className="absolute right-5 top-5 w-[12%]"
             />
 
-            <video loop autoPlay muted className="h-full w-full object-contain">
+            <video
+              loop
+              autoPlay
+              muted
+              className="h-full w-full object-contain"
+              data-testid={testIds.landing.Card.video}
+            >
               <source src={media?.url} type="video/mp4" />
             </video>
           </div>
@@ -238,10 +252,12 @@ const TextCard = ({
             animate={type === contentTypes.ANIMATED && 'animate'}
             variants={BackgroundImageAnimation}
             transition={{ ...CardDescirptiontransition, repeatType: 'reverse' }}
+            data-testid={testIds.landing.Card.backgroundImage}
           />
         </div>
       )}
     </motion.div>
   );
 };
+
 export default TextCard;
