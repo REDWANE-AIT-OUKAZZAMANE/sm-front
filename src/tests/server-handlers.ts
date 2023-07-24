@@ -6,6 +6,7 @@ import {
   AnnouncementAddCommand,
   AnnouncementUpdateCommand,
 } from '../app/backoffice/data/api';
+import { CurrentAnnouncement } from './pages/landing/AnnouncementOrPost/data';
 
 export const handlers = [
   rest.get(`/api${paths.WALL_SETTINGS_LATEST}`, (req, res, ctx) =>
@@ -77,5 +78,13 @@ export const handlers = [
   }),
   rest.delete(`/api${paths.DELETE_ANNOUNCEMENT(':id')}`, (req, res, ctx) =>
     res(ctx.status(200))
+  ),
+  rest.get('/api/v1/announcements', (req, res, ctx) =>
+    res(
+      ctx.status(200),
+      ctx.json({
+        content: [CurrentAnnouncement],
+      })
+    )
   ),
 ];

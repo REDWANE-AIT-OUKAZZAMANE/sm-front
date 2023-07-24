@@ -56,6 +56,9 @@ export const testIds = {
       youtubeVideo: 'YOUTUBE-VIDEO',
       socialIcon: 'SOCIAL_ICON',
     },
+    AnnouncementOrPost: {
+      announcementContainer: 'ANNOUNCEMENT_CONTAINER',
+    },
   },
   layout: 'LAYOUT',
   header: 'HEADER',

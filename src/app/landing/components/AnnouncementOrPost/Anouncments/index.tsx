@@ -6,10 +6,10 @@ import {
   wallCardAnimationDuration,
 } from '../../CardsGrid/Card/animationSettings';
 import useAnimationContext from '../../../contexts/animationContext';
+import { testIds } from '../../../../../tests/constants';
 
 const Annoucements = ({ data }) => {
   const animationProps = useAnimationContext();
-
   const { maxCards } = animationProps!;
   const transitionCard = {
     duration: wallCardAnimationDuration,
@@ -17,6 +17,7 @@ const Annoucements = ({ data }) => {
   };
   return (
     <motion.div
+      data-testid={testIds.landing.AnnouncementOrPost.announcementContainer}
       initial="hidden"
       animate="visible"
       variants={variantsCardRight}

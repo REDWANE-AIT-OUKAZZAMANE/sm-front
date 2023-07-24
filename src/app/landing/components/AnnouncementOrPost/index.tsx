@@ -91,7 +91,7 @@ const AnnoucementOrPost = () => {
       />
     )
   ) : (
-    <Announcements data={announcementState?.data as Announcement} />
+    <Announcements data={announcementToDisplay} />
   );
 };
 
