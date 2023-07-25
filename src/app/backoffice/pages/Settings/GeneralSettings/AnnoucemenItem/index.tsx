@@ -133,7 +133,10 @@ function AnnouncementItem({
       setLoading={setLoading}
     />
   ) : (
-    <div className="rounded-2xl border border-[#E2E2E2] p-[20px]">
+    <div
+      className="rounded-2xl border border-[#E2E2E2] p-[20px]"
+      data-testid={testIds.announcements.announcementItem.container}
+    >
       <div className="flex gap-10">
         <div className="max-w-[126px]">
           <h1 className="mb-2 whitespace-nowrap text-lg font-bold text-[color:var(--border-grey)]">

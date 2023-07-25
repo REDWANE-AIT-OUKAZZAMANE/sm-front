@@ -11,6 +11,7 @@ import { getAnnouncementsProducer } from '../../../../data/producers/getAnnounce
 import { useScrollbarVisible } from '../../../../hooks/useScrollbarVisible';
 import './style.scss';
 import Spinner from '../../../../../landing/components/Spinner';
+import { testIds } from '../../../../../../tests/constants';
 
 function AnnouncementsSettings() {
   const [announcementFormVisible, setAnnouncementFormVisible] =
@@ -42,7 +43,10 @@ function AnnouncementsSettings() {
   }, [runGetAnnouncements]);
 
   return (
-    <div className="announcement-container card-shaddow flex flex-1 flex-col py-6 pl-[32px] pr-[32px]">
+    <div
+      className="announcement-container card-shaddow flex flex-1 flex-col py-6 pl-[32px] pr-[32px]"
+      data-testid={testIds.announcements.container}
+    >
       <div className="mb-[22px] flex h-[40px] items-center justify-between">
         <h1 className="text-[20px] font-semibold">Annoucements</h1>
         {announcementsState.status === Status.success &&
@@ -53,13 +57,17 @@ function AnnouncementsSettings() {
               onClick={openAnnouncementForm}
               disabled={announcementFormVisible || editedAnnouncement !== ''}
               className="w-[244px] rounded-lg bg-btnPurple  px-4 py-2 font-normal text-white"
+              data-testid={testIds.announcements.addButton}
             >
               Add announcement
             </Button>
           )}
       </div>
       {announcementsState.status === Status.pending || loading ? (
-        <div className="grid w-full flex-1 place-items-center">
+        <div
+          className="grid w-full flex-1 place-items-center"
+          data-testid={testIds.announcements.Spinner}
+        >
           <Spinner className="mb-[22px] mr-2 h-12 w-12 animate-spin fill-dPurple text-gray-200 dark:text-gray-600" />
         </div>
       ) : (
@@ -76,6 +84,7 @@ function AnnouncementsSettings() {
               htmlType="button"
               onClick={openAnnouncementForm}
               className="w-[264px] rounded-lg bg-btnPurple  px-4 py-2 font-normal text-white"
+              data-testid={testIds.announcements.addButtonEmpty}
             >
               Add announcement
             </Button>

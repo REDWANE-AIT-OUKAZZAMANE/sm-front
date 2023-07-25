@@ -24,7 +24,7 @@ afterEach(() => server.resetHandlers());
 
 afterAll(() => server.close());
 
-const setDates = async (
+export const setDates = async (
   startDateInput: HTMLElement,
   endDateInput: HTMLElement,
   start: Date,

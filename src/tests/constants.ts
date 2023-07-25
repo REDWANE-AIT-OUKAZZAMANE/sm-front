@@ -26,6 +26,10 @@ export const testIds = {
     userEmail: 'USER_EMAIL',
   },
   announcements: {
+    container: 'ANNOUNCEMENT_LIST_CONTAINER',
+    addButton: 'ANNOUNCEMENT_ADD_BUTTON',
+    addButtonEmpty: 'ANNOUNCEMENT_ADD_BUTTON_EMPTY',
+    Spinner: 'ANNOUNCEMENT_SPINNER',
     announcementForm: {
       container: 'ANNOUNCEMENT_FORM',
       closeButton: 'CLOSE_BUTTON',
@@ -42,6 +46,7 @@ export const testIds = {
       closeButton: 'CLOSE_BUTTON',
     },
     announcementItem: {
+      container: 'ITEM_CONTAINER',
       dots: 'DTOS',
       edit: 'EDIT',
       delete: 'DELETE',

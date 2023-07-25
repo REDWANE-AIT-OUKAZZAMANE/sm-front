@@ -7,7 +7,13 @@ import {
   AnnouncementUpdateCommand,
 } from '../app/backoffice/data/api';
 import { CurrentAnnouncement } from './pages/landing/AnnouncementOrPost/data';
+import { Announcement } from '../app/types';
+import { ANNCOUNCEMENT_LIST } from './pages/backoffice/GeneraleSettings/AnnouncementSettings/data';
 
+let addedAnnouncement: Announcement | null = null;
+let deletedId = '';
+let updatedAnnouncement: Announcement | null = null;
+let announcementList: Announcement[] = ANNCOUNCEMENT_LIST;
 export const handlers = [
   rest.get(`/api${paths.WALL_SETTINGS_LATEST}`, (req, res, ctx) =>
     res(ctx.status(200), ctx.json(WALL_SETTINGS_WITHOUT_ID))
@@ -51,20 +57,24 @@ export const handlers = [
   rest.post(`/api${paths.ANNOUNCEMENTS_LIST}`, (req, res, ctx) => {
     const announcementCommand = req.body as AnnouncementAddCommand;
 
-    return res(
-      ctx.status(200),
-      ctx.json({
-        id: '1',
-        title: announcementCommand.title,
-        description: announcementCommand.description,
-        startDate: announcementCommand.startDate,
-        endDate: announcementCommand.endDate,
-      })
-    );
+    addedAnnouncement = {
+      id: new Date().toISOString(),
+      title: announcementCommand.title,
+      description: announcementCommand.description,
+      startDate: new Date(announcementCommand.startDate),
+      endDate: new Date(announcementCommand.endDate),
+    };
+    return res(ctx.status(200), ctx.json(addedAnnouncement));
   }),
   rest.patch(`/api${paths.ANNOUNCEMENT_UPDATE(':id')}`, (req, res, ctx) => {
     const announcementCommand = req.body as AnnouncementUpdateCommand;
-
+    updatedAnnouncement = {
+      id: req.params.id,
+      title: announcementCommand.title,
+      description: announcementCommand.description,
+      startDate: new Date(announcementCommand.startDate),
+      endDate: new Date(announcementCommand.endDate),
+    };
     return res(
       ctx.status(200),
       ctx.json({
@@ -76,9 +86,6 @@ export const handlers = [
       })
     );
   }),
-  rest.delete(`/api${paths.DELETE_ANNOUNCEMENT(':id')}`, (req, res, ctx) =>
-    res(ctx.status(200))
-  ),
   rest.get('/api/v1/announcements', (req, res, ctx) =>
     res(
       ctx.status(200),
@@ -87,4 +94,22 @@ export const handlers = [
       })
     )
   ),
+  rest.delete(`/api${paths.DELETE_ANNOUNCEMENT(':id')}`, (req, res, ctx) => {
+    deletedId = req.params.id;
+    return res(ctx.status(200));
+  }),
+  rest.get(`/api${paths.ANNOUNCEMENTS_LIST}`, (req, res, ctx) => {
+    announcementList = addedAnnouncement
+      ? [...announcementList, addedAnnouncement]
+      : announcementList;
+    addedAnnouncement = null;
+    announcementList = announcementList.filter((an) => an.id !== deletedId);
+
+    announcementList = announcementList.map((ann) => {
+      if (updatedAnnouncement && ann.id === updatedAnnouncement.id)
+        return updatedAnnouncement;
+      return ann;
+    });
+    return res(ctx.status(200), ctx.json({ content: announcementList }));
+  }),
 ];
