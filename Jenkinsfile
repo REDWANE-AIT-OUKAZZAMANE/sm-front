@@ -24,7 +24,7 @@ pipeline {
         stage('Build project') {
             agent {
                 docker {
-                    image 'node:14'
+                    image 'node:16'
                     args "-u 0:0 -v ${WORKSPACE}:/app -w /app"
                     reuseNode true
                 }
