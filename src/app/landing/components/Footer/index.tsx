@@ -6,6 +6,7 @@ import { sponsors } from '../../../utils/constants';
 import defaultSelector from '../../../../api/selector';
 import { footerSource } from './data/sources';
 import Spinner from '../Spinner';
+import { testIds } from '../../../../tests/constants';
 
 function Footer() {
   const {
@@ -18,7 +19,10 @@ function Footer() {
   return (
     <div className="flex max-h-[15%] w-full items-center justify-between p-2">
       {isPending && (
-        <Spinner className="mr-2 h-12 w-12 animate-spin fill-blue-600 text-gray-200 dark:text-gray-600" />
+        <Spinner
+          data_testid={testIds.frontoffice.footer.loader}
+          className="mr-2 h-12 w-12 animate-spin fill-blue-600 text-gray-200 dark:text-gray-600"
+        />
       )}
       {isSuccess && (
         <>
@@ -31,6 +35,7 @@ function Footer() {
                 <img
                   className="mt-1 max-h-[6vh] object-contain"
                   src={footerData?.logoUrl}
+                  data-testid={testIds.frontoffice.footer.logo}
                   alt="Logo"
                 />
               </div>
@@ -41,6 +46,7 @@ function Footer() {
                 <img
                   className="mt-1 max-h-[6vh] object-contain"
                   src={footerData?.coOrganizer}
+                  data-testid={testIds.frontoffice.footer.coOrganizer}
                   alt="coOrganizer"
                 />
               </div>
@@ -48,7 +54,10 @@ function Footer() {
                 <p className="mb-4 h-[20%] text-dynamicM text-textOrange">
                   Institutional Partners
                 </p>
-                <div className="flex gap-1">
+                <div
+                  data-testid={testIds.frontoffice.footer.institutionalPartners}
+                  className="flex gap-1"
+                >
                   {footerData?.institutionalPartners.map((source, index) => (
                     <img
                       // eslint-disable-next-line react/no-array-index-key
@@ -64,7 +73,10 @@ function Footer() {
                 <p className="mb-4 h-[20%] text-dynamicM text-textOrange">
                   Sponsors
                 </p>
-                <div className="flex h-[80%] gap-5">
+                <div
+                  data-testid={testIds.frontoffice.footer.sponsors}
+                  className="flex h-[80%] gap-5"
+                >
                   {Object.entries(sponsors).map(([type, typeName]) => {
                     const sponsorImages = footerData?.sponsors?.[type] || [];
                     return (

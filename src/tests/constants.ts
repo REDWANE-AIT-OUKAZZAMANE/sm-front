@@ -64,4 +64,18 @@ export const testIds = {
   header: 'HEADER',
   content: 'CONTENT',
   loginPage: 'LOGIN_PAGE',
+  frontoffice: {
+    header: {
+      loader: 'HEADER_LOADER',
+      img: 'HEADER_IMG',
+      title: 'HEADER_TITLE',
+    },
+    footer: {
+      loader: 'FOOTER_LOADER',
+      logo: 'FOOTER_LOGO',
+      coOrganizer: 'FOOTER_CO_ORGANIZER',
+      institutionalPartners: 'FOOTER_PARTNERS',
+      sponsors: 'FOOTER_SPONSORS',
+    },
+  },
 };

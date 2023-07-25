@@ -1,7 +1,13 @@
-const Spinner = ({ className }) => (
+type SpinnerProps = {
+  className: string;
+  data_testid?: string;
+};
+
+const Spinner = ({ className, data_testid }: SpinnerProps) => (
   <svg
     aria-hidden="true"
     className={className}
+    data-testid={data_testid}
     viewBox="0 0 100 101"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
