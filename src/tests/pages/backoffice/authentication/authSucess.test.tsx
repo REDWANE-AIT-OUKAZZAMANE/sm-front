@@ -13,7 +13,7 @@ import { testIds } from '../../../constants';
 import { SUCCESS_USER } from './data';
 
 const restSuccessHandler = [
-  rest.get('http://localhost:3000/api/v1/auth/current', (req, res, ctx) =>
+  rest.get('/api/v1/auth/current', (req, res, ctx) =>
     res(ctx.status(200), ctx.json(SUCCESS_USER))
   ),
 ];

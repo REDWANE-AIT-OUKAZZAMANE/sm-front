@@ -58,6 +58,7 @@ function Header() {
       <button
         type="button"
         className="cursor-pointer"
+        data-testid={testIds.logoutBtn}
         onClick={() => setIsLogoutModalOpen(true)}
       >
         <img src={logoutIcon} alt="logout_icon" />

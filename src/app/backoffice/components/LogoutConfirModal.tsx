@@ -2,6 +2,7 @@ import { Modal } from 'antd';
 
 import CloseIcon from '../../../assets/icons/CloseIcon.svg';
 import './modalStyle.scss';
+import { testIds } from '../../../tests/constants';
 
 interface LogoutModalProps {
   showLogoutModal: boolean;
@@ -42,6 +43,7 @@ const LogoutModal: React.FC<LogoutModalProps> = ({
             className="inline-flex flex-[2] items-center justify-center rounded-[10px] border-2 border-dPurple bg-[#5F4080] px-5 py-2.5 text-center font-medium text-white hover:bg-darkPurple focus:outline-none"
             style={{ marginLeft: 'auto' }}
             onClick={handelConfirm}
+            data-testid={testIds.modalConfirmation}
           >
             Yes
           </button>

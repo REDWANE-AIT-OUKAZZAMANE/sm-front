@@ -1,8 +1,8 @@
 export const SUCCESS_USER = {
   id: '64660020342fd96df0b30fb0',
-  firstName: 'Hassan',
-  lastName: 'Why',
-  email: 'test@smwall.dev',
+  firstName: 'Jame',
+  lastName: 'Doe',
+  email: 'Jame.doe@email.com',
   activated: true,
   authorities: [
     {

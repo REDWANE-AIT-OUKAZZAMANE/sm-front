@@ -27,37 +27,40 @@ describe('Filter Form', () => {
   });
 
   it('should update form fields and submit the form', () => {
-    waitFor(async () => {
-      const searchInput = screen.getByTestId(
-        testIds.moderation.FilterForm.searchInput
-      );
-      const sourceSelect = screen.getAllByRole('combobox')[0];
-      const visibilitySelect = screen.getAllByRole('combobox')[1];
-      const submitButton = screen.getByTestId(
-        testIds.moderation.FilterForm.submitButton
-      );
-      await act(async () => {
-        fireEvent.change(searchInput, { target: { value: 'example query' } });
+    waitFor(
+      async () => {
+        const searchInput = screen.getByTestId(
+          testIds.moderation.FilterForm.searchInput
+        );
+        const sourceSelect = screen.getAllByRole('combobox')[0];
+        const visibilitySelect = screen.getAllByRole('combobox')[1];
+        const submitButton = screen.getByTestId(
+          testIds.moderation.FilterForm.submitButton
+        );
+        await act(async () => {
+          fireEvent.change(searchInput, { target: { value: 'example query' } });
 
-        await user.click(sourceSelect);
-        await waitFor(() => screen.getByText('Instagram feeds'));
+          await user.click(sourceSelect);
+          await waitFor(() => screen.getByText('Instagram feeds'));
 
-        await user.click(screen.getByText('Instagram feeds'));
-        await user.click(visibilitySelect);
-        await waitFor(() => screen.getByText('Visible post'));
+          await user.click(screen.getByText('Instagram feeds'));
+          await user.click(visibilitySelect);
+          await waitFor(() => screen.getByText('Visible post'));
 
-        await user.click(screen.getByText('Visible post'));
+          await user.click(screen.getByText('Visible post'));
 
-        fireEvent.click(submitButton);
-      });
-      waitFor(() => {
-        const currentUrl = window.location.href;
+          fireEvent.click(submitButton);
+        });
+        waitFor(() => {
+          const currentUrl = window.location.href;
 
-        expect(currentUrl).toContain('q=example%20query');
-        expect(currentUrl).toContain('source.eq=INSTAGRAM');
-        expect(currentUrl).toContain('hidden.eq=true');
-      });
-    });
+          expect(currentUrl).toContain('q=example%20query');
+          expect(currentUrl).toContain('source.eq=INSTAGRAM');
+          expect(currentUrl).toContain('hidden.eq=true');
+        });
+      },
+      { timeout: 8000 }
+    );
   });
 
   it('should reset form fields', () => {

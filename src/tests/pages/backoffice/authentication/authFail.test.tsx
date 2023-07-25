@@ -11,7 +11,7 @@ import Backofiice from '../../../../app/backoffice';
 import { testIds } from '../../../constants';
 
 const restFailureHandlers = [
-  rest.get('http://localhost:3000/api/v1/auth/current', (req, res, ctx) =>
+  rest.get('/api/v1/auth/current', (req, res, ctx) =>
     res(ctx.status(401), ctx.json(null))
   ),
 ];

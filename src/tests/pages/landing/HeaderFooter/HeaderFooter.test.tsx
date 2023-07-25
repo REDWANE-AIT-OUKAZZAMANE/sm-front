@@ -13,12 +13,11 @@ import { testIds } from '../../../constants';
 import { FOOTER_DATA, HEADER_DATA } from './data';
 
 const restMediadataHandler = [
-  rest.get(
-    'http://localhost:3000/api/v1/wall/settings/latest',
-    (req, res, ctx) => res(ctx.status(200), ctx.json(HEADER_DATA))
+  rest.get('/api/v1/wall/settings/latest', (req, res, ctx) =>
+    res(ctx.status(200), ctx.json(HEADER_DATA))
   ),
 
-  rest.get('http://localhost:3000/api/v1/footer', (req, res, ctx) =>
+  rest.get('/api/v1/footer', (req, res, ctx) =>
     res(ctx.status(200), ctx.json(FOOTER_DATA))
   ),
 ];

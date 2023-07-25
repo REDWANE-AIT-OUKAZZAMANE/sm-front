@@ -67,8 +67,15 @@ export const testIds = {
   },
   layout: 'LAYOUT',
   header: 'HEADER',
+  logoutBtn: 'HEADER_LOGOUT_BTN',
+  modalConfirmation: 'MODAL_CONFIRMATION',
   content: 'CONTENT',
   loginPage: 'LOGIN_PAGE',
+  auth: {
+    email: 'AUTH_EMAIL',
+    password: 'AUTH_PASSWORD',
+    submitBtn: 'AUTH_SUBMIT',
+  },
   frontoffice: {
     header: {
       loader: 'HEADER_LOADER',

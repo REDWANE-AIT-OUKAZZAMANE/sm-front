@@ -60,14 +60,23 @@ function Login() {
           rules={[FormRules.required(), FormRules.email()]}
           validateTrigger="onBlur"
         >
-          <Input placeholder="Email_address@google.ma" size="large" />
+          <Input
+            data-testid={testIds.auth.email}
+            placeholder="email@domain.com"
+            size="large"
+          />
         </Form.Item>
         <Form.Item
           name="password"
           rules={[FormRules.required(), FormRules.password()]}
           validateTrigger="onBlur"
         >
-          <Input type="password" placeholder="Password" size="large" />
+          <Input
+            data-testid={testIds.auth.password}
+            type="password"
+            placeholder="Password"
+            size="large"
+          />
         </Form.Item>
         <Form.Item>
           <Button
@@ -75,6 +84,7 @@ function Login() {
             htmlType="submit"
             className="w-full rounded-lg bg-btnPurple px-4 py-2 font-normal uppercase text-white"
             disabled={status === Status.pending}
+            data-testid={testIds.auth.submitBtn}
           >
             {status === Status.pending ? (
               <Spinner className="mx-auto h-10 w-10 animate-spin fill-blue-600 text-gray-200 dark:text-gray-600" />
