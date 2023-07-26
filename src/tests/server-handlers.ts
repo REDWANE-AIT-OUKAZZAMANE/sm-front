@@ -25,15 +25,13 @@ export const handlers = [
     const title = formData.get('title');
     const logo: File = formData.get('logo') as File;
     // Assuming successful response with the added wall settings
-    return res(
-      ctx.status(200),
-      ctx.json({
-        id: 'abc',
-        title,
-        logoBase64: 'base64',
-        filename: logo.name,
-      })
-    );
+    const addedWallSettings = {
+      id: 'abc',
+      title: title as string,
+      logoBase64: 'base64',
+      filename: logo.name,
+    };
+    return res(ctx.status(200), ctx.json(addedWallSettings));
   }),
   rest.patch(`/api${paths.WALL_SETTINGS_UPDATE(':id')}`, (req, res, ctx) => {
     const { id } = req.params;

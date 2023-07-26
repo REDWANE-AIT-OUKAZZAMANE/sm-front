@@ -42,6 +42,7 @@ export type FooterData = {
     logoUrl: string;
   }[];
 };
+
 export type Announcement = {
   id: string;
   title: string;
@@ -58,6 +59,7 @@ export type CardProps = {
   type: string;
   variantIsTall?: boolean;
 };
+
 export type UserData = {
   id: string;
   firstName: string;
@@ -80,6 +82,7 @@ export type Page<T = unknown> = {
   numberOfElements: number;
   empty: boolean;
 };
+
 export type WallSettings = {
   id: string;
   title: string;
