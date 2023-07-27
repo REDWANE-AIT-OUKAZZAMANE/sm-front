@@ -33,21 +33,21 @@ async function searchMedia(
 }
 
 function Moderation() {
-  const { state, run: runSearchMedia } = app.media.search
+  const { state, runc: runcSearchMedia } = app.media.search
     .inject(searchMedia)
     .useAsyncState();
   const { status, data } = state;
-  const { state: toggleState, run: runTogglePin } = app.media.toggle_media
+  const { runc: runcTogglePin } = app.media.toggle_media
     .inject(togglePinMediaProducer)
     .useAsyncState();
 
   const location = useLocation();
-  const { state: VisibilitytoggleState, run: runVisibilityToggle } =
-    app.media.media_visibility.inject(MediaVisibilityProducer).useAsyncState();
+  const { runc: runcVisibilityToggle } = app.media.media_visibility
+    .inject(MediaVisibilityProducer)
+    .useAsyncState();
 
   const [allMedia, setAllMedia] = useState<Media[]>([]);
   const [filter, setFilter] = useState(defaultPostsQueryParams);
-  const [shouldRefetch, setShouldRefetch] = useState<boolean>(false);
 
   const openErrorNotification = (code) => {
     notification.open({
@@ -69,48 +69,54 @@ function Moderation() {
       ...parsedQueryParams,
       page: 0,
     });
-    setShouldRefetch(true);
   }, [location]);
 
-  const handleTogglePinning = (mediaId: string) => {
-    runTogglePin(mediaId);
+  const onSearchSuccess = (result) => {
+    const successData = result.data;
+    const { page: filterPage } = result.props.args[0];
+
+    if (filterPage !== 0) {
+      setAllMedia((prev) => [...prev, ...successData.content]);
+    } else {
+      setAllMedia(() => [...successData.content]);
+    }
   };
 
-  useEffect(() => {
-    if (toggleState.status === Status.success) {
-      setShouldRefetch(true);
-      runSearchMedia({
-        ...filter,
-        size: filter.size * (filter.page + 1),
-        page: 0,
-      });
-    }
-    if (toggleState.status === Status.error) {
-      const { data: toggleData } = toggleState as any;
-      openErrorNotification(toggleData.response?.data?.code);
-    }
-  }, [toggleState]);
+  const onPinOrVisibilityToggleError = (result) => {
+    const { data: toggleData } = result as any;
+    openErrorNotification(toggleData.response?.data?.code);
+  };
+
+  const onPinOrVisibilityToggleSuccess = () => {
+    runcSearchMedia({
+      onSuccess: onSearchSuccess,
+      args: [
+        {
+          ...filter,
+          size: filter.size * (filter.page + 1),
+          page: 0,
+        },
+      ],
+    });
+  };
+
+  const handleTogglePinning = (mediaId: string) => {
+    runcTogglePin({
+      onSuccess: onPinOrVisibilityToggleSuccess,
+      onError: onPinOrVisibilityToggleError,
+      args: [mediaId],
+    });
+  };
 
   const handleToggleVisibility = (mediaId: string) => {
-    runVisibilityToggle(mediaId);
+    runcVisibilityToggle({
+      onSuccess: onPinOrVisibilityToggleSuccess,
+      onError: onPinOrVisibilityToggleError,
+      args: [mediaId],
+    });
   };
 
-  useEffect(() => {
-    if (
-      toggleState.status === Status.success ||
-      VisibilitytoggleState.status === Status.success
-    ) {
-      setShouldRefetch(true);
-      runSearchMedia({
-        ...filter,
-        size: filter.size * (filter.page + 1),
-        page: 0,
-      });
-    }
-  }, [VisibilitytoggleState.status, toggleState]);
-
   const fetchMoreMedia = () => {
-    setShouldRefetch(false);
     setFilter((prev) => ({
       ...prev,
       page: prev.page + 1,
@@ -118,20 +124,11 @@ function Moderation() {
   };
 
   useEffect(() => {
-    runSearchMedia(filter);
-  }, [runSearchMedia, filter]);
-
-  useEffect(() => {
-    if (status === Status.success) {
-      // when refreshing we dont need previous data cause it will get refetched
-      if (!shouldRefetch) {
-        setAllMedia((prev) => [...prev, ...data.content]);
-      } else {
-        setAllMedia(() => [...data.content]);
-        setShouldRefetch(false);
-      }
-    }
-  }, [status, data]);
+    runcSearchMedia({
+      onSuccess: onSearchSuccess,
+      args: [filter],
+    });
+  }, [runcSearchMedia, filter]);
 
   const renderLoadingCards = () => {
     const items = Array.from({ length: filter.size }, (_, index) => index);
