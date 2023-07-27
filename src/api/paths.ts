@@ -22,8 +22,8 @@ export default {
 };
 
 export const topics = Object.freeze({
-  POSTS: '/media/ws',
+  POSTS: '/topic/ws/media',
   ANNOUNCEMENTS: '/topic/closest-announcement',
-  PINNEDPOST: '/media/ws/posts/pinned',
-  MEDIA_VISIBILITY: '/media/ws/posts/hidden',
+  PINNEDPOST: '/topic/ws/posts/pinned',
+  MEDIA_VISIBILITY: '/topic/ws/posts/hidden',
 });

@@ -10,15 +10,24 @@ import { AnimationContextProvider } from './contexts/animationContext';
 import { pinedPost } from './data/sources/PinnedPostSource';
 import { hiddenPost } from './data/sources/HiddenMediaSource';
 import { announcements } from './data/sources/AnnouncementsSource';
+import defaultSelector from '../../api/selector';
 
 const defaultFilter = {
   sort: 'timestamp,desc',
   'hidden.eq': false,
 };
 const Landing = () => {
-  const { state: postsState } = useAsyncState(mediaPosts);
-  const { state: clientState } = useAsyncState.auto({
+  const {
+    state: { isSuccess, isPending },
+  } = useAsyncState({
+    source: mediaPosts,
+    selector: defaultSelector,
+  });
+  const {
+    state: { isSuccess: isClientConnected },
+  } = useAsyncState.auto({
     source: stompClientSource,
+    selector: defaultSelector,
     events: {
       change: [
         {
@@ -34,17 +43,17 @@ const Landing = () => {
     },
   });
 
-  return clientState.status === Status.success ? (
+  return isClientConnected ? (
     <div className="min-h-screen w-screen bg-darkBlue">
       <div className="flex min-h-screen flex-col justify-between px-8 pt-5 text-white">
         <Header />
         <div className="my-[4vh] flex w-full flex-1 grow items-stretch justify-between gap-x-[2vw]">
-          {postsState.status === Status.success && (
+          {isSuccess && (
             <AnimationContextProvider>
               <Cards />
             </AnimationContextProvider>
           )}
-          {postsState.status === Status.pending && (
+          {isPending && (
             <div className="grid w-full place-items-center">
               <Spinner className="mr-2 h-12 w-12 animate-spin fill-blue-600 text-gray-200 dark:text-gray-600" />
             </div>

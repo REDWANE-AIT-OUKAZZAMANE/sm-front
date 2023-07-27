@@ -1,6 +1,5 @@
 import { Button } from 'antd';
 import { useState, useRef, useEffect } from 'react';
-import { Status } from 'async-states';
 import classNames from 'classnames';
 
 import AnnouncementForm from '../AnnouncementForm';
@@ -12,6 +11,7 @@ import { useScrollbarVisible } from '../../../../hooks/useScrollbarVisible';
 import './style.scss';
 import Spinner from '../../../../../landing/components/Spinner';
 import { testIds } from '../../../../../../tests/constants';
+import defaultSelector from '../../../../../../api/selector';
 
 function AnnouncementsSettings() {
   const [announcementFormVisible, setAnnouncementFormVisible] =
@@ -21,8 +21,17 @@ function AnnouncementsSettings() {
 
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const { state: announcementsState, run: runGetAnnouncements } =
-    app.wall.getAnnouncements.inject(getAnnouncementsProducer).useAsyncState();
+  const {
+    state: {
+      currentState: announcementsState,
+      responseData: announcementsData,
+      isSuccess,
+      isPending,
+    },
+    run: runGetAnnouncements,
+  } = app.wall.getAnnouncements.inject(getAnnouncementsProducer).useAsyncState({
+    selector: defaultSelector,
+  });
 
   const openAnnouncementForm = () => {
     setAnnouncementFormVisible(true);
@@ -49,21 +58,20 @@ function AnnouncementsSettings() {
     >
       <div className="mb-[22px] flex h-[40px] items-center justify-between">
         <h1 className="text-[20px] font-semibold">Annoucements</h1>
-        {announcementsState.status === Status.success &&
-          announcementsState.data.data.content.length > 0 && (
-            <Button
-              size="large"
-              htmlType="button"
-              onClick={openAnnouncementForm}
-              disabled={announcementFormVisible || editedAnnouncement !== ''}
-              className="w-[244px] rounded-lg bg-btnPurple  px-4 py-2 font-normal text-white"
-              data-testid={testIds.announcements.addButton}
-            >
-              Add announcement
-            </Button>
-          )}
+        {isSuccess && announcementsData.data.content.length > 0 && (
+          <Button
+            size="large"
+            htmlType="button"
+            onClick={openAnnouncementForm}
+            disabled={announcementFormVisible || editedAnnouncement !== ''}
+            className="w-[244px] rounded-lg bg-btnPurple  px-4 py-2 font-normal text-white"
+            data-testid={testIds.announcements.addButton}
+          >
+            Add announcement
+          </Button>
+        )}
       </div>
-      {announcementsState.status === Status.pending || loading ? (
+      {isPending || loading ? (
         <div
           className="grid w-full flex-1 place-items-center"
           data-testid={testIds.announcements.Spinner}
@@ -71,8 +79,8 @@ function AnnouncementsSettings() {
           <Spinner className="mb-[22px] mr-2 h-12 w-12 animate-spin fill-dPurple text-gray-200 dark:text-gray-600" />
         </div>
       ) : (
-        announcementsState.status === Status.success &&
-        (announcementsState.data.data.content.length === 0 &&
+        isSuccess &&
+        (announcementsData.data.content.length === 0 &&
         !announcementFormVisible ? (
           <div className="flex flex-1 flex-col items-center justify-center gap-10">
             <p className="text-[16px] text-[color:var(--border-grey)]">
@@ -108,7 +116,7 @@ function AnnouncementsSettings() {
               />
             )}
 
-            {announcementsState.data.data.content.map(
+            {announcementsData.data.content.map(
               (announcement: Announcement) => (
                 <AnnouncementItem
                   announcement={announcement}

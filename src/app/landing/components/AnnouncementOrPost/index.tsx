@@ -14,6 +14,7 @@ import {
   announcements,
   closestAnnouncement,
 } from '../../data/sources/AnnouncementsSource';
+import defaultSelector from '../../../../api/selector';
 
 dayjs.extend(utc);
 
@@ -22,16 +23,32 @@ const AnnoucementOrPost = () => {
     string | Announcement
   >('');
 
-  const { state: announcementState } = useAsyncState(announcements) as any;
-  const { state: closestAnnouncementState, run } = useAsyncState(
-    closestAnnouncement
-  ) as any;
-
   const [showAnnouncement, setShowAnnoumcement] = useState(false);
   const animationProps: AnimationContextProps | null = useAnimationContext();
 
   const { maxCards, postsList } = animationProps!;
   const post = postsList[postsList.length - 1];
+
+  const {
+    state: { responseData: announcementData },
+  } = useAsyncState({
+    source: announcements,
+    selector: defaultSelector,
+  });
+
+  const { run } = useAsyncState({
+    source: closestAnnouncement,
+    events: {
+      change: [
+        {
+          status: Status.success,
+          handler(result) {
+            setAnnouncementToDisplay(result.state.data.content[0]);
+          },
+        },
+      ],
+    },
+  }) as any;
 
   useEffect(() => {
     let startTimerId;
@@ -64,21 +81,13 @@ const AnnoucementOrPost = () => {
       clearTimeout(startTimerId);
       clearTimeout(endTimerId);
     };
-  }, [announcementToDisplay]);
-
+  }, [announcementToDisplay, run]);
   useEffect(() => {
-    if (closestAnnouncementState.status === Status.success) {
-      setAnnouncementToDisplay(closestAnnouncementState.data.content[0]);
-    }
-  }, [closestAnnouncementState]);
-
-  useEffect(() => {
-    if (announcementState.data) {
-      const content = announcementState.data as Announcement | string;
+    if (announcementData) {
+      const content = announcementData as Announcement | string;
       setAnnouncementToDisplay(content);
     }
-  }, [announcementState.data]);
-
+  }, [announcementData]);
   return !showAnnouncement ? (
     post && (
       <Card

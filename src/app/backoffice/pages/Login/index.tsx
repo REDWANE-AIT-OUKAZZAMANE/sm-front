@@ -1,52 +1,72 @@
 import { Button, Form, Input, notification } from 'antd';
 import { useAsyncState, Status } from 'react-async-states';
-import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AxiosError } from 'axios';
+import { useEffect } from 'react';
 
 import logo from '../../../../assets/LOGO.svg';
 import FormRules from '../../../../utils/FormRules';
 import './styles.scss';
 import { errorCodeToMessage } from '../../../../api/errorCodeToMessage';
 import errorIcon from '../../../../assets/icons/errorIcon.svg';
-import { getLoginProducer } from '../../data/producers/LoginProducer';
+import {
+  ErrorType,
+  getLoginProducer,
+} from '../../data/producers/LoginProducer';
 import { currentUserSource } from '../../data/sources/currentUserSource';
 import Spinner from '../../../landing/components/Spinner';
 import { testIds } from '../../../../tests/constants';
+import defaultSelector from '../../../../api/selector';
 
 function Login() {
   const navigate = useNavigate();
-  const { state, run } = useAsyncState({
+  const {
+    state: { responseData: currentUserData, isSuccess: isCurrentUserSuccess },
+    run: getCurrentUser,
+  } = useAsyncState({
+    source: currentUserSource,
+    selector: defaultSelector,
+  });
+
+  const {
+    state: { isPending },
+    run,
+  } = useAsyncState({
     key: 'Login',
     producer: getLoginProducer,
+    selector: defaultSelector,
+    events: {
+      change: [
+        {
+          status: Status.success,
+          handler() {
+            getCurrentUser();
+          },
+        },
+        {
+          status: Status.error,
+          handler(result) {
+            const data = result.state.data as AxiosError<ErrorType, any>;
+            notification.open({
+              message: `error`,
+              description: errorCodeToMessage(data.response?.data?.code),
+              placement: 'bottomRight',
+              icon: <img src={errorIcon} alt="errorIcon" />,
+            });
+          },
+        },
+      ],
+    },
   });
-  const { state: currentUserState, run: getCurrentUser } =
-    useAsyncState(currentUserSource);
 
-  const { status, data } = state;
   const onFinish = (values) => {
     run(values);
   };
   useEffect(() => {
-    if (
-      currentUserState.status === Status.success &&
-      currentUserState.data !== null
-    ) {
+    if (isCurrentUserSuccess && currentUserData !== null) {
       navigate('/admin');
     }
-  }, [currentUserState, navigate]);
-  useEffect(() => {
-    if (status === Status.success) {
-      getCurrentUser();
-    }
-    if (status === Status.error) {
-      notification.open({
-        message: `error`,
-        description: errorCodeToMessage(data.response?.data?.code),
-        placement: 'bottomRight',
-        icon: <img src={errorIcon} alt="errorIcon" />,
-      });
-    }
-  }, [status, data]);
+  }, [currentUserData, isCurrentUserSuccess, navigate]);
 
   return (
     <div
@@ -83,10 +103,10 @@ function Login() {
             size="large"
             htmlType="submit"
             className="w-full rounded-lg bg-btnPurple px-4 py-2 font-normal uppercase text-white"
-            disabled={status === Status.pending}
+            disabled={isPending}
             data-testid={testIds.auth.submitBtn}
           >
-            {status === Status.pending ? (
+            {isPending ? (
               <Spinner className="mx-auto h-10 w-10 animate-spin fill-blue-600 text-gray-200 dark:text-gray-600" />
             ) : (
               'LOGIN'

@@ -12,6 +12,7 @@ import { getWallSettingsProducer } from '../../../../data/producers/getWallSetti
 import Spinner from '../../../../../landing/components/Spinner';
 import './style.scss';
 import { testIds } from '../../../../../../tests/constants';
+import defaultSelector from '../../../../../../api/selector';
 
 type WallSettingsType = {
   id: string;
@@ -47,19 +48,20 @@ export default function WallSettingss() {
       title: currentWallSettings.title,
     });
   }
-  const { state: wallSettingsState } = app.wall.getWallSettings
-    .inject(getWallSettingsProducer)
-    .useAsyncState({
-      lazy: false,
-      events: {
-        change: [
-          {
-            status: Status.success,
-            handler: onGettingSuccess,
-          },
-        ],
-      },
-    });
+  const {
+    state: { isPending },
+  } = app.wall.getWallSettings.inject(getWallSettingsProducer).useAsyncState({
+    lazy: false,
+    selector: defaultSelector,
+    events: {
+      change: [
+        {
+          status: Status.success,
+          handler: onGettingSuccess,
+        },
+      ],
+    },
+  });
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
@@ -110,8 +112,7 @@ export default function WallSettingss() {
     }
   }
 
-  function onUpdatingError(result): void {
-    console.log(result);
+  function onUpdatingError(): void {
     notification.open({
       message: `Error`,
       description: 'error while updating wall settings',
@@ -188,7 +189,7 @@ export default function WallSettingss() {
       <h4 className="mb-[20px] text-[20px] font-semibold text-textBlack">
         Wall Settings
       </h4>
-      {wallSettingsState.status === Status.pending ? (
+      {isPending ? (
         <div className="grid w-full place-items-center">
           <Spinner className="mr-2 h-12 w-12 animate-spin fill-blue-600 text-gray-200 dark:text-gray-600" />
         </div>

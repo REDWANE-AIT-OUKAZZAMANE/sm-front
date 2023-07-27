@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { Status, useAsyncState } from 'react-async-states';
+import { useAsyncState } from 'react-async-states';
 import { useEffect, useState } from 'react';
 
 import { currentUserSource } from './data/sources/currentUserSource';
@@ -11,19 +11,31 @@ import Moderation from './pages/Moderation';
 import GeneralSettings from './pages/Settings/GeneralSettings';
 import Spinner from '../landing/components/Spinner';
 import { testIds } from '../../tests/constants';
+import defaultSelector from '../../api/selector';
 
 function Backoffice() {
-  const { state } = useAsyncState.auto(currentUserSource);
+  const {
+    state: {
+      currentState: currentUserState,
+      responseData: currentUserData,
+      isSuccess,
+      isPending,
+      isInitial,
+    },
+  } = useAsyncState.auto({
+    source: currentUserSource,
+    selector: defaultSelector,
+  });
   const [loggedIn, setLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoggedIn(state.status === Status.success && state.data !== null);
+    setLoggedIn(isSuccess && currentUserData !== null);
 
-    if (state.status !== Status.pending && state.status !== Status.initial) {
+    if (!isPending && !isInitial) {
       setLoading(false);
     }
-  }, [state]);
+  }, [currentUserState]);
 
   if (loading) {
     return (
@@ -43,7 +55,7 @@ function Backoffice() {
         path="/admin"
         element={
           <ProtectedRoutes user={loggedIn}>
-            <Layout userData={state.data} />
+            <Layout userData={currentUserData} />
           </ProtectedRoutes>
         }
       >
