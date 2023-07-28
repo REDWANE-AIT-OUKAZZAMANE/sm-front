@@ -8,7 +8,7 @@ import dots from '../../../../../../assets/icons/vertical_dots.svg';
 import { ReactComponent as Pen } from '../../../../../../assets/icons/pen.svg';
 import { ReactComponent as Bin } from '../../../../../../assets/icons/bin.svg';
 import './style.scss';
-import DeleteAnnouncementModal from '../../../../components/DeleteAnnouncementConfirmation';
+import ConfirmationModal from '../../../../components/ConfirmationModal/ConfirmationModal';
 import { deleteAnnouncement } from '../../../../data/sources/deleteAnnouncementSource';
 import successIcon from '../../../../../../assets/icons/successIcon.svg';
 import errorIcon from '../../../../../../assets/icons/errorIcon.svg';
@@ -202,10 +202,11 @@ function AnnouncementItem({
           </Dropdown>
         </div>
       </div>
-      <DeleteAnnouncementModal
-        onDeleteConfirm={handleDelete}
-        onDeleteCancel={handleCancelDelete}
-        showDeleteModal={isDeleteModalOpen}
+      <ConfirmationModal
+        onConfirm={handleDelete}
+        onCancel={handleCancelDelete}
+        showModal={isDeleteModalOpen}
+        message="Are you sure you want to delete the announcement ?"
       />
     </div>
   );

@@ -262,16 +262,10 @@ describe('Announcement Settings', () => {
     fireEvent.click(deleteButton);
 
     await waitFor(() => {
-      expect(
-        screen.getByTestId(
-          testIds.announcements.deleteAnnouncementModal.container
-        )
-      ).toBeInTheDocument();
+      expect(screen.getByTestId(testIds.modalContainer)).toBeInTheDocument();
     });
 
-    const confirmButton = screen.getByTestId(
-      testIds.announcements.deleteAnnouncementModal.confirmButton
-    );
+    const confirmButton = screen.getByTestId(testIds.modalConfirmation);
 
     act(() => {
       fireEvent.click(confirmButton);

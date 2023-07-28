@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 import { NavItems } from '../Sidemenu/nav-settings';
 import logoutIcon from '../../../../assets/icons/logout.svg';
 import { logoutSource } from '../../data/sources/logoutSource';
-import LogoutModal from '../../components/LogoutConfirModal';
+import ConfirmationModal from '../../components/ConfirmationModal/ConfirmationModal';
 import { testIds } from '../../../../tests/constants';
 
 function Header() {
@@ -49,10 +49,11 @@ function Header() {
       data-testid={testIds.header}
       className=" flex h-[88px] items-center justify-between px-[34px]"
     >
-      <LogoutModal
-        onLogoutConfirm={handleLogout}
-        onLogoutCancel={handleCancelLogout}
-        showLogoutModal={isLogoutModalOpen}
+      <ConfirmationModal
+        onConfirm={handleLogout}
+        onCancel={handleCancelLogout}
+        showModal={isLogoutModalOpen}
+        message="Are you sure you want to Logout ?"
       />
       <h1 className="text-[27px] font-semibold text-textBlack">{title}</h1>
       <button

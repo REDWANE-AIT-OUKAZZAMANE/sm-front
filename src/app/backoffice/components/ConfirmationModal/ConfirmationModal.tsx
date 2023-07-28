@@ -1,39 +1,43 @@
 import { Modal } from 'antd';
 
-import CloseIcon from '../../../assets/icons/CloseIcon.svg';
+import CloseIcon from '../../../../assets/icons/CloseIcon.svg';
 import './modalStyle.scss';
-import { testIds } from '../../../tests/constants';
+import { testIds } from '../../../../tests/constants';
 
-interface LogoutModalProps {
-  showLogoutModal: boolean;
-  onLogoutConfirm: () => void;
-  onLogoutCancel: () => void;
+interface ConfirmationModalProps {
+  showModal: boolean;
+  onConfirm: () => void;
+  onCancel: () => void;
+  message: string;
 }
 
-const LogoutModal: React.FC<LogoutModalProps> = ({
-  showLogoutModal,
-  onLogoutConfirm,
-  onLogoutCancel,
+const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
+  showModal,
+  onConfirm,
+  onCancel,
+  message,
 }) => {
   const handelConfirm = () => {
-    onLogoutConfirm();
+    onConfirm();
   };
   return (
     <Modal
       width={470}
-      open={showLogoutModal}
+      open={showModal}
       title="Logout"
       onOk={handelConfirm}
-      onCancel={onLogoutCancel}
+      onCancel={onCancel}
       closeIcon={<img src={CloseIcon} alt="icon" />}
       className="font-poppins"
       maskClosable={false}
+      data-testid={testIds.modalContainer}
       footer={
         <div className="flex items-center justify-between">
           <button
             type="button"
             className="mr-[60px] inline-flex flex-1 items-center justify-center rounded-[10px] border-2 border-dPurple px-5 py-2.5 text-center font-medium text-dPurple"
-            onClick={onLogoutCancel}
+            onClick={onCancel}
+            data-testid={testIds.modalCloseBtn}
           >
             No
           </button>
@@ -50,9 +54,9 @@ const LogoutModal: React.FC<LogoutModalProps> = ({
         </div>
       }
     >
-      <p>Are you sure you want to Logout ?</p>
+      <p>{message}</p>
     </Modal>
   );
 };
 
-export default LogoutModal;
+export default ConfirmationModal;

@@ -68,6 +68,8 @@ export const testIds = {
   layout: 'LAYOUT',
   header: 'HEADER',
   logoutBtn: 'HEADER_LOGOUT_BTN',
+  modalContainer: 'MODAL_CONTAINER',
+  modalCloseBtn: 'MODAL_CLOSE_BTN',
   modalConfirmation: 'MODAL_CONFIRMATION',
   content: 'CONTENT',
   loginPage: 'LOGIN_PAGE',

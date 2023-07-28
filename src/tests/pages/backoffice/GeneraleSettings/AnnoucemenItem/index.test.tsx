@@ -45,11 +45,7 @@ describe('AnnouncementItem', () => {
     expect(deleteButton).toBeInTheDocument();
 
     fireEvent.click(deleteButton);
-    expect(
-      screen.getByTestId(
-        testIds.announcements.deleteAnnouncementModal.container
-      )
-    ).toBeInTheDocument();
+    expect(screen.getByTestId(testIds.modalContainer)).toBeInTheDocument();
   });
 
   it('should open dropdown menu and trigger AnnouncementForm', () => {
@@ -104,15 +100,9 @@ describe('AnnouncementItem', () => {
     expect(deleteButton).toBeInTheDocument();
 
     fireEvent.click(deleteButton);
-    expect(
-      screen.getByTestId(
-        testIds.announcements.deleteAnnouncementModal.container
-      )
-    ).toBeInTheDocument();
+    expect(screen.getByTestId(testIds.modalContainer)).toBeInTheDocument();
 
-    const confirmButton = screen.getByTestId(
-      testIds.announcements.deleteAnnouncementModal.confirmButton
-    );
+    const confirmButton = screen.getByTestId(testIds.modalConfirmation);
 
     expect(confirmButton).toBeInTheDocument();
     fireEvent.click(confirmButton);
