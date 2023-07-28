@@ -1,10 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Button, Form, Input, Upload, notification } from 'antd';
+import { Button, Form, Input, Upload } from 'antd';
 import { Status } from 'async-states';
 
 import FormRules from '../../../../../../utils/FormRules';
-import successIcon from '../../../../../../assets/icons/successIcon.svg';
-import errorIcon from '../../../../../../assets/icons/errorIcon.svg';
 import { addWallSettingsProducer } from '../../../../data/producers/addWallSettingsProducer';
 import { app } from '../../../../../app';
 import { updateWallSettingsProducer } from '../../../../data/producers/updateWallSettingsProducer';
@@ -13,6 +11,10 @@ import Spinner from '../../../../../landing/components/Spinner';
 import './style.scss';
 import { testIds } from '../../../../../../tests/constants';
 import defaultSelector from '../../../../../../api/selector';
+import {
+  openErrorToast,
+  openSuccessToast,
+} from '../../../../utils/notifications';
 
 type WallSettingsType = {
   id: string;
@@ -88,14 +90,11 @@ export default function WallSettingss() {
       });
   };
   const handelChangeSuccess = (addedwallSettings) => {
-    notification.open({
-      message: `Success`,
-      description: `The wall setting has been successfully ${
+    openSuccessToast(
+      `The wall setting has been successfully ${
         wallSettings.id ? 'updated' : 'added'
-      }`,
-      placement: 'bottomRight',
-      icon: <img src={successIcon} alt="successIcon" />,
-    });
+      }`
+    );
     setWallSetings({
       id: addedwallSettings.id,
       title: addedwallSettings.title,
@@ -113,21 +112,11 @@ export default function WallSettingss() {
   }
 
   function onUpdatingError(): void {
-    notification.open({
-      message: `Error`,
-      description: 'error while updating wall settings',
-      placement: 'bottomRight',
-      icon: <img src={errorIcon} alt="errorIcon" />,
-    });
+    openErrorToast('Error while updating wall settings');
   }
 
   function onAddingError(): void {
-    notification.open({
-      message: `Error`,
-      description: 'error while adding wall settings',
-      placement: 'bottomRight',
-      icon: <img src={errorIcon} alt="errorIcon" />,
-    });
+    openErrorToast('error while adding wall settings');
   }
 
   const onFinish = (values: any) => {

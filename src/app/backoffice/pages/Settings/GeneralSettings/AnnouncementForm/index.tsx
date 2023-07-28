@@ -1,18 +1,20 @@
 import { useEffect, useState } from 'react';
-import { DatePicker, Input, Form, notification } from 'antd';
+import { DatePicker, Input, Form } from 'antd';
 import dayjs from 'dayjs';
 
 import xIcon from '../../../../../../assets/icons/x.svg';
 import checkmarkIcon from '../../../../../../assets/icons/checkmark.svg';
 import FormRules from '../../../../../../utils/FormRules';
-import successIcon from '../../../../../../assets/icons/successIcon.svg';
-import errorIcon from '../../../../../../assets/icons/errorIcon.svg';
 import './style.scss';
 import { app } from '../../../../../app';
 import { addAnnouncementProducer } from '../../../../data/producers/addAnnouncementProducer';
 import { updateAnnouncementProducer } from '../../../../data/producers/updateAnnouncementsProducer';
 import { errorCodeToMessage } from '../../../../../../api/errorCodeToMessage';
 import { testIds } from '../../../../../../tests/constants';
+import {
+  openErrorToast,
+  openSuccessToast,
+} from '../../../../utils/notifications';
 
 interface AnnouncementFormProps {
   closeForm: Function;
@@ -76,28 +78,9 @@ function AnnouncementForm({
     }
   };
 
-  function openErrorNotification(code) {
-    notification.open({
-      message: 'Error',
-      description: errorCodeToMessage(code),
-      placement: 'bottomRight',
-      duration: 3,
-      icon: <img src={errorIcon} alt="errorIcon" />,
-    });
-  }
-  function openSuccessNotification(message) {
-    notification.open({
-      message: 'Success',
-      description: message,
-      placement: 'bottomRight',
-      duration: 3,
-      icon: <img src={successIcon} alt="successIcon" />,
-    });
-  }
-
   function onAddSuccess(result: any): void {
     if (result.data) {
-      openSuccessNotification(
+      openSuccessToast(
         `The announcement has been successfully ${edit ? 'updated' : 'added'}`
       );
       runGetAnnouncements();
@@ -109,7 +92,7 @@ function AnnouncementForm({
 
   function onAddingError({ data }): void {
     setLoading(false);
-    openErrorNotification(data?.response?.data?.code);
+    openErrorToast(errorCodeToMessage(data?.response?.data?.code));
   }
 
   const onFinish = (values) => {

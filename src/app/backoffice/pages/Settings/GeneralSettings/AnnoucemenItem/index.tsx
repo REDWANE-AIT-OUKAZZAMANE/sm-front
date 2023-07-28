@@ -1,4 +1,4 @@
-import { Dropdown, notification } from 'antd';
+import { Dropdown } from 'antd';
 import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 
@@ -10,9 +10,11 @@ import { ReactComponent as Bin } from '../../../../../../assets/icons/bin.svg';
 import './style.scss';
 import ConfirmationModal from '../../../../components/ConfirmationModal/ConfirmationModal';
 import { deleteAnnouncement } from '../../../../data/sources/deleteAnnouncementSource';
-import successIcon from '../../../../../../assets/icons/successIcon.svg';
-import errorIcon from '../../../../../../assets/icons/errorIcon.svg';
 import { testIds } from '../../../../../../tests/constants';
+import {
+  openErrorToast,
+  openSuccessToast,
+} from '../../../../utils/notifications';
 
 type AnnouncementItemProps = {
   announcement: Announcement;
@@ -89,23 +91,13 @@ function AnnouncementItem({
   }
 
   function onDeleteSuccess() {
-    notification.open({
-      message: `Success`,
-      description: 'The announcement has been successfully deleted',
-      placement: 'bottomRight',
-      icon: <img src={successIcon} alt="successIcon" />,
-    });
+    openSuccessToast('The announcement has been successfully deleted');
     setIsdeleteModalOpen(false);
     runGetAnnouncemnets();
   }
 
   function onDeleteError() {
-    notification.open({
-      message: `Error`,
-      description: 'Failed to delete announcement',
-      placement: 'bottomRight',
-      icon: <img src={errorIcon} alt="errorIcon" />,
-    });
+    openErrorToast('Failed to delete announcement');
     setIsdeleteModalOpen(false);
   }
 

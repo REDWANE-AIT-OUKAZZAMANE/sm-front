@@ -1,4 +1,4 @@
-import { Button, Form, Input, notification } from 'antd';
+import { Button, Form, Input } from 'antd';
 import { useAsyncState, Status } from 'react-async-states';
 import { useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
@@ -8,7 +8,6 @@ import logo from '../../../../assets/LOGO.svg';
 import FormRules from '../../../../utils/FormRules';
 import './styles.scss';
 import { errorCodeToMessage } from '../../../../api/errorCodeToMessage';
-import errorIcon from '../../../../assets/icons/errorIcon.svg';
 import {
   ErrorType,
   getLoginProducer,
@@ -17,6 +16,7 @@ import { currentUserSource } from '../../data/sources/currentUserSource';
 import Spinner from '../../../landing/components/Spinner';
 import { testIds } from '../../../../tests/constants';
 import defaultSelector from '../../../../api/selector';
+import { openErrorToast } from '../../utils/notifications';
 
 function Login() {
   const navigate = useNavigate();
@@ -47,12 +47,7 @@ function Login() {
           status: Status.error,
           handler(result) {
             const data = result.state.data as AxiosError<ErrorType, any>;
-            notification.open({
-              message: `error`,
-              description: errorCodeToMessage(data.response?.data?.code),
-              placement: 'bottomRight',
-              icon: <img src={errorIcon} alt="errorIcon" />,
-            });
+            openErrorToast(errorCodeToMessage(data.response?.data?.code));
           },
         },
       ],
