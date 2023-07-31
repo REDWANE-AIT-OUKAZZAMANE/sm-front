@@ -1,5 +1,3 @@
-// import { useContext } from 'react';
-
 import Card from './Card';
 import { Media } from '../../../types';
 import { getSocialMediaType } from '../../../utils';

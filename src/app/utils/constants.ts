@@ -65,3 +65,9 @@ export const defaultPostsQueryParams = {
 export const postTextCharacter = {
   limit: 210,
 };
+
+export const displayedPostsFetchType = Object.freeze({
+  initialFetch: 'initialFetch',
+  togglePin: 'togglePin',
+  toggleHide: 'toggleHide',
+});

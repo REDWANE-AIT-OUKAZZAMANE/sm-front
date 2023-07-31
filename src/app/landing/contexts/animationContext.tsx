@@ -1,7 +1,6 @@
-import {
+import React, {
   createContext,
   useRef,
-  ReactNode,
   useEffect,
   useState,
   useMemo,
@@ -16,9 +15,11 @@ import {
   wallAnimationDelay,
   wallCardAnimationDuration,
 } from '../components/CardsGrid/Card/animationSettings';
-import { pinedPost } from '../data/sources/PinnedPostSource';
-import { mediaPosts } from '../data/sources/PostsSource';
 import { hiddenPost } from '../data/sources/HiddenMediaSource';
+import defaultSelector from '../../../api/selector';
+import { mediaPosts } from '../data/sources/PostsSource';
+import { contextPostsSource } from '../data/sources/ContextPostsSource';
+import { displayedPostsFetchType } from '../../utils/constants';
 
 export interface AnimationContextProps {
   lastIndexRef: React.RefObject<number>;
@@ -26,8 +27,9 @@ export interface AnimationContextProps {
   containerRef: React.RefObject<HTMLDivElement>;
   postsList: Media[];
 }
+
 interface MyProviderProps {
-  children: ReactNode;
+  children: React.ReactNode;
 }
 
 const AnimationContext = createContext<AnimationContextProps | null>(null);
@@ -35,41 +37,80 @@ const AnimationContext = createContext<AnimationContextProps | null>(null);
 export const AnimationContextProvider: React.FC<MyProviderProps> = ({
   children,
 }) => {
-  const { state: pinnedPostState } = useAsyncState(pinedPost);
-  const { state: postsState } = useAsyncState(mediaPosts);
-  const posts = postsState.data as Media[];
   const [maxCards, containerRef] = useMaxCards();
   const lastIndexRef = useRef<number>(0);
-  const [postsList, setPostsList] = useState<Media[]>([]);
   const totalAnimationDuration = useRef(0);
-  const postssourceRef = useRef(posts);
-  const pinnedPostRef = useRef<Media | null>(null);
-  const { state: hiddenPostState } = useAsyncState(hiddenPost);
 
-  const addToLastIndexRef = () => {
-    if (lastIndexRef.current !== null) {
-      lastIndexRef.current += maxCards + 1;
-    }
+  const [postsList, setPostsList] = useState<Media[]>([]);
+  const pinnedPostRef = useRef<Media | null>(null);
+  const {
+    state: { currentState: postsState },
+  } = useAsyncState({
+    source: mediaPosts,
+    selector: defaultSelector,
+  });
+
+  const {
+    state: { responseData: postssourceResponse },
+    run: getDisplayedPostsSource,
+  } = useAsyncState({
+    source: contextPostsSource,
+    selector: defaultSelector,
+  });
+
+  const handelHiddenPostInPostsList = (toggledMedia) => {
+    const newpostsList = postsList.map((media) =>
+      media.id === toggledMedia.id
+        ? {
+            ...postssourceResponse.postssource[lastIndexRef.current],
+            id: toggledMedia.id,
+          }
+        : media
+    );
+    lastIndexRef.current += 1;
+    setPostsList(newpostsList);
   };
+
+  useAsyncState(
+    {
+      source: hiddenPost,
+      events: {
+        change: [
+          {
+            status: Status.success,
+            handler(result) {
+              const toggledMedia = result.state.data as Media;
+              getDisplayedPostsSource(
+                displayedPostsFetchType.toggleHide,
+                toggledMedia
+              );
+              handelHiddenPostInPostsList(toggledMedia);
+            },
+          },
+        ],
+      },
+    },
+    [postsList]
+  );
+
   const shiftList = () => {
     if (maxCards !== 0) {
-      const postssource = postssourceRef.current.filter(
+      const filtredPostssource = postssourceResponse.postssource.filter(
         (m) => !m.pinned && !m.hidden
       );
       let newPostsList;
-      if (postssource.length - lastIndexRef.current >= maxCards + 1) {
-        newPostsList = postssource.slice(
+      if (filtredPostssource.length - lastIndexRef.current >= maxCards + 1) {
+        newPostsList = filtredPostssource.slice(
           lastIndexRef.current,
           maxCards + lastIndexRef.current + 1
         );
-
-        addToLastIndexRef();
+        lastIndexRef.current += maxCards + 1;
       } else {
         const restCards =
-          maxCards + 1 - (postssource.length - lastIndexRef.current);
+          maxCards + 1 - (filtredPostssource.length - lastIndexRef.current);
         newPostsList = [
-          ...postssource.slice(lastIndexRef.current),
-          ...postssource.slice(0, restCards),
+          ...filtredPostssource.slice(lastIndexRef.current),
+          ...filtredPostssource.slice(0, restCards),
         ];
         lastIndexRef.current = restCards;
       }
@@ -88,15 +129,15 @@ export const AnimationContextProvider: React.FC<MyProviderProps> = ({
       (wallAnimationDelay + totalAnimationDuration.current * 2) * 1000
     );
   };
-  useEffect(() => {
+
+  const initialisePostList = () => {
     let timeoutId;
     if (maxCards !== 0) {
-      const postssource = postssourceRef.current;
       lastIndexRef.current = maxCards + 1;
-      let newPostsList = postssource.slice(0, maxCards + 1);
-      if (pinnedPostRef.current !== null) {
+      let newPostsList = postssourceResponse.postssource.slice(0, maxCards + 1);
+      if (postssourceResponse.pinnedPost !== null) {
         newPostsList = [
-          pinnedPostRef.current,
+          postssourceResponse.pinnedPost,
           ...newPostsList.slice(0, newPostsList.length - 1),
         ];
         lastIndexRef.current -= 1;
@@ -109,86 +150,28 @@ export const AnimationContextProvider: React.FC<MyProviderProps> = ({
         shiftList();
       }, (wallAnimationDelay + totalAnimationDuration.current * 2) * 1000);
     }
-    return () => {
-      clearTimeout(timeoutId);
-    };
+    return timeoutId;
+  };
+
+  useEffect(() => {
+    const timeoutId = initialisePostList();
+    return () => clearTimeout(timeoutId);
   }, [maxCards]);
-
-  useEffect(() => {
-    if (pinnedPostState.status === Status.success) {
-      const toggledMedia = pinnedPostState.data;
-      if (toggledMedia) {
-        if (toggledMedia.pinned) {
-          postssourceRef.current = posts.map((media) => ({
-            ...media,
-            pinned: false,
-          }));
-          postssourceRef.current = posts.filter(
-            (media) => media.id !== toggledMedia.id
-          );
-          pinnedPostRef.current = toggledMedia;
-        } else {
-          pinnedPostRef.current = null;
-          postssourceRef.current = posts.map((media) => ({
-            ...media,
-            pinned: false,
-          }));
-        }
-      }
-    }
-  }, [pinnedPostState, posts]);
-
-  useEffect(() => {
-    if (hiddenPostState.status === Status.success) {
-      const toggledMedia = hiddenPostState.data;
-      if (toggledMedia) {
-        if (toggledMedia.hidden) {
-          // Hide the post
-          if (
-            pinnedPostRef.current &&
-            toggledMedia.id === pinnedPostRef.current.id
-          ) {
-            pinnedPostRef.current = null;
-          }
-        }
-        postssourceRef.current = posts.map((media) => {
-          if (media.id === toggledMedia.id)
-            return { ...media, hidden: toggledMedia.hidden };
-          return media;
-        });
-        if (postsList.some((m) => m.id === toggledMedia.id)) {
-          const newpostsList = postsList.map((media) => {
-            if (media.id === toggledMedia.id) {
-              return {
-                ...postssourceRef.current[lastIndexRef.current],
-                id: toggledMedia.id,
-              };
-            }
-            return media;
-          });
-          lastIndexRef.current += 1;
-          setPostsList(newpostsList);
-        }
-      }
-    }
-  }, [hiddenPostState, posts]);
 
   useEffect(() => {
     if (postsState.status === Status.success) {
       if (lastIndexRef.current) {
         lastIndexRef.current = 0;
       }
-      if (posts != null) {
-        const pinnedMedia = posts.find((post) => post.pinned);
-        if (pinnedMedia) {
-          pinnedPostRef.current = pinnedMedia;
-        } else {
-          pinnedPostRef.current = null;
-        }
-        postssourceRef.current = posts.filter((media) => !media.pinned);
-      }
+      getDisplayedPostsSource(displayedPostsFetchType.initialFetch, null);
     }
   }, [postsState]);
+
+  useEffect(() => {
+    if (postssourceResponse) {
+      pinnedPostRef.current = postssourceResponse.pinnedPost;
+    }
+  }, [postssourceResponse]);
 
   const contextValue = useMemo(
     () => ({
@@ -199,6 +182,7 @@ export const AnimationContextProvider: React.FC<MyProviderProps> = ({
     }),
     [lastIndexRef, maxCards, containerRef, postsList]
   );
+
   return (
     <AnimationContext.Provider value={contextValue}>
       {children}

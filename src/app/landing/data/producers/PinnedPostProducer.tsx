@@ -3,6 +3,8 @@ import { ProducerProps, Status } from 'react-async-states';
 import { stompClientSource } from '../sources/ClientSource';
 import { topics } from '../../../../api/paths';
 import { Media } from '../../../types';
+import { contextPostsSource } from '../sources/ContextPostsSource';
+import { displayedPostsFetchType } from '../../../utils/constants';
 
 export const subscribeToPinnedPost = (
   props: ProducerProps<Media, Error, never, any>
@@ -18,6 +20,7 @@ export const subscribeToPinnedPost = (
     try {
       const newMedia = JSON.parse(message);
       props.emit(() => newMedia);
+      contextPostsSource.run(displayedPostsFetchType.togglePin, newMedia);
     } catch (error) {
       console.error('Error parsing JSON:', error);
     }

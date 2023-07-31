@@ -58,7 +58,6 @@ describe('Wall Settings', () => {
   it('displays error message for invalid file (wrong file format)', async () => {
     render(<WallSettings />);
     await waitFor(async () => {
-      // Find the input field
       const uploadWrapper = screen.getByTestId(
         testIds.wallSettings.uploadWrapper
       );
@@ -98,7 +97,6 @@ describe('Wall Settings', () => {
   it('shows wall settings info after fetch', async () => {
     render(<WallSettings />);
     await waitFor(() => {
-      // Assert that the file input value has been updated
       const titleInput = screen.getByTestId(testIds.wallSettings.titleInput);
       const fileInput = screen.getByTestId(testIds.wallSettings.fileInput);
       expect(titleInput).toHaveValue(WALL_SETTINGS_WITHOUT_ID.title);
@@ -115,7 +113,6 @@ describe('Wall Settings', () => {
       );
     });
 
-    // Fill in valid data in the input fields
     const titleInput = screen.getByTestId(testIds.wallSettings.titleInput);
     const uploadWrapper = screen.getByTestId(
       testIds.wallSettings.uploadWrapper
@@ -174,7 +171,6 @@ describe('Wall Settings', () => {
     });
 
     await act(() => {
-      // Fill in valid data in the input fields
       const titleInput = screen.getByTestId(testIds.wallSettings.titleInput);
       const uploadWrapper = screen.getByTestId(
         testIds.wallSettings.uploadWrapper
@@ -184,12 +180,10 @@ describe('Wall Settings', () => {
         target: { value: 'Valid Title Updated' },
       });
 
-      // Create a mock File object
       const file = new File(['file content'], 'logoUpdated.png', {
         type: 'image/png',
       });
 
-      // Simulate file selection by triggering the onChange event on the wrapper element
       userEvent.upload(uploadWrapper, file);
     });
 

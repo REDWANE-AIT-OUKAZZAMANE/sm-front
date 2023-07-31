@@ -86,7 +86,6 @@ describe('Announcement Form and adding', () => {
   });
 
   it('should display error messages for invalid title and description', async () => {
-    // Input fields
     const titleInput = screen.getByTestId(
       testIds.announcements.announcementForm.titleInput
     );
@@ -127,7 +126,6 @@ describe('Announcement Form and adding', () => {
   it('should display error messages for old start and end dates ', async () => {
     const currentDate = new Date();
 
-    // Input fields
     const startDateInput = screen.getByTestId(
       testIds.announcements.announcementForm.startDateInput
     );
@@ -159,7 +157,7 @@ describe('Announcement Form and adding', () => {
 
     startDate.setDate(currentDate.getDate() + 2);
     endDate.setDate(currentDate.getDate() + 1);
-    // Input fields
+
     const startDateInput = screen.getByTestId(
       testIds.announcements.announcementForm.startDateInput
     );
@@ -189,7 +187,6 @@ describe('Announcement Form and adding', () => {
     startDate.setDate(currentDate.getDate() + 2);
     endDate.setDate(currentDate.getDate() + 1);
 
-    // Input fields
     const startDateInput = screen.getByTestId(
       testIds.announcements.announcementForm.startDateInput
     );
@@ -223,7 +220,6 @@ describe('Announcement Form and adding', () => {
       ).toBeInTheDocument();
     });
 
-    // Input fields
     const titleInput = screen.getByTestId(
       testIds.announcements.announcementForm.titleInput
     );
@@ -301,7 +297,6 @@ describe('Announcement Form and adding', () => {
       ).toBeInTheDocument();
     });
 
-    // Input fields
     const titleInput = screen.getByTestId(
       testIds.announcements.announcementForm.titleInput
     );
@@ -386,7 +381,6 @@ describe('Announcement Form Update', () => {
       ).toBeInTheDocument();
     });
 
-    // Input fields
     const titleInput = screen.getByTestId(
       testIds.announcements.announcementForm.titleInput
     );
