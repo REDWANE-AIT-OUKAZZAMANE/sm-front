@@ -67,6 +67,7 @@ export const handlers = [
   rest.patch(`/api${paths.ANNOUNCEMENT_UPDATE(':id')}`, (req, res, ctx) => {
     const announcementCommand = req.body as AnnouncementUpdateCommand;
     updatedAnnouncement = {
+      // @ts-ignore
       id: req.params.id,
       title: announcementCommand.title,
       description: announcementCommand.description,
