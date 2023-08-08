@@ -9,6 +9,7 @@ import checkedIcon from '../../../../../../assets/icons/checked.svg';
 import { ReactComponent as Pen } from '../../../../../../assets/icons/pen.svg';
 import { ReactComponent as Bin } from '../../../../../../assets/icons/bin.svg';
 import './style.scss';
+import { testIds } from '../../../../../../tests/constants';
 
 type AdminItemProps = {
   admin: UserData;
@@ -20,6 +21,7 @@ const dropdownMenu = (onEdit, onDelete, setDropdownActionsOpen) => (
       onClick={() => onEdit()}
       type="button"
       className="mb-2 flex items-center"
+      data-testid={testIds.users.userItem.edit}
     >
       <span className="mr-4">
         <Pen className="icon" />
@@ -33,6 +35,7 @@ const dropdownMenu = (onEdit, onDelete, setDropdownActionsOpen) => (
       }}
       type="button"
       className="mt-2 flex items-center"
+      data-testid={testIds.users.userItem.delete}
     >
       <span className="mr-4">
         <Bin className="icon" />
@@ -67,11 +70,15 @@ function AdminItem({ admin }: AdminItemProps) {
     setChecked(!checked);
   };
   return (
-    <div className="flex items-center gap-[40px] rounded-2xl border border-[#E2E2E2] p-[10px]">
+    <div
+      className="flex items-center gap-[40px] rounded-2xl border border-[#E2E2E2] p-[10px]"
+      data-testid={testIds.users.userItem.container}
+    >
       <button
         type="button"
         className="flex h-[20px] w-[20px] items-center justify-center rounded border border-dPurple"
         onClick={handleCheck}
+        data-testid={testIds.users.userItem.checkbox}
       >
         {checked && (
           <img src={checkedIcon} alt="checkedIcon" className="w-[60%]" />
@@ -123,6 +130,7 @@ function AdminItem({ admin }: AdminItemProps) {
               ' bg-dPurple': activated,
               'bg-darkGrey': !activated,
             })}
+            data-testid={testIds.users.userItem.switch}
             checked={activated}
             size="small"
             style={{
@@ -140,7 +148,11 @@ function AdminItem({ admin }: AdminItemProps) {
               dropdownMenu(editAdmin, deleteAdmin, setDropdownActionsOpen)
             }
           >
-            <button className="h-[20px] px-[10px]" type="button">
+            <button
+              className="h-[20px] px-[10px]"
+              data-testid={testIds.users.userItem.dots}
+              type="button"
+            >
               <img src={dots} alt="fots" />
             </button>
           </Dropdown>

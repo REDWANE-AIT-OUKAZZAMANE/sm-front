@@ -7,6 +7,7 @@ import filterIcon from '../../../../../../assets/icons/filterIcon.svg';
 import sendArrow from '../../../../../../assets/icons/sendArrow.svg';
 import selectIcon from '../../../../../../assets/icons/selectIcon.svg';
 import './styles.scss';
+import { testIds } from '../../../../../../tests/constants';
 
 function AdminsFilter() {
   const [form] = Form.useForm();
@@ -29,7 +30,10 @@ function AdminsFilter() {
   };
 
   return (
-    <div className="form mb-12 flex flex-col items-center justify-between bg-white pb-2 font-['Lato']">
+    <div
+      className="form mb-12 flex flex-col items-center justify-between bg-white pb-2 font-['Lato']"
+      data-testid={testIds.users.FilterForm.container}
+    >
       <div className="mb-[10px] flex w-full items-center justify-between">
         <h1 className="items-center justify-between text-[18px] ">
           Admin list
@@ -38,6 +42,7 @@ function AdminsFilter() {
           className="inline-flex w-[192px] items-center justify-center rounded-lg bg-dPurple px-5 py-2.5 text-center font-['Lato'] text-lg  text-white hover:bg-darkPurple focus:outline-none"
           size="middle"
           htmlType="submit"
+          data-testid={testIds.users.FilterForm.addButton}
         >
           <span className="text-white">Add Admin</span>
         </Button>
@@ -49,6 +54,7 @@ function AdminsFilter() {
           }
           className="inline-flex w-60 items-center justify-center rounded-lg bg-dPurple px-5 py-2.5 text-center font-['Lato'] text-lg  text-white hover:bg-darkPurple focus:outline-none"
           size="middle"
+          data-testid={testIds.users.FilterForm.sendTokenButton}
         >
           <span className="text-white">send Login Token</span>
         </Button>
@@ -62,10 +68,11 @@ function AdminsFilter() {
               placeholder="Search by name"
               className="w-[351px]"
               size="middle"
+              data-testid={testIds.users.FilterForm.searchInput}
             />
           </Form.Item>
 
-          <Form.Item className="mb-0 w-[100px]" name="role.eq">
+          <Form.Item className="mb-0 w-[100px]" name="authorities.eq">
             <Select
               placeholder="Role"
               suffixIcon={
@@ -76,6 +83,7 @@ function AdminsFilter() {
                 { value: 'ADMIN', label: 'Admin' },
                 { value: 'MODERATOR', label: 'Moderator' },
               ]}
+              data-testid={testIds.users.FilterForm.roleInput}
             />
           </Form.Item>
 
@@ -86,6 +94,7 @@ function AdminsFilter() {
             className="inline-flex w-60 items-center justify-center rounded-lg bg-dPurple px-5 py-2.5 text-center font-['Lato'] text-lg  text-white hover:bg-darkPurple focus:outline-none"
             size="middle"
             htmlType="submit"
+            data-testid={testIds.users.FilterForm.submitButton}
           >
             <span className="text-white">Filter</span>
           </Button>
@@ -94,6 +103,7 @@ function AdminsFilter() {
             size="middle"
             htmlType="button"
             onClick={handleResetFields}
+            data-testid={testIds.users.FilterForm.resetButton}
           >
             <Image src={resetIcon} preview={false} />
           </Button>

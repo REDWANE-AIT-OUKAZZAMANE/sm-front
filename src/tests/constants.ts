@@ -54,6 +54,25 @@ export const testIds = {
       delete: 'DELETE',
     },
   },
+  users: {
+    userItem: {
+      container: 'USER_ITEM_CONTAINER',
+      dots: 'USER_DTOS',
+      edit: 'USER_EDIT',
+      delete: 'USER_DELETE',
+      checkbox: 'CHECKBOX',
+      switch: 'SWITCH',
+    },
+    FilterForm: {
+      container: 'USERS_FILTER_FORM_CONTAINER',
+      searchInput: 'USERS_FILTER_SEARCH_INPUT',
+      roleInput: 'USERS_FILTER_SOURCE_INPUT',
+      submitButton: 'USERS_FILTER_SUBMIT_BUTTON',
+      resetButton: 'USERS_FILTER_RESET_BUTTON',
+      sendTokenButton: 'USERS_SEND_TOKEN_BUTTON',
+      addButton: 'USERS_ADD_BUTTON',
+    },
+  },
   landing: {
     Card: {
       container: 'CARD_CONTAINER',
