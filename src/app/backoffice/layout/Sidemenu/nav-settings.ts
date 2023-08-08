@@ -41,10 +41,10 @@ export const NavItems = [
         name: 'General settings',
         link: 'settings/general-settings',
       },
-      // {
-      //   name: 'Role Management',
-      //   link: 'settings/role-management',
-      // },
+      {
+        name: 'Admin Management',
+        link: 'settings/admin-management',
+      },
     ],
     link: 'settings',
   },

@@ -1,0 +1,38 @@
+.admin-container {
+  .listadmin {
+    overflow: scroll;
+    &::-webkit-scrollbar {
+      width: 4px;
+      margin-left: 20px;
+      border-radius: 20px;
+    }
+
+    &::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 0px rgba(0, 0, 0, 0.1);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #bfc5d2;
+      outline: 1px solid white;
+    }
+  }
+  .container-scroll {
+    box-shadow: inset 0 12px 9px -12px rgba(0, 0, 0, 0.2),
+      inset 0 -12px 9px -12px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+  }
+
+  .ant-btn {
+    &:hover {
+      color: white;
+      border-color: transparent;
+    }
+    &:disabled {
+      color: white;
+      background-color: #c4c8cd;
+      &:hover {
+        border-color: #d9d9d9;
+      }
+    }
+  }
+}

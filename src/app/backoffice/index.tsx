@@ -12,6 +12,7 @@ import GeneralSettings from './pages/Settings/GeneralSettings';
 import Spinner from '../landing/components/Spinner';
 import { testIds } from '../../tests/constants';
 import defaultSelector from '../../api/selector';
+import AdminManagement from './pages/Settings/AdminManagement/AdminList';
 
 function Backoffice() {
   const {
@@ -68,6 +69,10 @@ function Backoffice() {
         <Route
           path="/admin/settings/general-settings"
           element={<GeneralSettings />}
+        />
+        <Route
+          path="/admin/settings/admin-management"
+          element={<AdminManagement />}
         />
       </Route>
     </Routes>
