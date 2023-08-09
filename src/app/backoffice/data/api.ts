@@ -2,10 +2,17 @@ import { AxiosResponse } from 'axios';
 
 import apiPaths from '../../../api/paths';
 import { API } from '../../../api/index';
-import { Announcement, UserData, WallSettings } from '../../types';
+import { Announcement, Role, UserData, WallSettings } from '../../types';
 
 type AnnouncementResponse = {
   content: Announcement[];
+};
+
+export type AdminResponse = {
+  content: UserData[];
+};
+export type AuthoritieResponse = {
+  content: Role[];
 };
 
 export type WallSettingsCommand = {
@@ -107,3 +114,12 @@ export const updateAnnouncement = (
   announcement: AnnouncementUpdateCommand
 ): Promise<AxiosResponse<Announcement>> =>
   API.patch(apiPaths.ANNOUNCEMENT_UPDATE(announcementId), announcement);
+
+export const getAdmins = (
+  queryParameters
+): Promise<AxiosResponse<AdminResponse>> =>
+  API.get(apiPaths.USERS, {
+    params: queryParameters,
+  });
+export const getAuthorities = (): Promise<AxiosResponse<AuthoritieResponse>> =>
+  API.get(apiPaths.AUTHORITIES);

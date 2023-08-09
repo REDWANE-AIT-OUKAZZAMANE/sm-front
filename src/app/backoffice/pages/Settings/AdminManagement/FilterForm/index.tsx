@@ -1,4 +1,5 @@
 import { Button, Form, Input, Select, Image } from 'antd';
+import { Option } from 'antd/es/mentions';
 import { useLocation, useNavigate } from 'react-router-dom';
 import queryString from 'query-string';
 
@@ -7,12 +8,22 @@ import filterIcon from '../../../../../../assets/icons/filterIcon.svg';
 import sendArrow from '../../../../../../assets/icons/sendArrow.svg';
 import selectIcon from '../../../../../../assets/icons/selectIcon.svg';
 import './styles.scss';
+import { app } from '../../../../../app';
+import { getAuthoritiesProducer } from '../../../../data/producers/getAuthorities';
+import defaultSelector from '../../../../../../api/selector';
 import { testIds } from '../../../../../../tests/constants';
 
 function AdminsFilter() {
   const [form] = Form.useForm();
   const location = useLocation();
   const navigate = useNavigate();
+
+  const {
+    state: { responseData: authoritiesData, isSuccess },
+  } = app.wall.getAuthorities.inject(getAuthoritiesProducer).useAsyncState({
+    selector: defaultSelector,
+    lazy: false,
+  });
 
   const parsedQueryParams = queryString.parse(location.search.slice(1), {
     parseBooleans: true,
@@ -72,19 +83,22 @@ function AdminsFilter() {
             />
           </Form.Item>
 
-          <Form.Item className="mb-0 w-[100px]" name="authorities.eq">
+          <Form.Item className="mb-0 w-[120px]" name="authorities.eq">
             <Select
               placeholder="Role"
               suffixIcon={
                 <img src={selectIcon} alt="selectIcon" className="pt-2" />
               }
               size="middle"
-              options={[
-                { value: 'ADMIN', label: 'Admin' },
-                { value: 'MODERATOR', label: 'Moderator' },
-              ]}
-              data-testid={testIds.users.FilterForm.roleInput}
-            />
+            >
+              {isSuccess &&
+                authoritiesData.data.map((role) => (
+                  <Option value={role.id}>
+                    {' '}
+                    {role.name.substring(5).toLowerCase()}
+                  </Option>
+                ))}
+            </Select>
           </Form.Item>
 
           <Button

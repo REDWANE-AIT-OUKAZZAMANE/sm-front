@@ -61,6 +61,9 @@ export const defaultPostsQueryParams = {
   'hidden.eq': undefined,
   'source.eq': undefined,
 };
+export const defaultAdminsQueryParams = {
+  sort: 'createdAt,desc',
+};
 
 export const postTextCharacter = {
   limit: 210,

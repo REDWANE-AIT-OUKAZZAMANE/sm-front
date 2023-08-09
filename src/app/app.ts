@@ -1,15 +1,26 @@
 import { api, createApplication } from 'react-async-states';
 import { AxiosError, AxiosResponse } from 'axios';
 
-import { Media, Page, QueryParams, WallSettings, Announcement } from './types';
+import {
+  Media,
+  Page,
+  QueryParams,
+  WallSettings,
+  Announcement,
+  UserData,
+} from './types';
 import {
   WallSettingsCommand,
   AnnouncementAddCommand,
   AnnouncementUpdateCommand,
+  AuthoritieResponse,
 } from './backoffice/data/api';
 
 type AnnouncementResponse = {
   content: Announcement[];
+};
+type AdminResponse = {
+  content: UserData[];
 };
 type ErrorType = {
   code: number;
@@ -56,6 +67,13 @@ const myApp = {
       Error,
       never,
       [string, AnnouncementUpdateCommand]
+    >(),
+    getAdmins: api<AxiosResponse<AdminResponse>, Error, never, [QueryParams]>(),
+    getAuthorities: api<
+      AxiosResponse<AuthoritieResponse>,
+      Error,
+      never,
+      never
     >(),
   },
 };

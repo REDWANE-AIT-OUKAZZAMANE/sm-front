@@ -100,7 +100,7 @@ function AdminItem({ admin }: AdminItemProps) {
           <div className="flex">
             {authorities.map((auth) => (
               <p className="break-all text-lg font-medium text-black">
-                {auth.name}
+                {auth && auth.name}
               </p>
             ))}
           </div>

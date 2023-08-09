@@ -19,6 +19,8 @@ export default {
     `/v1/announcements/${announcementId}`,
   ANNOUNCEMENT_UPDATE: (announcementId: string) =>
     `/v1/announcements/${announcementId}`,
+  USERS: '/v1/users',
+  AUTHORITIES: '/v1/authorities',
 };
 
 export const topics = Object.freeze({
