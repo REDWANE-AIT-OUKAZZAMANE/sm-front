@@ -93,3 +93,19 @@ export type WallSettings = {
   logoBase64: string;
   filename: string;
 };
+
+// export type Authority = {
+//   id: string;
+//   name: string;
+// };
+
+// export type User = {
+//   id: string;
+//   firstName: string;
+//   lastName: string;
+//   email: string;
+//   activated?: boolean;
+//   createdAt?: Date;
+//   lastModifiedAt?: Date;
+//   authorities?: Authority[];
+// };

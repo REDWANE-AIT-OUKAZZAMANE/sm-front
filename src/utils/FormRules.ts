@@ -9,7 +9,8 @@ type Rules =
   | 'password'
   | 'wallTitle'
   | 'announcementTitle'
-  | 'announcementDescription';
+  | 'announcementDescription'
+  | 'alphanumericDashApostrophe';
 
 const FormRules = Object.freeze<{ [key in Rules]: (args?: any) => Rule }>({
   required: (message = 'This field is required') => ({
@@ -54,6 +55,12 @@ const FormRules = Object.freeze<{ [key in Rules]: (args?: any) => Rule }>({
         callback();
       }
     },
+  }),
+  alphanumericDashApostrophe: (
+    message = 'Only alpha-numeric characters, dashes and aposthrophes are allowed'
+  ) => ({
+    pattern: RegexPatterns.alphanumericDashApostrophe,
+    message,
   }),
 });
 

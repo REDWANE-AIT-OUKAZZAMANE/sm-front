@@ -15,10 +15,14 @@ type AdminItemProps = {
   admin: UserData;
 };
 
-const dropdownMenu = (onEdit, onDelete, setDropdownActionsOpen) => (
+const dropdownMenu = (
+  editAdmin?,
+  setIsdeleteModalOpen?,
+  setDropdownActionsOpen?
+) => (
   <div className="admin-dropdown">
     <button
-      onClick={() => onEdit()}
+      onClick={() => editAdmin(true)}
       type="button"
       className="mb-2 flex items-center"
       data-testid={testIds.users.userItem.edit}
@@ -30,7 +34,7 @@ const dropdownMenu = (onEdit, onDelete, setDropdownActionsOpen) => (
     </button>
     <button
       onClick={() => {
-        onDelete();
+        setIsdeleteModalOpen(true);
         setDropdownActionsOpen(false);
       }}
       type="button"
@@ -57,14 +61,6 @@ function AdminItem({ admin }: AdminItemProps) {
   } = admin;
   const [dropdownActionsOpen, setDropdownActionsOpen] = useState(false);
   const [checked, setChecked] = useState(false);
-
-  const editAdmin = () => {
-    console.log('edit admin');
-  };
-
-  const deleteAdmin = () => {
-    console.log('delete admin');
-  };
 
   const handleCheck = () => {
     setChecked(!checked);
@@ -144,9 +140,7 @@ function AdminItem({ admin }: AdminItemProps) {
             trigger={['click']}
             open={dropdownActionsOpen}
             onOpenChange={(open) => setDropdownActionsOpen(open)}
-            dropdownRender={() =>
-              dropdownMenu(editAdmin, deleteAdmin, setDropdownActionsOpen)
-            }
+            dropdownRender={() => dropdownMenu()}
           >
             <button
               className="h-[20px] px-[10px]"

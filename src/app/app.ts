@@ -14,6 +14,7 @@ import {
   AnnouncementAddCommand,
   AnnouncementUpdateCommand,
   AuthoritieResponse,
+  UserCommand,
 } from './backoffice/data/api';
 
 type AnnouncementResponse = {
@@ -74,6 +75,12 @@ const myApp = {
       Error,
       never,
       never
+    >(),
+    addUser: api<
+      AxiosResponse<UserData>,
+      AxiosError<ErrorType>,
+      never,
+      [UserCommand]
     >(),
   },
 };

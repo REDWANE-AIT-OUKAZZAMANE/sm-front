@@ -17,6 +17,7 @@ function renderWithRouter(ui: React.ReactElement) {
   return render(ui, { wrapper: Wrapper });
 }
 beforeEach(() => {
+  // @ts-ignore
   renderWithRouter(<AdminsFilter />);
 });
 const user = userEvent.setup();

@@ -13,7 +13,15 @@ import { getAuthoritiesProducer } from '../../../../data/producers/getAuthoritie
 import defaultSelector from '../../../../../../api/selector';
 import { testIds } from '../../../../../../tests/constants';
 
-function AdminsFilter() {
+interface AdminFilterProps {
+  setAdminFormVisible: Function;
+  adminFormVisible: boolean;
+}
+
+function AdminsFilter({
+  setAdminFormVisible,
+  adminFormVisible,
+}: AdminFilterProps) {
   const [form] = Form.useForm();
   const location = useLocation();
   const navigate = useNavigate();
@@ -54,11 +62,17 @@ function AdminsFilter() {
           size="middle"
           htmlType="submit"
           data-testid={testIds.users.FilterForm.addButton}
+          disabled={adminFormVisible}
+          onClick={() => setAdminFormVisible(true)}
         >
           <span className="text-white">Add Admin</span>
         </Button>
       </div>
-      <div className="flex w-full items-center justify-between">
+      <Form
+        form={form}
+        onFinish={onFinish}
+        className="flex w-full items-center justify-between"
+      >
         <Button
           icon={
             <img src={sendArrow} alt="sendArrowIcon" className="inline-block" />
@@ -69,11 +83,7 @@ function AdminsFilter() {
         >
           <span className="text-white">send Login Token</span>
         </Button>
-        <Form
-          form={form}
-          onFinish={onFinish}
-          className="ml-auto flex items-center space-x-1"
-        >
+        <div className="ml-auto flex items-center space-x-1">
           <Form.Item className="mb-0 mr-1" name="q">
             <Input
               placeholder="Search by name"
@@ -121,8 +131,8 @@ function AdminsFilter() {
           >
             <Image src={resetIcon} preview={false} />
           </Button>
-        </Form>
-      </div>
+        </div>
+      </Form>
     </div>
   );
 }

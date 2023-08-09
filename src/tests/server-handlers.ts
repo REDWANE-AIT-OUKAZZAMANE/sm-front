@@ -94,6 +94,7 @@ export const handlers = [
     )
   ),
   rest.delete(`/api${paths.DELETE_ANNOUNCEMENT(':id')}`, (req, res, ctx) => {
+    // @ts-ignore
     deletedId = req.params.id;
     return res(ctx.status(200));
   }),

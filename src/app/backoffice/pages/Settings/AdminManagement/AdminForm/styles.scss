@@ -1,0 +1,59 @@
+.admin-form {
+  .ant-input {
+    height: 27px;
+    &::placeholder {
+      position: relative;
+      bottom: 2px;
+      font-size: 10px;
+      color: #adb5bdcc;
+    }
+  }
+
+  .ant-form-item {
+    width: 100%;
+  }
+
+  .ant-select,
+  .ant-select-selector,
+  .ant-select-selection-search-input,
+  .ant-select-selection-placeholder {
+    height: 27px !important;
+  }
+
+  .ant-select-selector {
+    border-color: rgb(217, 217, 217) !important;
+  }
+
+  .ant-select-selection-placeholder {
+    font-size: 10px !important;
+    display: flex;
+    align-items: center;
+    color: #adb5bdcc;
+  }
+
+  .ant-form-item-control {
+    position: relative;
+
+    &-input-content {
+      max-height: 27px;
+    }
+
+    div:nth-child(2) {
+      display: block !important;
+      // position: absolute;
+      // bottom: 0;
+      // transform: translateY(100%);
+      .ant-form-item-explain-error {
+        // position: absolute;
+        line-height: 1;
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+.select-error {
+  .ant-select-selector {
+    border-color: rgb(255, 0, 0) !important;
+  }
+}

@@ -32,6 +32,13 @@ export type AnnouncementUpdateCommand = {
   startDate: string;
 };
 
+export type UserCommand = {
+  firsName: string;
+  lastName: string;
+  email: string;
+  authorities: Role[];
+};
+
 export const getData = (email, password): Promise<AxiosResponse> =>
   API.post(apiPaths.LOGIN, {
     email,
@@ -123,3 +130,6 @@ export const getAdmins = (
   });
 export const getAuthorities = (): Promise<AxiosResponse<AuthoritieResponse>> =>
   API.get(apiPaths.AUTHORITIES);
+
+export const addUser = (user: UserCommand): Promise<AxiosResponse<UserData>> =>
+  API.post(apiPaths.USERS, user);
