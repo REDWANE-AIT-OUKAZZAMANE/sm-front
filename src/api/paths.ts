@@ -20,6 +20,7 @@ export default {
   ANNOUNCEMENT_UPDATE: (announcementId: string) =>
     `/v1/announcements/${announcementId}`,
   USERS: '/v1/users',
+  DELETE_ADMIN: (adminId: string) => `/v1/users/${adminId}`,
   AUTHORITIES: '/v1/authorities',
 };
 

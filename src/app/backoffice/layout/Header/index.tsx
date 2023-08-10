@@ -53,6 +53,7 @@ function Header() {
         onConfirm={handleLogout}
         onCancel={handleCancelLogout}
         showModal={isLogoutModalOpen}
+        title="Logout"
         message="Are you sure you want to Logout ?"
       />
       <h1 className="text-[27px] font-semibold text-textBlack">{title}</h1>

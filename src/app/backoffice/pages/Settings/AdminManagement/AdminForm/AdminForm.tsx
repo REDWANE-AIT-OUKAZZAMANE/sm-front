@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Input, Form, Select } from 'antd';
 import queryString from 'query-string';
 import { useLocation } from 'react-router-dom';
+import { Option } from 'antd/es/mentions';
 
 import xIcon from '../../../../../../assets/icons/x.svg';
 import checkmarkIcon from '../../../../../../assets/icons/checkmark.svg';
@@ -16,17 +17,8 @@ import {
 } from '../../../../utils/notifications';
 import { errorCodeToMessage } from '../../../../../../api/errorCodeToMessage';
 import { defaultAdminsQueryParams } from '../../../../../utils/constants';
-
-const roleAuthorities = {
-  ADMIN: {
-    id: '1',
-    name: 'ROLE_ADMIN',
-  },
-  MODERATOR: {
-    id: '2',
-    name: 'ROLE_MODERATOR',
-  },
-};
+import { getAuthoritiesProducer } from '../../../../data/producers/getAuthorities';
+import defaultSelector from '../../../../../../api/selector';
 
 interface AdminFormProps {
   closeForm: Function;
@@ -37,6 +29,12 @@ function AdminForm({ closeForm, runGetAdmins }: AdminFormProps) {
   const [form] = Form.useForm();
   const [roleError, setRoleError] = useState(false);
   const location = useLocation();
+
+  const {
+    state: { responseData: authoritiesData, isSuccess },
+  } = app.wall.getAuthorities.inject(getAuthoritiesProducer).useAsyncState({
+    selector: defaultSelector,
+  });
 
   function onAddSuccess(result: any): void {
     if (result.data) {
@@ -64,6 +62,7 @@ function AdminForm({ closeForm, runGetAdmins }: AdminFormProps) {
 
   const onFinish = (values) => {
     setRoleError(false);
+    console.log(values.authorities);
     app.wall.addUser
       .inject(addUserProducer)()
       .runc({
@@ -72,7 +71,7 @@ function AdminForm({ closeForm, runGetAdmins }: AdminFormProps) {
         args: [
           {
             ...values,
-            authorities: [roleAuthorities[values.authorities]],
+            authorities: values.authorities.map((role) => JSON.parse(role)),
           },
         ],
       });
@@ -131,11 +130,17 @@ function AdminForm({ closeForm, runGetAdmins }: AdminFormProps) {
               suffixIcon={<img src={selectIcon} alt="selectIcon" />}
               className={`${roleError && 'select-error'}`}
               size="small"
-              options={[
-                { value: 'ADMIN', label: 'Admin' },
-                { value: 'MODERATOR', label: 'Moderator' },
-              ]}
-            />
+              mode="multiple"
+            >
+              {' '}
+              {isSuccess &&
+                authoritiesData.data.map((role) => (
+                  <Option value={JSON.stringify(role)}>
+                    {' '}
+                    {role.name.substring(5).toLowerCase()}
+                  </Option>
+                ))}
+            </Select>
           </Form.Item>
         </div>
 

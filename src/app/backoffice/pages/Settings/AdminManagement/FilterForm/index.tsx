@@ -93,7 +93,7 @@ function AdminsFilter({
             />
           </Form.Item>
 
-          <Form.Item className="mb-0 w-[120px]" name="authorities.eq">
+          <Form.Item className="mb-0 w-[100px]" name="authorities.eq">
             <Select
               placeholder="Role"
               suffixIcon={

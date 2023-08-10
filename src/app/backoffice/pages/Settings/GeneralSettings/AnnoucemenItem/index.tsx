@@ -198,6 +198,7 @@ function AnnouncementItem({
         onConfirm={handleDelete}
         onCancel={handleCancelDelete}
         showModal={isDeleteModalOpen}
+        title="Confirmation"
         message="Are you sure you want to delete the announcement ?"
       />
     </div>

@@ -56,7 +56,11 @@ function AdminManagement() {
         )}
         {isSuccess &&
           adminsData.data.content.map((admin: UserData) => (
-            <AdminItem admin={admin} key={admin.id} />
+            <AdminItem
+              admin={admin}
+              key={admin.id}
+              runGetAdmins={runGetAdmins}
+            />
           ))}
       </div>
     </div>

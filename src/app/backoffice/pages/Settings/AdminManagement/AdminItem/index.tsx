@@ -9,20 +9,24 @@ import checkedIcon from '../../../../../../assets/icons/checked.svg';
 import { ReactComponent as Pen } from '../../../../../../assets/icons/pen.svg';
 import { ReactComponent as Bin } from '../../../../../../assets/icons/bin.svg';
 import './style.scss';
+import {
+  openErrorToast,
+  openSuccessToast,
+} from '../../../../utils/notifications';
+import ConfirmationModal from '../../../../components/ConfirmationModal/ConfirmationModal';
+import { defaultAdminsQueryParams } from '../../../../../utils/constants';
+import { deleteAdmin } from '../../../../data/sources/deleteAdminSource';
 import { testIds } from '../../../../../../tests/constants';
 
 type AdminItemProps = {
   admin: UserData;
+  runGetAdmins: (queryparams) => void;
 };
 
-const dropdownMenu = (
-  editAdmin?,
-  setIsdeleteModalOpen?,
-  setDropdownActionsOpen?
-) => (
+const dropdownMenu = (onEdit, onDelete, setDropdownActionsOpen) => (
   <div className="admin-dropdown">
     <button
-      onClick={() => editAdmin(true)}
+      onClick={() => onEdit(true)}
       type="button"
       className="mb-2 flex items-center"
       data-testid={testIds.users.userItem.edit}
@@ -34,7 +38,7 @@ const dropdownMenu = (
     </button>
     <button
       onClick={() => {
-        setIsdeleteModalOpen(true);
+        onDelete(true);
         setDropdownActionsOpen(false);
       }}
       type="button"
@@ -49,9 +53,9 @@ const dropdownMenu = (
   </div>
 );
 
-function AdminItem({ admin }: AdminItemProps) {
+function AdminItem({ admin, runGetAdmins }: AdminItemProps) {
   const {
-    // id: adminId,
+    id: adminId,
     firstName,
     lastName,
     email,
@@ -59,11 +63,38 @@ function AdminItem({ admin }: AdminItemProps) {
     createdAt,
     activated,
   } = admin;
+  const [isDeleteModalOpen, setIsdeleteModalOpen] = useState(false);
   const [dropdownActionsOpen, setDropdownActionsOpen] = useState(false);
   const [checked, setChecked] = useState(false);
 
+  const editAdmin = () => {
+    console.log('edit admin');
+  };
   const handleCheck = () => {
     setChecked(!checked);
+  };
+
+  function onDeleteSuccess() {
+    openSuccessToast('The admin has been successfully deleted');
+    setIsdeleteModalOpen(false);
+    runGetAdmins(defaultAdminsQueryParams);
+  }
+
+  function onDeleteError() {
+    openErrorToast('Failed to delete admin');
+    setIsdeleteModalOpen(false);
+  }
+
+  const handleDelete = () => {
+    deleteAdmin.runc({
+      onSuccess: onDeleteSuccess,
+      onError: onDeleteError,
+      args: [adminId],
+    });
+  };
+
+  const handleCancelDelete = () => {
+    setIsdeleteModalOpen(false);
   };
   return (
     <div
@@ -140,7 +171,13 @@ function AdminItem({ admin }: AdminItemProps) {
             trigger={['click']}
             open={dropdownActionsOpen}
             onOpenChange={(open) => setDropdownActionsOpen(open)}
-            dropdownRender={() => dropdownMenu()}
+            dropdownRender={() =>
+              dropdownMenu(
+                editAdmin,
+                setIsdeleteModalOpen,
+                setDropdownActionsOpen
+              )
+            }
           >
             <button
               className="h-[20px] px-[10px]"
@@ -152,6 +189,13 @@ function AdminItem({ admin }: AdminItemProps) {
           </Dropdown>
         </div>
       </div>
+      <ConfirmationModal
+        onConfirm={handleDelete}
+        onCancel={handleCancelDelete}
+        showModal={isDeleteModalOpen}
+        title="Confirmation"
+        message="Are you sure you want to delete this admin ?"
+      />
     </div>
   );
 }

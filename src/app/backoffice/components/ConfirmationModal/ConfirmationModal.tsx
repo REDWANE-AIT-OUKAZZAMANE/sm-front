@@ -8,6 +8,7 @@ interface ConfirmationModalProps {
   showModal: boolean;
   onConfirm: () => void;
   onCancel: () => void;
+  title: string;
   message: string;
 }
 
@@ -15,6 +16,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   showModal,
   onConfirm,
   onCancel,
+  title,
   message,
 }) => {
   const handelConfirm = () => {
@@ -24,7 +26,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
     <Modal
       width={470}
       open={showModal}
-      title="Logout"
+      title={title}
       onOk={handelConfirm}
       onCancel={onCancel}
       closeIcon={<img src={CloseIcon} alt="icon" />}

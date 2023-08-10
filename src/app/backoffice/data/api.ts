@@ -131,5 +131,8 @@ export const getAdmins = (
 export const getAuthorities = (): Promise<AxiosResponse<AuthoritieResponse>> =>
   API.get(apiPaths.AUTHORITIES);
 
+export const deleteAdmin = (adminId: string): Promise<AxiosResponse<void>> =>
+  API.delete(apiPaths.DELETE_ADMIN(adminId));
+
 export const addUser = (user: UserCommand): Promise<AxiosResponse<UserData>> =>
   API.post(apiPaths.USERS, user);
