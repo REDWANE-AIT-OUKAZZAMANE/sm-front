@@ -3,6 +3,7 @@ import { Button, Form, Input, Select, Image } from 'antd';
 import { Option } from 'antd/es/mentions';
 import { useLocation, useNavigate } from 'react-router-dom';
 import queryString from 'query-string';
+import { useAsyncState } from 'react-async-states';
 
 import resetIcon from '../../../../../../assets/icons/resetIcon.svg';
 import filterIcon from '../../../../../../assets/icons/filterIcon.svg';
@@ -13,6 +14,7 @@ import { app } from '../../../../../app';
 import { getAuthoritiesProducer } from '../../../../data/producers/getAuthorities';
 import defaultSelector from '../../../../../../api/selector';
 import { testIds } from '../../../../../../tests/constants';
+import { selectedAdmins } from '../../../../data/sources/selectedAdminsSource';
 
 interface AdminFilterProps {
   setAdminFormVisible: Function;
@@ -28,6 +30,13 @@ function AdminsFilter({
   const [form] = Form.useForm();
   const location = useLocation();
   const navigate = useNavigate();
+
+  const {
+    state: { responseData: selectedAdminsList },
+  } = useAsyncState.auto({
+    source: selectedAdmins,
+    selector: defaultSelector,
+  });
 
   const {
     state: { responseData: authoritiesData, isSuccess },
@@ -84,6 +93,7 @@ function AdminsFilter({
           }
           className="inline-flex w-60 items-center justify-center rounded-lg bg-dPurple px-5 py-2.5 text-center font-['Lato'] text-lg  text-white hover:bg-darkPurple focus:outline-none"
           size="middle"
+          disabled={selectedAdminsList && selectedAdminsList.length === 0}
           data-testid={testIds.users.FilterForm.sendTokenButton}
         >
           <span className="text-white">send Login Token</span>

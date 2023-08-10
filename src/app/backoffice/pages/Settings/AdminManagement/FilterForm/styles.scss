@@ -1,4 +1,27 @@
 .form {
+  .ant-input {
+    border-color: #e2e2e2;
+    box-shadow: none;
+    outline: none;
+    &::placeholder {
+      font-size: 12px;
+    }
+  }
+  .ant-btn {
+    border-color: white;
+    &:hover {
+      color: white;
+      border-color: transparent;
+    }
+    &:disabled {
+      color: white;
+      background-color: #c4c8cd;
+      &:hover {
+        border-color: #d9d9d9;
+      }
+    }
+  }
+
   .ant-select-selection-search + .ant-select-selection-placeholder {
     color: grey;
     height: 37px;
@@ -9,7 +32,7 @@
       .ant-pagination-size-changer
     )
     .ant-select-selector {
-    border-color: #aaaaaa;
+    border-color: #d9d9d9;
     box-shadow: none;
     outline: none;
   }

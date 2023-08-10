@@ -17,7 +17,8 @@ import ConfirmationModal from '../../../../components/ConfirmationModal/Confirma
 import { defaultAdminsQueryParams } from '../../../../../utils/constants';
 import { deleteAdmin } from '../../../../data/sources/deleteAdminSource';
 import { testIds } from '../../../../../../tests/constants';
-import { roleNames } from '../utils';
+import { selectedAdmins } from '../../../../data/sources/selectedAdminsSource';
+import { AdminsSelection } from '../../../../data/producers/SelectedAdminsProducer';
 import AdminForm from '../AdminForm/AdminForm';
 
 type AdminItemProps = {
@@ -86,6 +87,11 @@ function AdminItem({
   }
 
   const handleCheck = () => {
+    if (checked) {
+      selectedAdmins.run(AdminsSelection.UNSELECT, adminId);
+    } else {
+      selectedAdmins.run(AdminsSelection.SELECT, adminId);
+    }
     setChecked(!checked);
   };
 
@@ -128,7 +134,13 @@ function AdminItem({
     >
       <button
         type="button"
-        className="flex h-[20px] w-[20px] items-center justify-center rounded border border-dPurple"
+        className={classNames(
+          `flex h-[20px] w-[20px] items-center justify-center rounded-[5px] border`,
+          {
+            'border-dPurple': checked,
+            'border-darkGrey': !checked,
+          }
+        )}
         onClick={handleCheck}
         data-testid={testIds.users.userItem.checkbox}
       >
@@ -150,17 +162,12 @@ function AdminItem({
             ROLE
           </h1>
           <div className="flex">
-            {authorities.map((auth) => {
-              const roleName = roleNames[auth.name];
-              return (
-                <p
-                  key={auth.id}
-                  className="mr-2 break-all text-lg font-medium text-black"
-                >
-                  {auth && roleName}{' '}
-                </p>
-              );
-            })}
+            {authorities.map((auth) => (
+              <p className="mr-[5px] break-all text-lg font-medium text-black">
+                {auth &&
+                  auth.name.charAt(5) + auth.name.substring(6).toLowerCase()}
+              </p>
+            ))}
           </div>
         </div>
         <div className="flex-1">
@@ -169,7 +176,7 @@ function AdminItem({
           </h1>
           <p className="break-all text-lg font-medium text-black">{email}</p>
         </div>
-        <div className="w-[120px]">
+        <div className="flex-1">
           <h1 className="text[10px] mb-2 whitespace-nowrap font-bold text-[color:var(--border-grey)]">
             CREATION DATE
           </h1>
@@ -179,7 +186,7 @@ function AdminItem({
             </p>
           </div>
         </div>
-        <div className="w-[120px]">
+        <div className="flex-1">
           <h1 className="text[10px] mb-2 whitespace-nowrap font-bold text-[color:var(--border-grey)]">
             STATUS
           </h1>

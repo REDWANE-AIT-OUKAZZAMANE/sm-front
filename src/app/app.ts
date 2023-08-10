@@ -70,12 +70,7 @@ const myApp = {
       [string, AnnouncementUpdateCommand]
     >(),
     getAdmins: api<AxiosResponse<AdminResponse>, Error, never, [QueryParams]>(),
-    getAuthorities: api<
-      AxiosResponse<AuthoritieResponse>,
-      Error,
-      never,
-      never
-    >(),
+    getAuthorities: api<AxiosResponse<AuthoritieResponse>, Error, never, []>(),
     addUser: api<
       AxiosResponse<UserData>,
       AxiosError<ErrorType>,
