@@ -10,6 +10,7 @@ import { testIds } from '../../../../constants';
 import paths from '../../../../../api/paths';
 
 const runGetAdmins = vi.fn();
+const setAdminToEdit = vi.fn();
 
 const server = setupServer(
   rest.delete(`/api${paths.DELETE_ADMIN(':id')}`, (req, res, ctx) =>
@@ -20,8 +21,16 @@ beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 
 beforeEach(() => {
-  render(<AdminItem admin={ADMIN} runGetAdmins={runGetAdmins} />);
+  render(
+    <AdminItem
+      admin={ADMIN}
+      runGetAdmins={runGetAdmins}
+      setAdminToEdit={setAdminToEdit}
+      adminFormVisible={false}
+    />
+  );
 });
+
 describe('AdminItem', () => {
   it('should render admin details correctly', () => {
     const checkbox = screen.getByTestId(testIds.users.userItem.checkbox);

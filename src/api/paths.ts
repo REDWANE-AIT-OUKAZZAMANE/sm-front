@@ -21,6 +21,7 @@ export default {
     `/v1/announcements/${announcementId}`,
   USERS: '/v1/users',
   DELETE_ADMIN: (adminId: string) => `/v1/users/${adminId}`,
+  USER_UPDATE: (userId: string) => `/v1/users/${userId}`,
   AUTHORITIES: '/v1/authorities',
 };
 

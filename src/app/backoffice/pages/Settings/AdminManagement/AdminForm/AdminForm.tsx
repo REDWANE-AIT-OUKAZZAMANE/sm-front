@@ -1,8 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Input, Form, Select } from 'antd';
 import queryString from 'query-string';
 import { useLocation } from 'react-router-dom';
-import { Option } from 'antd/es/mentions';
 
 import xIcon from '../../../../../../assets/icons/x.svg';
 import checkmarkIcon from '../../../../../../assets/icons/checkmark.svg';
@@ -19,13 +18,23 @@ import { errorCodeToMessage } from '../../../../../../api/errorCodeToMessage';
 import { defaultAdminsQueryParams } from '../../../../../utils/constants';
 import { getAuthoritiesProducer } from '../../../../data/producers/getAuthorities';
 import defaultSelector from '../../../../../../api/selector';
+import { roleNames } from '../utils';
+import { UserData } from '../../../../../types';
+import { updateUserProducer } from '../../../../data/producers/updateUserProducer';
 
 interface AdminFormProps {
   closeForm: Function;
   runGetAdmins: Function;
+  edit?: Boolean;
+  adminData?: UserData;
 }
 
-function AdminForm({ closeForm, runGetAdmins }: AdminFormProps) {
+function AdminForm({
+  closeForm,
+  runGetAdmins,
+  edit,
+  adminData,
+}: AdminFormProps) {
   const [form] = Form.useForm();
   const [roleError, setRoleError] = useState(false);
   const location = useLocation();
@@ -38,12 +47,13 @@ function AdminForm({ closeForm, runGetAdmins }: AdminFormProps) {
 
   function onAddSuccess(result: any): void {
     if (result.data) {
-      openSuccessToast(`The user has been successfully added`);
+      openSuccessToast(
+        `The admin has been successfully ${edit ? 'updated' : 'added'}`
+      );
       form.resetFields();
       const parsedQueryParams = queryString.parse(location.search.slice(1), {
         parseBooleans: true,
       });
-
       runGetAdmins({
         ...defaultAdminsQueryParams,
         ...parsedQueryParams,
@@ -62,20 +72,47 @@ function AdminForm({ closeForm, runGetAdmins }: AdminFormProps) {
 
   const onFinish = (values) => {
     setRoleError(false);
-    console.log(values.authorities);
-    app.wall.addUser
-      .inject(addUserProducer)()
-      .runc({
-        onSuccess: onAddSuccess,
-        onError: onAddingError,
-        args: [
-          {
-            ...values,
-            authorities: values.authorities.map((role) => JSON.parse(role)),
-          },
-        ],
-      });
+    if (edit && adminData) {
+      app.wall.updateUser
+        .inject(updateUserProducer)()
+        .runc({
+          onSuccess: onAddSuccess,
+          onError: onAddingError,
+          args: [
+            adminData.id,
+            {
+              ...values,
+              authorities: values.authorities.map((role) => JSON.parse(role)),
+            },
+          ],
+        });
+    } else {
+      app.wall.addUser
+        .inject(addUserProducer)()
+        .runc({
+          onSuccess: onAddSuccess,
+          onError: onAddingError,
+          args: [
+            {
+              ...values,
+              authorities: values.authorities.map((role) => JSON.parse(role)),
+            },
+          ],
+        });
+    }
   };
+
+  useEffect(() => {
+    if (edit && adminData) {
+      form.setFieldsValue({
+        firstName: adminData.firstName,
+        lastName: adminData.lastName,
+        email: adminData.email,
+        authorities: adminData.authorities.map((role) => JSON.stringify(role)),
+        // authorities: roleNames[adminData.authorities[0]?.name]?.toUpperCase(),
+      });
+    }
+  }, [adminData, edit, form]);
 
   return (
     <div className="admin-form form flex items-center rounded-2xl border border-[#E2E2E2] p-[20px]">
@@ -131,16 +168,14 @@ function AdminForm({ closeForm, runGetAdmins }: AdminFormProps) {
               className={`${roleError && 'select-error'}`}
               size="small"
               mode="multiple"
-            >
-              {' '}
-              {isSuccess &&
-                authoritiesData.data.map((role) => (
-                  <Option value={JSON.stringify(role)}>
-                    {' '}
-                    {role.name.substring(5).toLowerCase()}
-                  </Option>
-                ))}
-            </Select>
+              options={
+                isSuccess &&
+                authoritiesData.data.map((role) => ({
+                  label: roleNames[role.name],
+                  value: JSON.stringify(role),
+                }))
+              }
+            />
           </Form.Item>
         </div>
 

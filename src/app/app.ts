@@ -82,6 +82,12 @@ const myApp = {
       never,
       [UserCommand]
     >(),
+    updateUser: api<
+      AxiosResponse<UserData>,
+      Error,
+      never,
+      [string, UserCommand]
+    >(),
   },
 };
 

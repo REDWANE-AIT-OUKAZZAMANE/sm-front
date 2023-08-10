@@ -17,16 +17,23 @@ import ConfirmationModal from '../../../../components/ConfirmationModal/Confirma
 import { defaultAdminsQueryParams } from '../../../../../utils/constants';
 import { deleteAdmin } from '../../../../data/sources/deleteAdminSource';
 import { testIds } from '../../../../../../tests/constants';
+import { roleNames } from '../utils';
+import AdminForm from '../AdminForm/AdminForm';
 
 type AdminItemProps = {
   admin: UserData;
   runGetAdmins: (queryparams) => void;
+  setAdminToEdit: Function;
+  adminFormVisible: boolean;
 };
 
 const dropdownMenu = (onEdit, onDelete, setDropdownActionsOpen) => (
   <div className="admin-dropdown">
     <button
-      onClick={() => onEdit(true)}
+      onClick={() => {
+        onEdit(true);
+        setDropdownActionsOpen(false);
+      }}
       type="button"
       className="mb-2 flex items-center"
       data-testid={testIds.users.userItem.edit}
@@ -53,7 +60,12 @@ const dropdownMenu = (onEdit, onDelete, setDropdownActionsOpen) => (
   </div>
 );
 
-function AdminItem({ admin, runGetAdmins }: AdminItemProps) {
+function AdminItem({
+  admin,
+  setAdminToEdit,
+  runGetAdmins,
+  adminFormVisible,
+}: AdminItemProps) {
   const {
     id: adminId,
     firstName,
@@ -66,10 +78,13 @@ function AdminItem({ admin, runGetAdmins }: AdminItemProps) {
   const [isDeleteModalOpen, setIsdeleteModalOpen] = useState(false);
   const [dropdownActionsOpen, setDropdownActionsOpen] = useState(false);
   const [checked, setChecked] = useState(false);
+  const [edit, setEdit] = useState(false);
 
-  const editAdmin = () => {
-    console.log('edit admin');
-  };
+  function onEdit() {
+    setEdit(true);
+    setAdminToEdit(adminId);
+  }
+
   const handleCheck = () => {
     setChecked(!checked);
   };
@@ -96,7 +111,17 @@ function AdminItem({ admin, runGetAdmins }: AdminItemProps) {
   const handleCancelDelete = () => {
     setIsdeleteModalOpen(false);
   };
-  return (
+  return edit ? (
+    <AdminForm
+      closeForm={() => {
+        setEdit(false);
+        setAdminToEdit('');
+      }}
+      edit
+      adminData={admin}
+      runGetAdmins={runGetAdmins}
+    />
+  ) : (
     <div
       className="flex items-center gap-[40px] rounded-2xl border border-[#E2E2E2] p-[10px]"
       data-testid={testIds.users.userItem.container}
@@ -125,11 +150,17 @@ function AdminItem({ admin, runGetAdmins }: AdminItemProps) {
             ROLE
           </h1>
           <div className="flex">
-            {authorities.map((auth) => (
-              <p className="break-all text-lg font-medium text-black">
-                {auth && auth.name}
-              </p>
-            ))}
+            {authorities.map((auth) => {
+              const roleName = roleNames[auth.name];
+              return (
+                <p
+                  key={auth.id}
+                  className="mr-2 break-all text-lg font-medium text-black"
+                >
+                  {auth && roleName}{' '}
+                </p>
+              );
+            })}
           </div>
         </div>
         <div className="flex-1">
@@ -172,12 +203,9 @@ function AdminItem({ admin, runGetAdmins }: AdminItemProps) {
             open={dropdownActionsOpen}
             onOpenChange={(open) => setDropdownActionsOpen(open)}
             dropdownRender={() =>
-              dropdownMenu(
-                editAdmin,
-                setIsdeleteModalOpen,
-                setDropdownActionsOpen
-              )
+              dropdownMenu(onEdit, setIsdeleteModalOpen, setDropdownActionsOpen)
             }
+            disabled={adminFormVisible}
           >
             <button
               className="h-[20px] px-[10px]"

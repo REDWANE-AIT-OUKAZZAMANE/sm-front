@@ -136,3 +136,9 @@ export const deleteAdmin = (adminId: string): Promise<AxiosResponse<void>> =>
 
 export const addUser = (user: UserCommand): Promise<AxiosResponse<UserData>> =>
   API.post(apiPaths.USERS, user);
+
+export const updateUser = (
+  userId: string,
+  user: UserCommand
+): Promise<AxiosResponse<UserData>> =>
+  API.patch(apiPaths.USER_UPDATE(userId), user);

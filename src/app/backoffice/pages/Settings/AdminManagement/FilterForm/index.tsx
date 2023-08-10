@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Button, Form, Input, Select, Image } from 'antd';
 import { Option } from 'antd/es/mentions';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -16,11 +17,13 @@ import { testIds } from '../../../../../../tests/constants';
 interface AdminFilterProps {
   setAdminFormVisible: Function;
   adminFormVisible: boolean;
+  adminToEdit: string;
 }
 
 function AdminsFilter({
   setAdminFormVisible,
   adminFormVisible,
+  adminToEdit,
 }: AdminFilterProps) {
   const [form] = Form.useForm();
   const location = useLocation();
@@ -33,12 +36,6 @@ function AdminsFilter({
     lazy: false,
   });
 
-  const parsedQueryParams = queryString.parse(location.search.slice(1), {
-    parseBooleans: true,
-  });
-
-  form.setFieldsValue(parsedQueryParams);
-
   const onFinish = (values: any) => {
     navigate(`?${queryString.stringify(values)}`);
   };
@@ -47,6 +44,14 @@ function AdminsFilter({
     form.resetFields();
     navigate('');
   };
+
+  useEffect(() => {
+    const parsedQueryParams = queryString.parse(location.search.slice(1), {
+      parseBooleans: true,
+    });
+
+    form.setFieldsValue(parsedQueryParams);
+  }, []);
 
   return (
     <div
@@ -62,7 +67,7 @@ function AdminsFilter({
           size="middle"
           htmlType="submit"
           data-testid={testIds.users.FilterForm.addButton}
-          disabled={adminFormVisible}
+          disabled={adminFormVisible || adminToEdit !== ''}
           onClick={() => setAdminFormVisible(true)}
         >
           <span className="text-white">Add Admin</span>
@@ -103,7 +108,7 @@ function AdminsFilter({
             >
               {isSuccess &&
                 authoritiesData.data.map((role) => (
-                  <Option value={role.id}>
+                  <Option key={role.id} value={role.id}>
                     {' '}
                     {role.name.substring(5).toLowerCase()}
                   </Option>
