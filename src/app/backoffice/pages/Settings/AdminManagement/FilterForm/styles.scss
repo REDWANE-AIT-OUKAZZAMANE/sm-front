@@ -8,10 +8,10 @@
     }
   }
   .ant-btn {
-    border-color: white;
+    border-color: white !important;
     &:hover {
-      color: white;
-      border-color: transparent;
+      color: white !important;
+      border-color: transparent !important;
     }
     &:disabled {
       color: white;

@@ -34,7 +34,7 @@
     color: black;
   }
   .ant-btn:hover {
-    color: white;
-    border-color: transparent;
+    color: white !important;
+    border-color: transparent !important;
   }
 }
