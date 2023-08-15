@@ -14,6 +14,7 @@ import { testIds } from '../../tests/constants';
 import defaultSelector from '../../api/selector';
 import AdminManagement from './pages/Settings/AdminManagement/AdminList';
 import { openErrorToast } from './utils/notifications';
+import ProtectedAdminRoutes from './pages/ProtectedRoutes/ProtectedAdminRoutes';
 
 function Backoffice() {
   const {
@@ -73,13 +74,19 @@ function Backoffice() {
         />
         <Route path="/admin/moderate" element={<Moderation />} />
         <Route
-          path="/admin/settings/general-settings"
-          element={<GeneralSettings />}
-        />
-        <Route
-          path="/admin/settings/admin-management"
-          element={<AdminManagement />}
-        />
+          path="/admin"
+          element={<ProtectedAdminRoutes user={currentUserData} />}
+        >
+          {' '}
+          <Route
+            path="/admin/settings/general-settings"
+            element={<GeneralSettings />}
+          />
+          <Route
+            path="/admin/settings/admin-management"
+            element={<AdminManagement />}
+          />
+        </Route>
       </Route>
     </Routes>
   );

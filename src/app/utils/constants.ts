@@ -74,3 +74,8 @@ export const displayedPostsFetchType = Object.freeze({
   togglePin: 'togglePin',
   toggleHide: 'toggleHide',
 });
+
+export const AUTHORITIES = {
+  ADMIN: 'ROLE_ADMIN',
+  MODERATOR: 'ROLE_MODERATOR',
+};

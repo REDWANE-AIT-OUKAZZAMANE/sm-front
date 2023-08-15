@@ -1,5 +1,6 @@
 import dashIcon from '../../../../assets/icons/Dashboard.svg';
 import folderIcon from '../../../../assets/icons/Content.svg';
+import { AUTHORITIES } from '../../../utils/constants';
 // import feedIcon from '../../../../assets/icons/feed.svg';
 // import statsIcon from '../../../../assets/icons/stats.svg';
 
@@ -8,6 +9,7 @@ export const NavItems = [
     name: 'Moderation',
     icon: dashIcon,
     link: 'moderate',
+    allowedRoles: [AUTHORITIES.ADMIN, AUTHORITIES.MODERATOR],
   },
   // {
   //   name: 'Content',
@@ -36,6 +38,7 @@ export const NavItems = [
   {
     name: 'Settings',
     icon: folderIcon,
+    allowedRoles: [AUTHORITIES.ADMIN],
     subItems: [
       {
         name: 'General settings',

@@ -7,6 +7,8 @@ import { testIds } from '../../../../tests/constants';
 
 function Sidemenu({ userData }) {
   const { pathname } = useLocation();
+  const useAuthorities =
+    userData && userData.data.authorities.map((auth) => auth.name);
 
   return (
     <div
@@ -23,10 +25,14 @@ function Sidemenu({ userData }) {
         <ul className="flex flex-col gap-[5px]">
           {NavItems.map((item) => (
             <li key={item.name}>
-              <NavItem
-                item={item}
-                active={pathname.split('/')[2] === item.link}
-              />
+              {item.allowedRoles.find(
+                (role) => useAuthorities && useAuthorities.includes(role)
+              ) && (
+                <NavItem
+                  item={item}
+                  active={pathname.split('/')[2] === item.link}
+                />
+              )}
             </li>
           ))}
         </ul>
