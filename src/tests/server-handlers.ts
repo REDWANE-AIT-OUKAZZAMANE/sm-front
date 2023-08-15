@@ -13,6 +13,7 @@ import {
   ADMIN_DATA,
   ADMIN_RESPONSE,
   AUTHORITIES,
+  ADMIN_UPDATE_RESPONSE,
 } from './pages/backoffice/users/AdminForm/data';
 import { SUCCESS_USER } from './pages/backoffice/authentication/data';
 
@@ -127,6 +128,10 @@ export const handlers = [
   ),
   rest.post(`/api${paths.USERS}`, (req, res, ctx) =>
     res(ctx.status(200), ctx.json(ADMIN_RESPONSE))
+  ),
+  rest.patch(
+    `/api${paths.USER_UPDATE('64660020342fd96df0b30fb1')}`,
+    (req, res, ctx) => res(ctx.status(200), ctx.json(ADMIN_UPDATE_RESPONSE))
   ),
   rest.get(`/api${paths.AUTHORITIES}`, (req, res, ctx) =>
     res(ctx.status(200), ctx.json(AUTHORITIES))

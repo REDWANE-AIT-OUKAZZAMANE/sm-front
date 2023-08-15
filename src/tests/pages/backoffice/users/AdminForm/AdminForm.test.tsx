@@ -35,9 +35,6 @@ describe('admin form', () => {
     );
   });
 
-  afterAll(() => {
-    screen.debug(undefined, Infinity);
-  });
   it('displays admin form when add button is clicked', async () => {
     const addAdminButton = screen.getByTestId(
       testIds.users.FilterForm.addButton
@@ -144,6 +141,37 @@ describe('admin form', () => {
     waitFor(() =>
       expect(
         screen.getByText('The admin has been successfully added')
+      ).toBeInTheDocument()
+    );
+  });
+
+  it('displays success toast with correct message when request to add edit user succeeds', async () => {
+    const dots = screen.getAllByTestId(testIds.users.userItem.dots)[0];
+
+    fireEvent.click(dots);
+
+    const editButton = screen.getByTestId(testIds.users.userItem.edit);
+
+    fireEvent.click(editButton);
+
+    const lastnameInput = screen.getByTestId(
+      testIds.users.userForm.lastnameInput
+    );
+    fireEvent.change(lastnameInput, { target: { value: 'lastname' } });
+
+    const roleSelect = screen.getAllByRole('combobox')[1];
+    await user.click(roleSelect);
+    const admin = screen.getByText('Admin');
+    await user.click(admin);
+
+    const formSubmit = screen.getByTestId(testIds.users.userForm.submitButton);
+    await act(async () => {
+      fireEvent.click(formSubmit);
+    });
+
+    waitFor(() =>
+      expect(
+        screen.getByText('The admin has been successfully updated')
       ).toBeInTheDocument()
     );
   });

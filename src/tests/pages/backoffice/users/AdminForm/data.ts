@@ -106,6 +106,22 @@ export const ADMIN_RESPONSE = {
   lastModifiedAt: '2023-08-11T12:01:04.303320700Z',
 };
 
+export const ADMIN_UPDATE_RESPONSE = {
+  id: '64660020342fd96df0b30fb1',
+  firstName: 'Mariam',
+  lastName: 'lastname',
+  email: 'mariam@smwall.dev',
+  activated: false,
+  authorities: [
+    {
+      id: '6466001f342fd96df0b30fae',
+      name: 'ROLE_ADMIN',
+    },
+  ],
+  createdAt: '2023-08-11T12:01:04.303Z',
+  lastModifiedAt: '2023-08-15T12:22:09.365328100Z',
+};
+
 export const AUTHORITIES = [
   {
     id: '6466001f342fd96df0b30faf',
