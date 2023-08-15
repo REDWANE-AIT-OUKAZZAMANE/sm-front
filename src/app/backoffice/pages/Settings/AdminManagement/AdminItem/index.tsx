@@ -185,7 +185,10 @@ function AdminItem({
           </h1>
           <div className="flex">
             {authorities.map((auth) => (
-              <p className="mr-[5px] break-all text-lg font-medium text-black">
+              <p
+                key={auth.id}
+                className="mr-[5px] break-all text-lg font-medium text-black"
+              >
                 {auth &&
                   auth.name.charAt(5) + auth.name.substring(6).toLowerCase()}
               </p>
@@ -214,7 +217,7 @@ function AdminItem({
           </h1>
           <Switch
             className={classNames(`w-[35px]`, {
-              ' bg-dPurple': isActivated,
+              'switch-active bg-dPurple': isActivated,
               'bg-darkGrey': !isActivated,
             })}
             data-testid={testIds.users.userItem.switch}

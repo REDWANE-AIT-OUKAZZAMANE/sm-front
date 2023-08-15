@@ -26,3 +26,30 @@
     }
   }
 }
+
+.ant-switch-handle {
+  position: relative;
+  &::after {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    content: '𐄂';
+    font-size: 12px;
+    z-index: 10;
+    color: #8d91a0;
+    background-color: red;
+    line-height: 0;
+  }
+}
+
+.switch-active {
+  .ant-switch-handle {
+    &::after {
+      top: 45%;
+      content: '✔';
+      font-size: 6px;
+      transform: translate(-50%, -50%);
+    }
+  }
+}

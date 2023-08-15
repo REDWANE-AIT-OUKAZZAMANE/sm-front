@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { Button, Form, Input, Select, Image } from 'antd';
-import { Option } from 'antd/es/mentions';
 import { useLocation, useNavigate } from 'react-router-dom';
 import queryString from 'query-string';
 import { useAsyncState } from 'react-async-states';
@@ -15,6 +14,7 @@ import { getAuthoritiesProducer } from '../../../../data/producers/getAuthoritie
 import defaultSelector from '../../../../../../api/selector';
 import { testIds } from '../../../../../../tests/constants';
 import { selectedAdmins } from '../../../../data/sources/selectedAdminsSource';
+import { roleNames } from '../utils';
 
 interface AdminFilterProps {
   setAdminFormVisible: Function;
@@ -115,15 +115,14 @@ function AdminsFilter({
                 <img src={selectIcon} alt="selectIcon" className="pt-2" />
               }
               size="middle"
-            >
-              {isSuccess &&
-                authoritiesData.data.map((role) => (
-                  <Option key={role.id} value={role.id}>
-                    {' '}
-                    {role.name.substring(5).toLowerCase()}
-                  </Option>
-                ))}
-            </Select>
+              options={
+                isSuccess &&
+                authoritiesData.data.map((role) => ({
+                  label: roleNames[role.name],
+                  value: role.id,
+                }))
+              }
+            />
           </Form.Item>
 
           <Button
