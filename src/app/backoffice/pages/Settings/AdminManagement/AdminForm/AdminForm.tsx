@@ -21,6 +21,7 @@ import defaultSelector from '../../../../../../api/selector';
 import { roleNames } from '../utils';
 import { UserData } from '../../../../../types';
 import { updateUserProducer } from '../../../../data/producers/updateUserProducer';
+import { testIds } from '../../../../../../tests/constants';
 
 interface AdminFormProps {
   closeForm: Function;
@@ -115,7 +116,10 @@ function AdminForm({
   }, [adminData, edit, form]);
 
   return (
-    <div className="admin-form form flex items-center rounded-2xl border border-[#E2E2E2] p-[20px]">
+    <div
+      data-testid={testIds.users.userForm.container}
+      className="admin-form form flex items-center rounded-2xl border border-[#E2E2E2] p-[20px]"
+    >
       <Form
         form={form}
         onFinish={onFinish}
@@ -131,7 +135,11 @@ function AdminForm({
             ]}
             validateTrigger="onSubmit"
           >
-            <Input autoComplete="off" placeholder="First name" />
+            <Input
+              data-testid={testIds.users.userForm.firstnameInput}
+              autoComplete="off"
+              placeholder="First name"
+            />
           </Form.Item>
         </div>
         <div className="flex flex-1">
@@ -143,7 +151,11 @@ function AdminForm({
             ]}
             validateTrigger="onSubmit"
           >
-            <Input autoComplete="off" placeholder="Last name" />
+            <Input
+              data-testid={testIds.users.userForm.lastnameInput}
+              autoComplete="off"
+              placeholder="Last name"
+            />
           </Form.Item>
         </div>
         <div className="flex flex-1">
@@ -152,7 +164,11 @@ function AdminForm({
             rules={[FormRules.required(), FormRules.email()]}
             validateTrigger="onSubmit"
           >
-            <Input autoComplete="off" placeholder="Email" />
+            <Input
+              data-testid={testIds.users.userForm.emailInput}
+              autoComplete="off"
+              placeholder="Email"
+            />
           </Form.Item>
         </div>
 
@@ -164,6 +180,7 @@ function AdminForm({
           >
             <Select
               placeholder="Role"
+              data-testid={testIds.users.userForm.roleSelect}
               suffixIcon={<img src={selectIcon} alt="selectIcon" />}
               className={`${roleError && 'select-error'}`}
               size="small"
@@ -180,7 +197,11 @@ function AdminForm({
         </div>
 
         <div className="flex gap-5">
-          <button className="ml-[6px] cursor-pointer" type="submit">
+          <button
+            className="ml-[6px] cursor-pointer"
+            type="submit"
+            data-testid={testIds.users.userForm.submitButton}
+          >
             <img
               className="w-[15px]"
               src={checkmarkIcon}

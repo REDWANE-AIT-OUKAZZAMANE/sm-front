@@ -55,6 +55,7 @@ export const testIds = {
     },
   },
   users: {
+    userListSpinner: 'USER_LIST_SPINNER',
     userItem: {
       container: 'USER_ITEM_CONTAINER',
       dots: 'USER_DTOS',
@@ -71,6 +72,14 @@ export const testIds = {
       resetButton: 'USERS_FILTER_RESET_BUTTON',
       sendTokenButton: 'USERS_SEND_TOKEN_BUTTON',
       addButton: 'USERS_ADD_BUTTON',
+    },
+    userForm: {
+      container: 'USER_FORM_CONTAINER',
+      firstnameInput: 'USER_FORM_FIRSTNAME_INPUT',
+      lastnameInput: 'USER_FORM_LASTNAME_INPUT',
+      emailInput: 'USER_FORM_EMAIL_INPUT',
+      roleSelect: 'USER_FORM_ROLE_SELECT',
+      submitButton: 'USER_FORM_SUBMIT_BUTTON',
     },
   },
   landing: {

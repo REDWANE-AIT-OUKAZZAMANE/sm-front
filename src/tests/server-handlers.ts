@@ -9,6 +9,12 @@ import {
 import { CurrentAnnouncement } from './pages/landing/AnnouncementOrPost/data';
 import { Announcement } from '../app/types';
 import { ANNCOUNCEMENT_LIST } from './pages/backoffice/GeneraleSettings/AnnouncementSettings/data';
+import {
+  ADMIN_DATA,
+  ADMIN_RESPONSE,
+  AUTHORITIES,
+} from './pages/backoffice/users/AdminForm/data';
+import { SUCCESS_USER } from './pages/backoffice/authentication/data';
 
 let addedAnnouncement: Announcement | null = null;
 let deletedId = '';
@@ -112,4 +118,17 @@ export const handlers = [
     });
     return res(ctx.status(200), ctx.json({ content: announcementList }));
   }),
+
+  rest.get(`/api${paths.LOGIN}`, (req, res, ctx) =>
+    res(ctx.status(200), ctx.json(SUCCESS_USER))
+  ),
+  rest.get(`/api${paths.USERS}`, (req, res, ctx) =>
+    res(ctx.status(200), ctx.json(ADMIN_DATA))
+  ),
+  rest.post(`/api${paths.USERS}`, (req, res, ctx) =>
+    res(ctx.status(200), ctx.json(ADMIN_RESPONSE))
+  ),
+  rest.get(`/api${paths.AUTHORITIES}`, (req, res, ctx) =>
+    res(ctx.status(200), ctx.json(AUTHORITIES))
+  ),
 ];

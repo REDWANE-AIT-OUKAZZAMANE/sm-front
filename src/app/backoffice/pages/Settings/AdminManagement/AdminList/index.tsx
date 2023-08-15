@@ -14,6 +14,7 @@ import AdminForm from '../AdminForm/AdminForm';
 import './style.scss';
 import { addUserProducer } from '../../../../data/producers/addUserProducer';
 import { updateUserProducer } from '../../../../data/producers/updateUserProducer';
+import { testIds } from '../../../../../../tests/constants';
 
 function AdminManagement() {
   const location = useLocation();
@@ -60,7 +61,10 @@ function AdminManagement() {
       <div className="custom-scrollbar flex flex-1 flex-col gap-[10px] overflow-auto pr-[5px]">
         {isPending || isAddAdminPending || isEditAdminPending ? (
           <div className="grid w-full flex-1 place-items-center">
-            <Spinner className="mb-[22px] mr-2 h-12 w-12 animate-spin fill-dPurple text-gray-200 dark:text-gray-600" />
+            <Spinner
+              data_testid={testIds.users.userListSpinner}
+              className="mb-[22px] mr-2 h-12 w-12 animate-spin fill-dPurple text-gray-200 dark:text-gray-600"
+            />
           </div>
         ) : (
           <>
