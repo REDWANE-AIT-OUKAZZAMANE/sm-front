@@ -16,6 +16,7 @@ import {
 import ConfirmationModal from '../../../../components/ConfirmationModal/ConfirmationModal';
 import { defaultAdminsQueryParams } from '../../../../../utils/constants';
 import { deleteAdmin } from '../../../../data/sources/deleteAdminSource';
+import { toggleAdminStatus } from '../../../../data/sources/toggleAdminStatusSource';
 import { testIds } from '../../../../../../tests/constants';
 import { selectedAdmins } from '../../../../data/sources/selectedAdminsSource';
 import { AdminsSelection } from '../../../../data/producers/SelectedAdminsProducer';
@@ -80,12 +81,33 @@ function AdminItem({
   const [dropdownActionsOpen, setDropdownActionsOpen] = useState(false);
   const [checked, setChecked] = useState(false);
   const [edit, setEdit] = useState(false);
+  const [isActivated, setIsActivated] = useState(activated);
 
   function onEdit() {
     setEdit(true);
     setAdminToEdit(adminId);
   }
 
+  function onUpdatingSuccess(result: any): void {
+    if (result.data) {
+      openSuccessToast(
+        `The admin has been successfully ${
+          !isActivated ? 'activated' : 'deactivated'
+        }`
+      );
+      setIsActivated(!isActivated);
+    }
+  }
+
+  const handelToggleAdminStatus = () => {
+    toggleAdminStatus.runc({
+      args: [adminId],
+      onSuccess: onUpdatingSuccess,
+      onError: () => {
+        openErrorToast('Failed to update admin status');
+      },
+    });
+  };
   const handleCheck = () => {
     if (checked) {
       selectedAdmins.run(AdminsSelection.UNSELECT, adminId);
@@ -192,14 +214,15 @@ function AdminItem({
           </h1>
           <Switch
             className={classNames(`w-[35px]`, {
-              ' bg-dPurple': activated,
-              'bg-darkGrey': !activated,
+              ' bg-dPurple': isActivated,
+              'bg-darkGrey': !isActivated,
             })}
             data-testid={testIds.users.userItem.switch}
-            checked={activated}
+            checked={isActivated}
+            onClick={handelToggleAdminStatus}
             size="small"
             style={{
-              background: activated ? '#5F4080' : '#8D91A0',
+              background: isActivated ? '#5F4080' : '#8D91A0',
             }}
           />
         </div>

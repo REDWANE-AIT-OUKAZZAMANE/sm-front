@@ -13,6 +13,7 @@ import Spinner from '../landing/components/Spinner';
 import { testIds } from '../../tests/constants';
 import defaultSelector from '../../api/selector';
 import AdminManagement from './pages/Settings/AdminManagement/AdminList';
+import { openErrorToast } from './utils/notifications';
 
 function Backoffice() {
   const {
@@ -31,7 +32,12 @@ function Backoffice() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoggedIn(isSuccess && currentUserData !== null);
+    if (isSuccess && !currentUserData.data.activated) {
+      openErrorToast('Your account has been deactivated, contact your admin !');
+    }
+    setLoggedIn(
+      isSuccess && currentUserData !== null && currentUserData.data.activated
+    );
 
     if (!isPending && !isInitial) {
       setLoading(false);

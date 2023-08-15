@@ -58,7 +58,11 @@ function Login() {
     run(values);
   };
   useEffect(() => {
-    if (isCurrentUserSuccess && currentUserData !== null) {
+    if (
+      isCurrentUserSuccess &&
+      currentUserData !== null &&
+      currentUserData.data.activated
+    ) {
       navigate('/admin');
     }
   }, [currentUserData, isCurrentUserSuccess, navigate]);

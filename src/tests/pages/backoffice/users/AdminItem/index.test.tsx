@@ -1,8 +1,8 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import dayjs from 'dayjs';
-import { notification } from 'antd';
 import { setupServer } from 'msw/node';
 import { rest } from 'msw';
+import { notification } from 'antd';
 
 import { ADMIN } from './data';
 import AdminItem from '../../../../../app/backoffice/pages/Settings/AdminManagement/AdminItem';
@@ -14,6 +14,9 @@ const setAdminToEdit = vi.fn();
 
 const server = setupServer(
   rest.delete(`/api${paths.DELETE_ADMIN(':id')}`, (req, res, ctx) =>
+    res(ctx.status(200))
+  ),
+  rest.put(`/api${paths.TOGGLE_ADMIN_STATUS(':id')}`, (req, res, ctx) =>
     res(ctx.status(200))
   )
 );
@@ -85,13 +88,42 @@ describe('AdminItem', () => {
     });
   });
 
-  it('toggles the switch when clicked', () => {
+  it('toggles the switch when clicked  in case of success', async () => {
     const switchElement = screen.getByTestId(testIds.users.userItem.switch);
     expect(switchElement).toBeChecked();
     fireEvent.click(switchElement);
+    const notificationOpenSpy = vi.spyOn(notification, 'open');
 
-    waitFor(() => {
+    await waitFor(() => {
+      expect(notificationOpenSpy).toHaveBeenCalledWith({
+        message: `Success`,
+        description: 'The admin has been successfully deactivated',
+        placement: 'bottomRight',
+        icon: expect.any(Object),
+      });
       expect(switchElement).not.toBeChecked();
+    });
+  });
+
+  it('should not toggle the switch when clicked  in case of error', async () => {
+    server.use(
+      rest.put(`/api${paths.TOGGLE_ADMIN_STATUS(':id')}`, (req, res, ctx) =>
+        res(ctx.status(500))
+      )
+    );
+    const switchElement = screen.getByTestId(testIds.users.userItem.switch);
+    expect(switchElement).toBeChecked();
+    fireEvent.click(switchElement);
+    const notificationOpenSpy = vi.spyOn(notification, 'open');
+
+    await waitFor(() => {
+      expect(notificationOpenSpy).toHaveBeenCalledWith({
+        message: `Error`,
+        description: 'Failed to update admin status',
+        placement: 'bottomRight',
+        icon: expect.any(Object),
+      });
+      expect(switchElement).toBeChecked();
     });
   });
 

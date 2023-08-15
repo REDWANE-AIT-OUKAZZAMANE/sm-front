@@ -23,6 +23,8 @@ export default {
   DELETE_ADMIN: (adminId: string) => `/v1/users/${adminId}`,
   USER_UPDATE: (userId: string) => `/v1/users/${userId}`,
   AUTHORITIES: '/v1/authorities',
+  TOGGLE_ADMIN_STATUS: (adminId: string) =>
+    `/v1/users/${adminId}/toggle-status`,
 };
 
 export const topics = Object.freeze({

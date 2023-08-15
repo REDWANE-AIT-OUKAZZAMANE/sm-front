@@ -128,6 +128,10 @@ export const getAdmins = (
   API.get(apiPaths.USERS, {
     params: queryParameters,
   });
+
+export const toggleAdminStatus = (adminId: string): Promise<AxiosResponse> =>
+  API.put(apiPaths.TOGGLE_ADMIN_STATUS(adminId));
+
 export const getAuthorities = (): Promise<AxiosResponse<AuthoritieResponse>> =>
   API.get(apiPaths.AUTHORITIES);
 
