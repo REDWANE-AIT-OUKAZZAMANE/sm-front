@@ -14,6 +14,11 @@ import { getAuthoritiesProducer } from '../../../../data/producers/getAuthoritie
 import defaultSelector from '../../../../../../api/selector';
 import { testIds } from '../../../../../../tests/constants';
 import { selectedAdmins } from '../../../../data/sources/selectedAdminsSource';
+import { sendEmails } from '../../../../data/sources/sendEmailsSource';
+import {
+  openErrorToast,
+  openSuccessToast,
+} from '../../../../utils/notifications';
 import { roleNames } from '../utils';
 
 interface AdminFilterProps {
@@ -52,6 +57,15 @@ function AdminsFilter({
   const handleResetFields = () => {
     form.resetFields();
     navigate('');
+  };
+
+  const sendTokens = () => {
+    sendEmails.runc({
+      onSuccess: () =>
+        openSuccessToast('tokens sent successfuly to selected admins'),
+      onError: () => openErrorToast('there was an error sending tokens'),
+      args: [selectedAdminsList],
+    });
   };
 
   useEffect(() => {
@@ -93,6 +107,7 @@ function AdminsFilter({
           }
           className="inline-flex w-60 items-center justify-center rounded-lg bg-dPurple px-5 py-2.5 text-center font-['Lato'] text-lg  text-white hover:bg-darkPurple focus:outline-none"
           size="middle"
+          onClick={sendTokens}
           disabled={selectedAdminsList && selectedAdminsList.length === 0}
           data-testid={testIds.users.FilterForm.sendTokenButton}
         >

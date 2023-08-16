@@ -13,6 +13,7 @@ import Spinner from '../landing/components/Spinner';
 import { testIds } from '../../tests/constants';
 import defaultSelector from '../../api/selector';
 import AdminManagement from './pages/Settings/AdminManagement/AdminList';
+import Signup from './pages/Signup';
 import { openErrorToast } from './utils/notifications';
 import ProtectedAdminRoutes from './pages/ProtectedRoutes/ProtectedAdminRoutes';
 
@@ -33,7 +34,7 @@ function Backoffice() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (isSuccess && !currentUserData.data.activated) {
+    if (isSuccess && currentUserData && !currentUserData.data.activated) {
       openErrorToast('Your account has been deactivated, contact your admin !');
     }
     setLoggedIn(
@@ -58,6 +59,8 @@ function Backoffice() {
   return (
     <Routes>
       <Route path="/admin-login" element={<Login />} />
+      <Route path="/admin-signup" element={<Signup />} />
+      <Route path="/admin-reset-password" element={<Signup />} />
       <Route path="*" element={<NotFound />} />
       <Route
         path="/admin"

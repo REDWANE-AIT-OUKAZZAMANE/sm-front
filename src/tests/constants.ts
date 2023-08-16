@@ -103,10 +103,17 @@ export const testIds = {
   modalConfirmation: 'MODAL_CONFIRMATION',
   content: 'CONTENT',
   loginPage: 'LOGIN_PAGE',
+  signupPage: 'SIGNUP_PAGE',
   auth: {
     email: 'AUTH_EMAIL',
     password: 'AUTH_PASSWORD',
     submitBtn: 'AUTH_SUBMIT',
+  },
+  signup: {
+    email: 'SIGNUP_EMAIL',
+    password: 'SIGNUP_PASSWORD',
+    passwordConfirm: 'SIGNUP_PASSWORD_CONFIRM',
+    submitBtn: 'SIGNUP_SUBMIT',
   },
   frontoffice: {
     header: {

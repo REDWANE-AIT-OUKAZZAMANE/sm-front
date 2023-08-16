@@ -23,8 +23,12 @@ export default {
   DELETE_ADMIN: (adminId: string) => `/v1/users/${adminId}`,
   USER_UPDATE: (userId: string) => `/v1/users/${userId}`,
   AUTHORITIES: '/v1/authorities',
+  SIGNUP: '/v1/auth/set-reset-password',
   TOGGLE_ADMIN_STATUS: (adminId: string) =>
     `/v1/users/${adminId}/toggle-status`,
+  RESET_PASSWORD: (userEmail: string) =>
+    `/v1/users/reset-password/${userEmail}`,
+  SEND_EMAIL: '/v1/users/signup',
 };
 
 export const topics = Object.freeze({

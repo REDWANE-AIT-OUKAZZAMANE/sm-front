@@ -2,7 +2,7 @@ import { Button, Form, Input } from 'antd';
 import { useAsyncState, Status } from 'react-async-states';
 import { useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import logo from '../../../../assets/LOGO.svg';
 import FormRules from '../../../../utils/FormRules';
@@ -16,10 +16,12 @@ import { currentUserSource } from '../../data/sources/currentUserSource';
 import Spinner from '../../../landing/components/Spinner';
 import { testIds } from '../../../../tests/constants';
 import defaultSelector from '../../../../api/selector';
-import { openErrorToast } from '../../utils/notifications';
+import { openErrorToast, openSuccessToast } from '../../utils/notifications';
+import { resetPassword } from '../../data/sources/resetPasswordSource';
 
 function Login() {
   const navigate = useNavigate();
+  const [resetingPassword, setResetingPassword] = useState(false);
   const {
     state: { responseData: currentUserData, isSuccess: isCurrentUserSuccess },
     run: getCurrentUser,
@@ -55,7 +57,15 @@ function Login() {
   });
 
   const onFinish = (values) => {
-    run(values);
+    if (!resetingPassword) {
+      run(values);
+    } else {
+      resetPassword.runc({
+        onSuccess: () => openSuccessToast('email was sent successfuly'),
+        onError: () => openErrorToast('there was an error sending the email'),
+        args: [values.email],
+      });
+    }
   };
   useEffect(() => {
     if (
@@ -85,19 +95,21 @@ function Login() {
             size="large"
           />
         </Form.Item>
-        <Form.Item
-          name="password"
-          rules={[FormRules.required(), FormRules.password()]}
-          validateTrigger="onBlur"
-        >
-          <Input
-            data-testid={testIds.auth.password}
-            type="password"
-            placeholder="Password"
-            size="large"
-          />
-        </Form.Item>
-        <Form.Item>
+        {!resetingPassword && (
+          <Form.Item
+            name="password"
+            rules={[FormRules.required(), FormRules.password()]}
+            validateTrigger="onBlur"
+          >
+            <Input
+              data-testid={testIds.auth.password}
+              type="password"
+              placeholder="Password"
+              size="large"
+            />
+          </Form.Item>
+        )}
+        <Form.Item className="mb-[0px]">
           <Button
             size="large"
             htmlType="submit"
@@ -107,13 +119,25 @@ function Login() {
           >
             {isPending ? (
               <Spinner className="mx-auto h-10 w-10 animate-spin fill-blue-600 text-gray-200 dark:text-gray-600" />
-            ) : (
+            ) : !resetingPassword ? (
               'LOGIN'
+            ) : (
+              'SEND EMAIL'
             )}
           </Button>
         </Form.Item>
+        {!resetingPassword && (
+          <button
+            type="button"
+            onClick={() => setResetingPassword(true)}
+            className="float-right border-0 py-2 text-center text-lg text-gray-500"
+          >
+            Fogot my password !
+          </button>
+        )}
       </Form>
-      <div className="absolute bottom-48 left-0 w-full py-2 text-center text-lg text-gray-500">
+
+      <div className="absolute bottom-32 left-0 w-full py-2 text-center text-lg text-gray-500">
         All rights reserved @xHub
       </div>
     </div>

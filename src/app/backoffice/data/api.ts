@@ -146,3 +146,17 @@ export const updateUser = (
   user: UserCommand
 ): Promise<AxiosResponse<UserData>> =>
   API.patch(apiPaths.USER_UPDATE(userId), user);
+
+export const signup = (email, password): Promise<AxiosResponse> =>
+  API.patch(apiPaths.SIGNUP, {
+    email,
+    password,
+  });
+
+export const resetPassword = (
+  userEmail: string
+): Promise<AxiosResponse<UserData>> =>
+  API.post(apiPaths.RESET_PASSWORD(userEmail));
+
+export const sendEmails = (userIds: string[]): Promise<AxiosResponse> =>
+  API.post(apiPaths.SEND_EMAIL, userIds);
