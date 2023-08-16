@@ -83,7 +83,7 @@ function AdminForm({
             adminData.id,
             {
               ...values,
-              authorities: values.authorities.map((role) => JSON.parse(role)),
+              authorities: [JSON.parse(values.authorities)],
             },
           ],
         });
@@ -96,7 +96,7 @@ function AdminForm({
           args: [
             {
               ...values,
-              authorities: values.authorities.map((role) => JSON.parse(role)),
+              authorities: [JSON.parse(values.authorities)],
             },
           ],
         });
@@ -184,7 +184,8 @@ function AdminForm({
               suffixIcon={<img src={selectIcon} alt="selectIcon" />}
               className={`${roleError && 'select-error'}`}
               size="small"
-              mode="multiple"
+              // open={true}
+              // mode="multiple"
               options={
                 isSuccess &&
                 authoritiesData.data.map((role) => ({

@@ -17,7 +17,7 @@ import Spinner from '../../../landing/components/Spinner';
 import { testIds } from '../../../../tests/constants';
 import defaultSelector from '../../../../api/selector';
 import { openErrorToast, openSuccessToast } from '../../utils/notifications';
-import { resetPassword } from '../../data/sources/resetPasswordSource';
+import { sendResetPasswordEmail } from '../../data/sources/sendResetPasswordEmailSource';
 
 function Login() {
   const navigate = useNavigate();
@@ -60,7 +60,7 @@ function Login() {
     if (!resetingPassword) {
       run(values);
     } else {
-      resetPassword.runc({
+      sendResetPasswordEmail.runc({
         onSuccess: () => openSuccessToast('email was sent successfuly'),
         onError: () => openErrorToast('there was an error sending the email'),
         args: [values.email],

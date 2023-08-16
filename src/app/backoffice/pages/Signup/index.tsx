@@ -13,7 +13,7 @@ import Spinner from '../../../landing/components/Spinner';
 import { testIds } from '../../../../tests/constants';
 import defaultSelector from '../../../../api/selector';
 import { openErrorToast } from '../../utils/notifications';
-import { getSignupProducer } from '../../data/producers/SignupProducer';
+import { setResetPasswordProducer } from '../../data/producers/setResetPasswordProducer';
 
 function Signup() {
   const [form] = Form.useForm();
@@ -27,7 +27,7 @@ function Signup() {
     run,
   } = useAsyncState({
     key: 'SignUp',
-    producer: getSignupProducer,
+    producer: setResetPasswordProducer,
     selector: defaultSelector,
     events: {
       change: [

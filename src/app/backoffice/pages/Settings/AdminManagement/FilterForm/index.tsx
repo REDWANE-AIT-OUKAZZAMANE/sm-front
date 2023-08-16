@@ -14,7 +14,7 @@ import { getAuthoritiesProducer } from '../../../../data/producers/getAuthoritie
 import defaultSelector from '../../../../../../api/selector';
 import { testIds } from '../../../../../../tests/constants';
 import { selectedAdmins } from '../../../../data/sources/selectedAdminsSource';
-import { sendEmails } from '../../../../data/sources/sendEmailsSource';
+import { sendSignupEmails } from '../../../../data/sources/sendSignupEmailsSource';
 import {
   openErrorToast,
   openSuccessToast,
@@ -60,7 +60,7 @@ function AdminsFilter({
   };
 
   const sendTokens = () => {
-    sendEmails.runc({
+    sendSignupEmails.runc({
       onSuccess: () =>
         openSuccessToast('tokens sent successfuly to selected admins'),
       onError: () => openErrorToast('there was an error sending tokens'),

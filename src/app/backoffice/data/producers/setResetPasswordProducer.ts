@@ -1,7 +1,7 @@
 import { ProducerProps } from 'async-states';
 import { AxiosError, AxiosResponse } from 'axios';
 
-import { signup } from '../api';
+import { setResetPassword } from '../api';
 
 export type ErrorType = {
   code: number;
@@ -10,7 +10,7 @@ export type SignupData = {
   email: string;
   password: string;
 };
-export function getSignupProducer(
+export function setResetPasswordProducer(
   props: ProducerProps<
     AxiosResponse,
     AxiosError<ErrorType>,
@@ -19,5 +19,5 @@ export function getSignupProducer(
   >
 ) {
   const { email, password } = props.args[0];
-  return signup(email, password);
+  return setResetPassword(email, password);
 }

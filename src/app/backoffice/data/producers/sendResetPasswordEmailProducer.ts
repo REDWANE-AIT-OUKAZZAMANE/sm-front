@@ -1,11 +1,11 @@
 import { ProducerProps } from 'async-states';
 import { AxiosResponse } from 'axios';
 
-import { resetPassword } from '../api';
+import { sendResetPasswordEmail } from '../api';
 
-export function resetPasswordProducer(
+export function sendResetPasswordEmailProducer(
   props: ProducerProps<AxiosResponse, Error, never, [string]>
 ) {
   const userEmail = props.args[0];
-  return resetPassword(userEmail);
+  return sendResetPasswordEmail(userEmail);
 }
