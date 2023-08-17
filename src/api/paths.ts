@@ -23,7 +23,7 @@ export default {
   DELETE_ADMIN: (adminId: string) => `/v1/users/${adminId}`,
   USER_UPDATE: (userId: string) => `/v1/users/${userId}`,
   AUTHORITIES: '/v1/authorities',
-  SET_RESET_PASSWORD: '/v1/auth/set-reset-password',
+  SET_RESET_PASSWORD: '/v1/auth/update-password',
   TOGGLE_ADMIN_STATUS: (adminId: string) =>
     `/v1/users/${adminId}/toggle-status`,
   SEND_RESET_PASSWORD_EMAIL: (userEmail: string) =>
