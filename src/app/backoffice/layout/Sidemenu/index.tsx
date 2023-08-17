@@ -4,6 +4,7 @@ import SmLogo from '../../../../assets/smlogo.svg';
 import NavItem from './NavItem';
 import { NavItems } from './nav-settings';
 import { testIds } from '../../../../tests/constants';
+import { roleNames } from '../../pages/Settings/AdminManagement/utils';
 
 function Sidemenu({ userData }) {
   const { pathname } = useLocation();
@@ -37,12 +38,14 @@ function Sidemenu({ userData }) {
           ))}
         </ul>
       </div>
-      <div className="flex w-full justify-between px-[34px]">
+      <div className="flex w-full gap-[10px] px-[20px]">
         <div className="flex h-[42px] w-[42px] items-center justify-center rounded-full bg-white text-[23px] font-semibold text-xPurple">
-          A
+          {roleNames[useAuthorities[0]].charAt(0)}
         </div>
         <div className="flex flex-col justify-evenly ">
-          <p className="text-[11px] uppercase text-white/30">Admin</p>
+          <p className="text-[11px] uppercase text-white/30">
+            {roleNames[useAuthorities[0]]}
+          </p>
           <p className="text-[14px]" data-testid={testIds.sidemenu.userEmail}>
             {userData?.data?.email}
           </p>
