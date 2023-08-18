@@ -12,6 +12,8 @@ export function errorCodeToMessage(code: number | undefined): string {
       return 'Announcement date range overlaps with existing announcements';
     case 14:
       return "We can't pin a hidden post";
+    case 15:
+      return 'The email is already taken !';
 
     default:
       return 'Unknown error occured';

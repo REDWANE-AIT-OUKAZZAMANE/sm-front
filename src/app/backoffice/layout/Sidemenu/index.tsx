@@ -40,11 +40,11 @@ function Sidemenu({ userData }) {
       </div>
       <div className="flex w-full gap-[10px] px-[20px]">
         <div className="flex h-[42px] w-[42px] items-center justify-center rounded-full bg-white text-[23px] font-semibold text-xPurple">
-          {roleNames[useAuthorities[0]].charAt(0)}
+          {roleNames[useAuthorities?.[0]]?.charAt(0)}
         </div>
         <div className="flex flex-col justify-evenly ">
           <p className="text-[11px] uppercase text-white/30">
-            {roleNames[useAuthorities[0]]}
+            {roleNames[useAuthorities?.[0]]}
           </p>
           <p className="text-[14px]" data-testid={testIds.sidemenu.userEmail}>
             {userData?.data?.email}

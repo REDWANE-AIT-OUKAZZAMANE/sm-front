@@ -12,8 +12,6 @@ import Spinner from '../../../../../landing/components/Spinner';
 import { defaultAdminsQueryParams } from '../../../../../utils/constants';
 import AdminForm from '../AdminForm/AdminForm';
 import './style.scss';
-import { addUserProducer } from '../../../../data/producers/addUserProducer';
-import { updateUserProducer } from '../../../../data/producers/updateUserProducer';
 import { testIds } from '../../../../../../tests/constants';
 
 function AdminManagement() {
@@ -25,18 +23,6 @@ function AdminManagement() {
     state: { responseData: adminsData, isSuccess, isPending },
     run: runGetAdmins,
   } = app.wall.getAdmins.inject(getAdminsProducer).useAsyncState({
-    selector: defaultSelector,
-  });
-
-  const {
-    state: { isPending: isAddAdminPending },
-  } = app.wall.addUser.inject(addUserProducer).useAsyncState({
-    selector: defaultSelector,
-  });
-
-  const {
-    state: { isPending: isEditAdminPending },
-  } = app.wall.updateUser.inject(updateUserProducer).useAsyncState({
     selector: defaultSelector,
   });
 
@@ -59,7 +45,7 @@ function AdminManagement() {
         setAdminFormVisible={setAdminFormVisible}
       />
       <div className="custom-scrollbar flex flex-1 flex-col gap-[10px] overflow-auto pr-[5px]">
-        {isPending || isAddAdminPending || isEditAdminPending ? (
+        {isPending ? (
           <div className="grid w-full flex-1 place-items-center">
             <Spinner
               data_testid={testIds.users.userListSpinner}

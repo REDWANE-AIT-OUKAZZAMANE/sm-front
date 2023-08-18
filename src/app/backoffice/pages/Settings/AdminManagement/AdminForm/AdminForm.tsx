@@ -22,6 +22,7 @@ import { roleNames } from '../utils';
 import { UserData } from '../../../../../types';
 import { updateUserProducer } from '../../../../data/producers/updateUserProducer';
 import { testIds } from '../../../../../../tests/constants';
+import Spinner from '../../../../../landing/components/Spinner';
 
 interface AdminFormProps {
   closeForm: Function;
@@ -38,7 +39,20 @@ function AdminForm({
 }: AdminFormProps) {
   const [form] = Form.useForm();
   const [roleError, setRoleError] = useState(false);
+  const [existingEmail, setExistingEmail] = useState('');
   const location = useLocation();
+
+  const {
+    state: { isPending: isAddAdminPending },
+  } = app.wall.addUser.inject(addUserProducer).useAsyncState({
+    selector: defaultSelector,
+  });
+
+  const {
+    state: { isPending: isEditAdminPending },
+  } = app.wall.updateUser.inject(updateUserProducer).useAsyncState({
+    selector: defaultSelector,
+  });
 
   const {
     state: { responseData: authoritiesData, isSuccess },
@@ -65,13 +79,25 @@ function AdminForm({
 
   function onAddingError({ data }): void {
     openErrorToast(errorCodeToMessage(data?.response?.data?.code));
+    if (data?.response?.data?.code === 15) {
+      setExistingEmail(form.getFieldValue('email'));
+    }
   }
 
   const onFinishFailed = () => {
     setRoleError(form.getFieldError('authorities').length > 0);
   };
 
+  const validateUniqueEmail = (_, value, callback) => {
+    if (existingEmail && existingEmail === value) {
+      callback('This email is already taken');
+    } else {
+      callback();
+    }
+  };
+
   const onFinish = (values) => {
+    if (existingEmail !== values.email) setExistingEmail('');
     setRoleError(false);
     if (edit && adminData) {
       app.wall.updateUser
@@ -115,109 +141,130 @@ function AdminForm({
     }
   }, [adminData, edit, form]);
 
+  useEffect(() => {
+    if (existingEmail) {
+      form.validateFields();
+    }
+  }, [existingEmail]);
+
   return (
     <div
       data-testid={testIds.users.userForm.container}
       className="admin-form form flex items-center rounded-2xl border border-[#E2E2E2] p-[20px]"
     >
-      <Form
-        form={form}
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-        className="annoucement-form flex w-full gap-[16px] "
-      >
-        <div className="flex flex-1">
-          <Form.Item
-            name="firstName"
-            rules={[
-              FormRules.required(),
-              FormRules.alphanumericDashApostrophe(),
-            ]}
-            validateTrigger="onSubmit"
-          >
-            <Input
-              data-testid={testIds.users.userForm.firstnameInput}
-              autoComplete="off"
-              placeholder="First name"
-            />
-          </Form.Item>
+      {isEditAdminPending || isAddAdminPending ? (
+        <div className="grid w-full flex-1 place-items-center">
+          <Spinner
+            data_testid={testIds.users.userListSpinner}
+            className="mr-2 h-12 w-12 animate-spin fill-dPurple text-gray-200 dark:text-gray-600"
+          />
         </div>
-        <div className="flex flex-1">
-          <Form.Item
-            name="lastName"
-            rules={[
-              FormRules.required(),
-              FormRules.alphanumericDashApostrophe(),
-            ]}
-            validateTrigger="onSubmit"
-          >
-            <Input
-              data-testid={testIds.users.userForm.lastnameInput}
-              autoComplete="off"
-              placeholder="Last name"
-            />
-          </Form.Item>
-        </div>
-        <div className="flex flex-1">
-          <Form.Item
-            name="email"
-            rules={[FormRules.required(), FormRules.email()]}
-            validateTrigger="onSubmit"
-          >
-            <Input
-              data-testid={testIds.users.userForm.emailInput}
-              autoComplete="off"
-              placeholder="Email"
-            />
-          </Form.Item>
-        </div>
+      ) : (
+        <Form
+          form={form}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          className="annoucement-form flex w-full gap-[16px] "
+        >
+          <div className="flex flex-1">
+            <Form.Item
+              name="firstName"
+              rules={[
+                FormRules.required(),
+                FormRules.alphanumericDashApostrophe(),
+              ]}
+              validateTrigger="onSubmit"
+            >
+              <Input
+                data-testid={testIds.users.userForm.firstnameInput}
+                autoComplete="off"
+                placeholder="First name"
+              />
+            </Form.Item>
+          </div>
+          <div className="flex flex-1">
+            <Form.Item
+              name="lastName"
+              rules={[
+                FormRules.required(),
+                FormRules.alphanumericDashApostrophe(),
+              ]}
+              validateTrigger="onSubmit"
+            >
+              <Input
+                data-testid={testIds.users.userForm.lastnameInput}
+                autoComplete="off"
+                placeholder="Last name"
+              />
+            </Form.Item>
+          </div>
+          <div className="flex flex-1">
+            <Form.Item
+              name="email"
+              rules={[
+                FormRules.required(),
+                FormRules.email(),
+                {
+                  validator: validateUniqueEmail,
+                },
+              ]}
+              // validateTrigger="onSubmit"
+            >
+              <Input
+                data-testid={testIds.users.userForm.emailInput}
+                autoComplete="off"
+                placeholder="Email"
+              />
+            </Form.Item>
+          </div>
 
-        <div className="flex flex-1">
-          <Form.Item
-            name="authorities"
-            rules={[FormRules.required()]}
-            validateTrigger="onSubmit"
-          >
-            <Select
-              placeholder="Role"
-              data-testid={testIds.users.userForm.roleSelect}
-              suffixIcon={<img src={selectIcon} alt="selectIcon" />}
-              className={`${roleError && 'select-error'}`}
-              size="small"
-              // open={true}
-              // mode="multiple"
-              options={
-                isSuccess &&
-                authoritiesData.data.map((role) => ({
-                  label: roleNames[role.name],
-                  value: JSON.stringify(role),
-                }))
-              }
-            />
-          </Form.Item>
-        </div>
+          <div className="flex flex-1">
+            <Form.Item
+              name="authorities"
+              rules={[FormRules.required()]}
+              validateTrigger="onSubmit"
+            >
+              <Select
+                placeholder="Role"
+                data-testid={testIds.users.userForm.roleSelect}
+                suffixIcon={<img src={selectIcon} alt="selectIcon" />}
+                className={`${roleError && 'select-error'}`}
+                size="small"
+                // open={true}
+                // mode="multiple"
+                options={
+                  isSuccess &&
+                  authoritiesData.data.map((role) => ({
+                    label: roleNames[role.name],
+                    value: JSON.stringify(role),
+                  }))
+                }
+              />
+            </Form.Item>
+          </div>
 
-        <div className="flex gap-5">
-          <button
-            className="ml-[6px] cursor-pointer"
-            type="submit"
-            data-testid={testIds.users.userForm.submitButton}
-          >
-            <img
-              className="w-[15px]"
-              src={checkmarkIcon}
-              alt="checkmark_icon"
-            />
-          </button>
-          <button
-            className="cursor-pointer"
-            type="button"
-            onClick={() => closeForm()}
-          >
-            <img className="w-5" src={xIcon} alt="x_icon" />
-          </button>
-        </div>
-      </Form>
+          <div className="flex gap-5">
+            <button
+              className="ml-[6px] cursor-pointer"
+              type="submit"
+              data-testid={testIds.users.userForm.submitButton}
+            >
+              <img
+                className="w-[15px]"
+                src={checkmarkIcon}
+                alt="checkmark_icon"
+              />
+            </button>
+            <button
+              className="cursor-pointer"
+              type="button"
+              onClick={() => closeForm()}
+            >
+              <img className="w-5" src={xIcon} alt="x_icon" />
+            </button>
+          </div>
+        </Form>
+      )}
     </div>
   );
 }
