@@ -9,6 +9,7 @@
 - [Installation](#installation)
 - [Testing](#testing)
 - [Usage](#usage)
+- [Environment Variables](#environment-variables)
 
 ## Introduction
 
@@ -79,3 +80,13 @@ pnpm run dev
 ```
 
 The application will be available at http://localhost:3000/. You can now start interacting with the Social Media Wall frontend.
+
+## Environment Variables
+
+Create a `.env` file in the root directory with the following variables:
+
+```bash
+VITE_APP_URL=http://localhost:8080
+```
+
+This variable configures the backend API URL that the frontend will communicate with.
