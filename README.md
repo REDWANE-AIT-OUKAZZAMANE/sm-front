@@ -49,7 +49,7 @@ Follow these steps to get started with the Social Media Wall project:
 1. Clone the repository:
 
 ```bash
-git clone https://gitlab.com/xhub-org/p/social-media-wall/sm-front.git
+git clone https://github.com/REDWANE-AIT-OUKAZZAMANE/sm-front.git
 ```
 
 2. Install dependencies:
